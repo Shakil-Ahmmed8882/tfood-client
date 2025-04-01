@@ -12,6 +12,15 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 2
+
+      - name: Build (if needed)
+        run: |
+          # Add your build commands here, if necessary.
+          # For example, if you're using Node.js and building with 'npm run build':
+          # npm install
+          # npm run build
+          echo "Building dist folder (if needed)"
+
       - name: Deploy to cPanel
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -19,3 +28,5 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASS }}
           port: 21
+          local-dir: dist
+          remote-dir: /home/tfoodbd1/test.tfoodbd.top
