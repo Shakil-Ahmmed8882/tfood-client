@@ -37,9 +37,7 @@ export const MenuCard: React.FC<{ menu: TMenu }> = ({ menu }) => {
 
   const handleDelete = async () => {
     try {
-      const response = await menuDelete(menu.id);
-
-      console.log(response);
+      await menuDelete(menu.id);
     } catch (error) {
       console.log(error);
     }

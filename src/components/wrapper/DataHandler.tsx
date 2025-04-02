@@ -4,16 +4,16 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 // Generic type for data
 type DataHandlerProps<T> = {
-  data: T | undefined | null;       // The fetched data
-  isLoading: boolean;               // Loading state
-  isError: boolean;                 // Explicit error state (e.g., from API)
-  children: (data: T) => ReactNode; // Render prop for content
-  loadingFallback?: ReactNode;      // Custom loading UI
-  errorFallback?: ReactNode;        // Custom error UI
-  noDataFallback?: ReactNode;       // Custom no-data UI
-  loadingMessage?: string;          // Message during loading
-  errorMessage?: string;            // Message on error
-  noDataMessage?: string;           // Message when no data
+  data: T | undefined | null;       
+  isLoading: boolean;               
+  isError: boolean;                 
+  children: (data: T) => ReactNode; 
+  loadingFallback?: ReactNode;      
+  errorFallback?: ReactNode;        
+  noDataFallback?: ReactNode;       
+  loadingMessage?: string;          
+  errorMessage?: string;            
+  noDataMessage?: string;           
   hasData?: (data: T | null | undefined) => data is T;   // Custom logic to check if data exists
   onRetry?: () => void;             // Optional retry callback
   onError?: (error: Error, info: { componentStack: string }) => void; // Callback for runtime errors
