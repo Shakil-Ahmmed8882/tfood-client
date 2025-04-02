@@ -17,6 +17,7 @@ export const RestaurantDetails = () => {
   const cachedRestaurant = useAppSelector(selectCurrentRestaurant);
   const { id } = useParams();
 
+
   /**
    * Conditionally skip the API call if the restaurant data is already cached.
    * If the cached restaurant ID matches the current route ID, avoid unnecessary fetching.
@@ -30,8 +31,7 @@ export const RestaurantDetails = () => {
    * Use the cached restaurant data if available; otherwise, use API response data.
    * This ensures data consistency and avoids redundant API calls.
    */
-  const restaurant =
-    cachedRestaurant?.id === id ? cachedRestaurant : data?.data;
+  const restaurant = cachedRestaurant?.id === id ? cachedRestaurant : data?.data;
 
   return (
     <Container className="py-6">
@@ -51,7 +51,7 @@ export const RestaurantDetails = () => {
           </NoItemFound>
         </CustomSuspense>
       </CustomErrorBoundary>
-      <MenuTabs />
+      <MenuTabs/>
     </Container>
   );
 };

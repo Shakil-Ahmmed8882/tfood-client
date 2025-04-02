@@ -22,17 +22,17 @@ export const useMenuFormManager = ({
   setIsModalOpen,
 }: UseMenuFormManagerProps) => {
   const user = useAppSelector(selectCurrentUser);
-
-  const filters = { owner_email: user?.email || "" };
-
+  
+    const filters = { owner_email: user?.email || "" };
+    
+  
   const {
     data: restaurants,
-
     isLoading: isRestaurantsLoading,
     isFetching: isRestaurantsFetching,
   } = useRestaurants({ filters });
 
-  console.log(restaurants);
+  
 
   const [createMenu, { isLoading: isCreating }] = useCreateMenuMutation();
   const [updateMenu, { isLoading: isUpdating }] = useEditMenuMutation();

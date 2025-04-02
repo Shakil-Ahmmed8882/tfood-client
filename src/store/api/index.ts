@@ -1,6 +1,7 @@
 export const API_tAGS = {
   USER: "User",
   MENU: "Menu",
+  MENU_CATEGORY: "Menu-category",
   RESTAURANT: "Restaurant",
 } as const;
 
