@@ -1,5 +1,5 @@
 import { ReusableModal } from "@/components/custom-ui/ReusableModal";
-import { TMenu } from "../menu.type";
+import { TMenu, TMenuCategory } from "../menu.type";
 import { GenericForm } from "@/components/form/GenericForm";
 import {
   initialMenuFormValues,
@@ -37,7 +37,9 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
     isCreating,
     isUpdating,
     restaurants,
+    menu_categories,
   } = useMenuFormManager({ menuItem, setIsModalOpen });
+
   return (
     <ReusableModal
       open={isModalOpen}
@@ -57,10 +59,13 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
               name="restaurant"
               label="Select Restaurant"
               placeholder="Select a Restaurant"
-              options={restaurants?.map((r: TRestaurant) => ({
-                value: r.id,
-                text: r.name,
-              }))}
+              options={restaurants?.map((r: TRestaurant) => {
+                // setRestaurantId(r.id);
+                return {
+                  value: r.id,
+                  text: r.name,
+                };
+              })}
             />
           )}
           <TextField<TMenuFormValues> name="title" label="Title" />
@@ -81,10 +86,24 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
               }))}
             />
           )}
-          <TextField<TMenuFormValues>
+          {/* <TextField<TMenuFormValues>
             name="food_category"
             label="Food Category"
-          />
+          /> */}
+          {menu_categories && (
+            <SelectField<TMenuFormValues>
+              name="food_category"
+              label="Food Category"
+              placeholder="Select a Category"
+              options={menu_categories?.map((c: TMenuCategory) => {
+                // setRestaurantId(r.id);
+                return {
+                  value: c.name,
+                  text: c.name,
+                };
+              })}
+            />
+          )}
         </div>
         <div className="space-y-4 my-3">
           <FormLabel htmlFor="image-upload mb-2">Images</FormLabel>

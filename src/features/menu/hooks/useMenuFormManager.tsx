@@ -12,6 +12,7 @@ import useRestaurants from "@/features/restaurants/hooks/useRestaurants";
 import { useAppSelector } from "@/store/hooks";
 import { selectCurrentUser } from "@/store/features/auth/authSlice";
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import useMenuCategories from "./useMenuCategories";
 
 type ImageType = { 
   type: "new"; 
@@ -50,6 +51,10 @@ export const useMenuFormManager = ({
   const { data: restaurants, isLoading: isRestaurantsLoading } = useRestaurants({ 
     filters: { owner_email: user?.email || "" } 
   });
+
+  // Menu Data
+  const {data: menu_categories, isLoading: isMenuCategoriesLoading} = useMenuCategories({filters: {creator: user?.email || ""}});
+
 
   // Image State Management
   const initialImages = useMemo(() => 
@@ -127,7 +132,6 @@ export const useMenuFormManager = ({
   const handleSubmit = async (values: TMenuFormValues | FormEvent<HTMLFormElement>) => {
     const { loading, success, error } = getToastMessages(mode);
     const toastId = toast.loading(loading);
-
     try {
       const formData = prepareFormData(values);
       const result = await (mode === "edit" ? updateMenu : createMenu)(formData).unwrap();
@@ -162,10 +166,12 @@ export const useMenuFormManager = ({
     isLoading,
     isCreating: isCreateLoading, // Explicit create loading state
     isUpdating: isUpdateLoading, // Explicit update loading state
+    isMenuCategoriesLoading,  // Explicit update loading state
     isRestaurantsLoading,
     
     // Data
     restaurants,
+    menu_categories,
     
     // Handlers
     handleImageUpload,
