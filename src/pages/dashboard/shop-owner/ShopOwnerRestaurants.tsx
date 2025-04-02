@@ -13,7 +13,7 @@ export default function ShopOwnerRestaurants() {
   const [editingRestaurant, setEditingRestaurant] = useState<TRestaurant>();
 
   const {
-    restaurants,
+    data: restaurants,
     isLoading,
     isFetching,
     isError,
@@ -21,9 +21,7 @@ export default function ShopOwnerRestaurants() {
     totalItems,
     itemsPerPage,
     setCurrentPage,
-  } = useShopOwnerRestaurants({
-    limit: 5,
-  });
+  } = useShopOwnerRestaurants();
 
   const handleEdit = useCallback((restaurant: TRestaurant) => {
     setEditingRestaurant(restaurant);

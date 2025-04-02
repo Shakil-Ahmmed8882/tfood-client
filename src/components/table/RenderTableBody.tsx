@@ -26,12 +26,7 @@ export const RenderTableBody = ({ children }: { children: ReactNode }) => {
     if (isLoading || isFetching) return <TableSkeleton />;
     if (isError) return <>Error</>;
     if (!data || data.length === 0)
-      return (
-        <NoItemFound {...{ data }}>
-          {" "}
-          <> </>
-        </NoItemFound>
-      );
+      return <NoItemFound {...{ data }}><></></NoItemFound>;
     return children;
   };
 

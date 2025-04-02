@@ -7,6 +7,7 @@ import { useState } from "react";
 import { TRestaurant } from "./type.restaurant";
 import { useDeleteRestaurantMutation } from "@/store/features/restaurants/restaurantApi";
 import { RestaurantFormModal } from "./components/RestaurantFormModal";
+import { getStatusColor } from "@/components/table/utility";
 
 const RestaurantTable = () => {
   const { data, pagination } = useTableContext<TRestaurant>();
@@ -27,7 +28,7 @@ const RestaurantTable = () => {
             <TableCell>type</TableCell>
             <TableCell>date</TableCell>
             <TableCell>
-              <Badge className="bg-emerald-100 text-emerald-600">
+              <Badge className={`${getStatusColor(restaurant.status)}`}>
                 {restaurant.status}
               </Badge>
             </TableCell>

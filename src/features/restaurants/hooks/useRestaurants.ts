@@ -33,7 +33,7 @@ const useRestaurants = ({limit="10",currentPage=1,searchQuery='',filters = {} }:
   /** 
    * Fetches restaurant data from API using filters, pagination, and search query.
    */
-  const { data, isLoading, isFetching, isError } = useGetAllRestaurantsQuery({
+  const { data, isLoading, isFetching, isError, error, refetch } = useGetAllRestaurantsQuery({
     queryParams: [
       { name: "limit", value: limit.toString() },
       { name: "currentPage", value: currentPage.toString() },
@@ -50,7 +50,8 @@ const useRestaurants = ({limit="10",currentPage=1,searchQuery='',filters = {} }:
   /** 
    * Returns restaurant data, metadata, and loading states.
    */
-  return { data: records, meta: data?.meta, isLoading, isFetching, isError };
+  return { data: records, meta: data?.meta, isLoading, isFetching, isError,error, refetch };
 };
 
 export default useRestaurants;
+
