@@ -13,7 +13,7 @@ const appConfig: TConfig = {
 
   // Backend API endpoints for different environments
   backend: {
-    production: "https://testapi.tfoodbd.top/api/v1",
+    production: "https://api.tfoodbd.top/api/v1",
     development: "http://localhost:3000/api/v1",
   },
 
