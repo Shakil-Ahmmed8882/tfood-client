@@ -1,8 +1,8 @@
 
 
 import { useMemo } from "react";
-import { useGetAllRestaurantsQuery } from "@/store/features/restaurants/restaurantApi";
 import { TFilterBody } from "@/types/global";
+import { useGetAllMenusQuery } from "@/store/features/menu/menuApi";
 
 
 type useRestaurantsProps = {
@@ -12,7 +12,7 @@ type useRestaurantsProps = {
     filters?: Record<string, string>;
   }
 
-const useRestaurants = ({limit="10",currentPage=1,searchQuery='',filters = {} }: useRestaurantsProps ) => {
+const useMenus = ({limit="10",currentPage=1,searchQuery='',filters = {} }: useRestaurantsProps ) => {
   /** 
    * Constructs a filter body for API requests.
    */
@@ -33,7 +33,7 @@ const useRestaurants = ({limit="10",currentPage=1,searchQuery='',filters = {} }:
   /** 
    * Fetches restaurant data from API using filters, pagination, and search query.
    */
-  const { data, isLoading, isFetching, isError, error, refetch } = useGetAllRestaurantsQuery({
+  const { data, isLoading, isFetching, isError, error, refetch } = useGetAllMenusQuery({
     queryParams: [
       { name: "limit", value: limit.toString() },
       { name: "currentPage", value: currentPage.toString() },
@@ -42,6 +42,8 @@ const useRestaurants = ({limit="10",currentPage=1,searchQuery='',filters = {} }:
     filterBody,
   });
 
+
+  
   /** 
    * Memoizes the restaurant data to optimize re-renders.
    */
@@ -53,5 +55,5 @@ const useRestaurants = ({limit="10",currentPage=1,searchQuery='',filters = {} }:
   return { data: records, meta: data?.meta, isLoading, isFetching, isError,error, refetch };
 };
 
-export default useRestaurants;
+export default useMenus;
 
