@@ -10,6 +10,7 @@ const ShopOwnerMenu = () => {
    * Example use case: A shop owner clicks the "Add Menu" button, triggering the modal to open.
    * Expected output: `isModalOpen` becomes `true`, showing the form for adding a menu item.
    */
+  
   const { isModalOpen, setIsModalOpen } = useMenuModal();
 
   return <>

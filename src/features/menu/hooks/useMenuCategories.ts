@@ -1,18 +1,18 @@
 
 
 import { useMemo } from "react";
-import { useGetAllRestaurantsQuery } from "@/store/features/restaurants/restaurantApi";
 import { TFilterBody } from "@/types/global";
+import { useGetAllMenuCategoriesQuery } from "@/store/features/menu-category/menuCategoryApi";
 
 
-type useRestaurantsProps = {
+type useMenuCategoriesProps = {
     limit?: string;
     currentPage?: number;
     searchQuery?: string;
     filters?: Record<string, string>;
   }
 
-const useRestaurants = ({limit="10",currentPage=1,searchQuery='',filters = {} }: useRestaurantsProps ) => {
+const useMenuCategories = ({limit="10",currentPage=1,searchQuery='',filters = {} }: useMenuCategoriesProps ) => {
   
   /** 
    * Constructs a filter body for API requests.
@@ -34,7 +34,7 @@ const useRestaurants = ({limit="10",currentPage=1,searchQuery='',filters = {} }:
   /** 
    * Fetches restaurant data from API using filters, pagination, and search query.
    */
-  const { data, isLoading, isFetching, isError, error, refetch } = useGetAllRestaurantsQuery({
+  const { data, isLoading, isFetching, isError, error, refetch } = useGetAllMenuCategoriesQuery({
     queryParams: [
       { name: "limit", value: limit.toString() },
       { name: "currentPage", value: currentPage.toString() },
@@ -54,5 +54,5 @@ const useRestaurants = ({limit="10",currentPage=1,searchQuery='',filters = {} }:
   return { data: records, meta: data?.meta, isLoading, isFetching, isError,error, refetch };
 };
 
-export default useRestaurants;
+export default useMenuCategories;
 

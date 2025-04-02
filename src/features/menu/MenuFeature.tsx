@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  useGetAllMenusQuery,
   MenuCard,
   MenuSkeleton,
   ShouldPaginateWrapper,
@@ -9,13 +8,18 @@ import {
 
 import { TMenu } from "./menu.type";
 import { DataHandler } from "@/components/wrapper/DataHandler";
+import useMenus from "./hooks/useMenus";
+
 
 type menuFeatureProps = {
   limit?: string;
   searchQuery?: string;
   notFoundMessage?: string;
   shouldPaginate?: boolean;
+  filters?: Record<string,string>;
 };
+
+
 /**
  * MenuFeature: Fetches and displays menu items while handling loading, errors, and empty states.
  *
@@ -33,28 +37,40 @@ export const MenuFeature = ({
   limit = "5",
   searchQuery,
   shouldPaginate = false,
+  filters = {}
 }: menuFeatureProps) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  /*
-   * Features:
-   * - Destructures the `data` from the `useGetAllMenusQuery`
-   * response into `menus` and `meta` directly.
-   * - If `data` is undefined, defaults to an empty object to prevent errors.
-   * - Manages loading, fetching, and error states with `isLoading`, `isFetching`, and `isError` respectively.
-   */
-  const {
-    data: { data: menus, meta } = {},
-    isLoading,
-    isFetching,
-    isError,
-  } = useGetAllMenusQuery({
-    queryParams: [
-      { name: "limit", value: limit },
-      { name: "currentPage", value: `${currentPage}` },
-      { name: "search", value: `${searchQuery}` },
-    ],
-  });
+
+      /**
+       * Fetch Current User:
+       * - Retrieves the logged-in shop owner's email.
+       * - Used to filter restaurant data for the specific owner.
+       * - Example: Logged-in user sees only their restaurant listings.
+       */
+      
+      
+      const options = {searchQuery, limit, currentPage ,...{ filters } };
+    
+      /**
+       * 
+       * Fetch Restaurant Data:
+       * - Calls useRestaurants to retrieve restaurant listings.
+       * - Provides loading, error handling, and pagination metadata.
+       * - Example: Admin loads restaurant list -> API fetches and returns paginated results.
+       */
+
+
+  
+    const {
+      data: menus,
+      meta,
+      isLoading,
+      isFetching,
+      isError,
+    } = useMenus(options)
+
+
   return (
     <>
       <DataHandler<TMenu[]>
