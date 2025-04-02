@@ -49,9 +49,12 @@ export function useTabs() {
  */
 const Tabs = ({ children }: { children: ReactNode }) => <div>{children}</div>;
 
-/** 
+/**
+ * 
+ *  
  * TabsList: Container for tab buttons.
  * - Uses flexbox for horizontal alignment.
+ * 
  */
 const TabsList = ({ children }: { children: ReactNode }) => (
   <div className="flex flex-wrap gap-2 border-b pb-2">{children}</div>

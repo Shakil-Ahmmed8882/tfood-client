@@ -9,3 +9,11 @@ export type TMenu = {
     food_category: string;
   }
   
+export type TMenuCategory = {
+    
+    id: string;
+    restaurant: string;
+    name: string;
+    description: string[]
+  }
+  
