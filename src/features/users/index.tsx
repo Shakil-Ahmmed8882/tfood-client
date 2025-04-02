@@ -8,5 +8,10 @@ export {
 
 
 // ____________________ contants _______________________
-export const userOptions = ["admin", "customer", "shop_owner"]
+export const userOptions = [
+    {name: "admin", value: "admin"},
+    {name: "customer", value: "customer"},
+    {name: "shop_owner", value: "shop_owner"}
+  
+]
 export const userTableHeadsOptions = ["Sl No.", "Name", "Email", "Role","Status"]
