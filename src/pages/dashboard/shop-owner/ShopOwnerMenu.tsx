@@ -2,7 +2,7 @@ import DashboardContainer from "@/components/dashboard/DashboardContainer";
 import { Button } from "@/components/ui/button";
 import { MenuModalForm } from "@/features/menu/components/MenuModalForm";
 import { useMenuModal } from "@/features/menu/hooks/useMenuModal";
-import { ShopOwnerMenusList } from "@/features/menu/shopownerMenusList";
+import { ShopOwnerMenusList } from "@/features/menu/shopOwnerMenusList";
 
 const ShopOwnerMenu = () => {
   /**
@@ -12,7 +12,7 @@ const ShopOwnerMenu = () => {
    */
   const { isModalOpen, setIsModalOpen } = useMenuModal();
 
-  return (
+  return <>
     <DashboardContainer>
       {/**
        * Header section with title and action button.
@@ -40,7 +40,7 @@ const ShopOwnerMenu = () => {
        */}
       <MenuModalForm isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </DashboardContainer>
-  );
+    </>
 };
 
 export default ShopOwnerMenu;
