@@ -32,13 +32,12 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
     newImages,
     formRef,
     handleImageUpload,
-    handleRemoveExistingImage,
-    handleRemoveNewImage,
+    handleRemoveImage,
     handleSubmit,
     isCreating,
     isUpdating,
-    restaurants
-  } = useMenuFormManager({ menuItem,setIsModalOpen });
+    restaurants,
+  } = useMenuFormManager({ menuItem, setIsModalOpen });
   return (
     <ReusableModal
       open={isModalOpen}
@@ -48,7 +47,7 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
     >
       <GenericForm
         schema={menuFormSchema}
-        initialValues={menuItem  ?? initialMenuFormValues}
+        initialValues={menuItem ?? initialMenuFormValues}
         onSubmit={handleSubmit}
         ref={formRef}
       >
@@ -58,7 +57,10 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
               name="restaurant"
               label="Select Restaurant"
               placeholder="Select a Restaurant"
-              options={restaurants?.map((r: TRestaurant) => ({ value: r.id, text: r.name }))}
+              options={restaurants?.map((r: TRestaurant) => ({
+                value: r.id,
+                text: r.name,
+              }))}
             />
           )}
           <TextField<TMenuFormValues> name="title" label="Title" />
@@ -68,6 +70,17 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
             type="number"
           />
           <TextField<TMenuFormValues> name="description" label="Description" />
+          {restaurants && (
+            <SelectField<TMenuFormValues>
+              name="restaurant"
+              label="Select Restaurant"
+              placeholder="Select a Restaurant"
+              options={restaurants?.map((r: TRestaurant) => ({
+                value: r.id,
+                text: r.name,
+              }))}
+            />
+          )}
           <TextField<TMenuFormValues>
             name="food_category"
             label="Food Category"
@@ -91,7 +104,7 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
                 {existingImages.map((image, index) => (
                   <div key={`existing-${index}`} className="relative">
                     <img
-                      src={image}
+                      src={image.url}
                       alt={`Menu Item ${index}`}
                       className="w-24 h-24 object-cover rounded"
                     />
@@ -99,7 +112,7 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
                       type="button"
                       variant="destructive"
                       size="icon"
-                      onClick={() => handleRemoveExistingImage(index)}
+                      onClick={() => handleRemoveImage(index)}
                       className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-1"
                     >
                       <X className="h-4 w-4" />
@@ -117,7 +130,7 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
                 {newImages.map((image, index) => (
                   <div key={`new-${index}`} className="relative">
                     <img
-                      src={URL.createObjectURL(image)}
+                      src={URL.createObjectURL(image.file)}
                       alt={`New Image ${index}`}
                       className="w-24 h-24 object-cover rounded"
                     />
@@ -125,7 +138,7 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
                       type="button"
                       variant="destructive"
                       size="icon"
-                      onClick={() => handleRemoveNewImage(index)}
+                      onClick={() => handleRemoveImage(index)}
                       className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-1"
                     >
                       <X className="h-4 w-4" />
@@ -151,8 +164,13 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
             type="submit"
             className="bg-yellow-400 text-black hover:bg-yellow-500"
           >
-            {isCreating ? "Creating..." : isUpdating ? "Updating..." : menuItem ? "Update" : "Create"}
-
+            {isCreating
+              ? "Creating..."
+              : isUpdating
+              ? "Updating..."
+              : menuItem
+              ? "Update"
+              : "Create"}
           </Button>
         </div>
       </GenericForm>

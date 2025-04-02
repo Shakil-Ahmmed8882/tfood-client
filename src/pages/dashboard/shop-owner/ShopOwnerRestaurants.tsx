@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { DataHandler } from "@/components/wrapper/DataHandler";
 import { CustomPagination, TRestaurant } from "@/features/restaurants";
 import { RestaurantFormModal } from "@/features/restaurants/components/RestaurantFormModal";
-import { ShopOwnerCardSkeleton } from "@/features/restaurants/components/ShopOwnerRestaurantCardSkeleton";
+import { ShopOwnerRestaurantCardSkeleton } from "@/features/restaurants/components/ShopOwnerRestaurantCardSkeleton";
 import { ShopOwnerRestaurantCard } from "@/features/restaurants/components/ShopOwnerRestaurantCard";
 import { useShopOwnerRestaurants } from "@/features/restaurants/hooks/useShopOwnerRestaurants";
 
@@ -78,15 +78,15 @@ export default function ShopOwnerRestaurants() {
       {/* Data Display & Handling */}
       <DataHandler<TRestaurant[]>
         data={restaurants || []}
-        loadingFallback={<ShopOwnerCardSkeleton />}
+        loadingFallback={<ShopOwnerRestaurantCardSkeleton />}
         isLoading={isLoading || isFetching}
         isError={isError}
-        loadingMessage="Fetching menus..."
+        loadingMessage="Fetching restaurants..."
         hasData={(restaurant): restaurant is TRestaurant[] =>
           Array.isArray(restaurant) && restaurant.length > 0
         }
         errorMessage="Failed to load menus"
-        noDataMessage="No menus found"
+        noDataMessage="No Restaurants found"
       >
         {(restaurants) => (
           <div className="grid gap-4">

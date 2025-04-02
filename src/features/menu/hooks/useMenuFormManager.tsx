@@ -1,130 +1,181 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo, FormEvent } from "react";
 import { GenericFormRef } from "@/components/form/GenericForm";
 import { TMenu } from "@/features/menu";
 import { TMenuFormValues } from "@/features/menu/schema.menu";
-import {
-  useCreateMenuMutation,
-  useEditMenuMutation,
+import { 
+  useCreateMenuMutation, 
+  useEditMenuMutation 
 } from "@/store/features/menu/menuApi";
 import { useMenuModal } from "./useMenuModal";
 import { toast } from "sonner";
-import { FormEvent } from "react"; // Import FormEvent
 import useRestaurants from "@/features/restaurants/hooks/useRestaurants";
 import { useAppSelector } from "@/store/hooks";
 import { selectCurrentUser } from "@/store/features/auth/authSlice";
+import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+
+type ImageType = { 
+  type: "new"; 
+  file: File 
+} | { 
+  type: "existing"; 
+  url: string 
+};
+
+type FormMode = "create" | "edit";
+
 interface UseMenuFormManagerProps {
   menuItem?: TMenu;
   setIsModalOpen: (open: boolean) => void;
 }
 
+const getToastMessages = (mode: FormMode) => ({
+  loading: `${mode === "create" ? "Creating" : "Updating"} menu...`,
+  success: `Menu ${mode === "create" ? "created" : "updated"} successfully!`,
+  error: `Failed to ${mode === "create" ? "create" : "update"} menu.`
+});
+
 export const useMenuFormManager = ({
   menuItem,
-  setIsModalOpen,
+  setIsModalOpen
 }: UseMenuFormManagerProps) => {
+  // Auth and Data
   const user = useAppSelector(selectCurrentUser);
-
-  const filters = { owner_email: user?.email || "" };
-
-  const {
-    data: restaurants,
-
-    isLoading: isRestaurantsLoading,
-    isFetching: isRestaurantsFetching,
-  } = useRestaurants({ filters });
-
-  console.log(restaurants);
-
-  const [createMenu, { isLoading: isCreating }] = useCreateMenuMutation();
-  const [updateMenu, { isLoading: isUpdating }] = useEditMenuMutation();
-  const { isModalOpen } = useMenuModal();
-  const [existingImages, setExistingImages] = useState<string[]>(
-    menuItem?.related_images || []
-  );
-  const [newImages, setNewImages] = useState<File[]>([]);
-  const [removeImages, setRemoveImages] = useState<string[]>([]);
   const formRef = useRef<GenericFormRef<TMenuFormValues>>(null);
 
-  const isEditMode = !!menuItem;
+  // API Operations with loading states
+  const [createMenu, { isLoading: isCreateLoading }] = useCreateMenuMutation();
+  const [updateMenu, { isLoading: isUpdateLoading }] = useEditMenuMutation();
+  
+  // Restaurant Data
+  const { data: restaurants, isLoading: isRestaurantsLoading } = useRestaurants({ 
+    filters: { owner_email: user?.email || "" } 
+  });
 
-  const prepareFormData = (values: TMenuFormValues): FormData => {
+  // Image State Management
+  const initialImages = useMemo(() => 
+    menuItem?.related_images?.map(url => ({ type: "existing" as const, url })) || [],
+    [menuItem]
+  );
+
+  const [images, setImages] = useState<ImageType[]>(initialImages);
+  const [imagesToRemove, setImagesToRemove] = useState<string[]>([]);
+
+  // Modal and Mode
+  const { isModalOpen } = useMenuModal();
+  const mode: FormMode = menuItem ? "edit" : "create";
+  const isLoading = mode === "create" ? isCreateLoading : isUpdateLoading;
+
+  // Derived Values
+  const existingImages = useMemo(() => 
+    images.filter((img): img is { type: "existing"; url: string } => 
+      img.type === "existing"
+    ),
+    [images]
+  );
+
+  const newImages = useMemo(() => 
+    images.filter((img): img is { type: "new"; file: File } => 
+      img.type === "new"
+    ),
+    [images]
+  );
+
+  // Handlers
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    
+    const newFiles = Array.from(e.target.files).map(file => ({
+      type: "new" as const,
+      file
+    }));
+
+    setImages(prev => [...prev, ...newFiles]);
+  };
+
+  const handleRemoveImage = (index: number) => {
+    const image = images[index];
+    
+    if (image.type === "existing") {
+      setImagesToRemove(prev => [...prev, image.url]);
+    }
+
+    setImages(prev => prev.filter((_, i) => i !== index));
+  };
+
+  // Form Submission
+  const prepareFormData = (values: TMenuFormValues | FormEvent<HTMLFormElement>): FormData => {
+    if (!user?.email) {
+      throw new Error("User authentication required");
+    }
+
     const formData = new FormData();
-    const data = isEditMode
-      ? { ...values, relatedImagesToRemove: removeImages }
-      : values;
+    const menuData = {
+      ...values,
+      ...(mode === "edit" ? { relatedImagesToRemove: imagesToRemove } : { creator: user.email })
+    };
 
-    formData.append("data", JSON.stringify(data));
-    newImages.forEach((image) => formData.append("related_images", image));
-    if (isEditMode && menuItem?.id) formData.append("id", menuItem.id);
+    formData.append("data", JSON.stringify(menuData));
+    newImages.forEach(({ file }) => formData.append("related_images", file));
+
+    if (mode === "edit" && menuItem?.id) {
+      formData.append("id", menuItem.id);
+    }
+
     return formData;
   };
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files ? Array.from(e.target.files) : [];
-    if (files.length) setNewImages((prev) => [...prev, ...files]);
-  };
+  const handleSubmit = async (values: TMenuFormValues | FormEvent<HTMLFormElement>) => {
+    const { loading, success, error } = getToastMessages(mode);
+    const toastId = toast.loading(loading);
 
-  const handleRemoveExistingImage = (index: number) => {
-    setRemoveImages((prev) => [...prev, existingImages[index]]);
-    setExistingImages((prev) => prev.filter((_, i) => i !== index));
-  };
-
-  const handleRemoveNewImage = (index: number) => {
-    setNewImages((prev) => prev.filter((_, i) => i !== index));
-  };
-
-  const handleSubmit = async (
-    values: TMenuFormValues | FormEvent<HTMLFormElement>
-  ) => {
-    // Runtime check to handle FormEvent case (though it won’t occur with GenericForm)
-    if ("preventDefault" in values) {
-      values.preventDefault();
-      return; // Or extract values from formRef.current if needed
-    }
-
-    const formValues = values as TMenuFormValues; // Type assertion since we know it’s TMenuFormValues
-    const toastId = toast.loading(
-      isEditMode ? "Menu updating..." : "Menu creating..."
-    );
     try {
-      const formData = prepareFormData(formValues);
-      const result = await (isEditMode ? updateMenu : createMenu)(
-        formData
-      ).unwrap();
+      const formData = prepareFormData(values);
+      const result = await (mode === "edit" ? updateMenu : createMenu)(formData).unwrap();
 
       if (result.success) {
-        toast.success(
-          isEditMode
-            ? "Menu updated successfully!"
-            : "Menu created successfully!",
-          { id: toastId, duration: 2000 }
-        );
+        toast.success(success, { id: toastId });
         setIsModalOpen(false);
+        setImages([]);
       }
-    } catch (error) {
-      toast.error("Failed to save menu. Please try again.", {
-        id: toastId,
-        duration: 2000,
-      });
-      console.error("Error saving menu:", error);
+    } catch (err) {
+      const errorObj = err as FetchBaseQueryError;
+      const errorMessage = typeof errorObj.data === "object" 
+        ? (errorObj.data as { message?: string })?.message || error
+        : error;
+
+      toast.error(errorMessage, { id: toastId });
+      console.error("Menu submission error:", errorObj);
     }
   };
 
   return {
+    // State
+    images,
     existingImages,
     newImages,
-    removeImages,
-    formRef,
-    handleImageUpload,
-    handleRemoveExistingImage,
-    handleRemoveNewImage,
-    handleSubmit,
     isModalOpen,
-    setIsModalOpen,
-    isCreating,
-    isUpdating,
-    isEditMode,
-    restaurants,
-    isRestaurantsFetching,
+    
+    // Refs
+    formRef,
+    
+    // Loading States
+    isLoading,
+    isCreating: isCreateLoading, // Explicit create loading state
+    isUpdating: isUpdateLoading, // Explicit update loading state
     isRestaurantsLoading,
+    
+    // Data
+    restaurants,
+    
+    // Handlers
+    handleImageUpload,
+    handleRemoveImage,
+    handleSubmit,
+    
+    // Setters
+    setIsModalOpen,
+    
+    // Mode
+    isEditMode: mode === "edit"
   };
 };
