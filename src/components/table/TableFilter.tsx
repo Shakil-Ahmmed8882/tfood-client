@@ -1,7 +1,6 @@
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
@@ -12,6 +11,15 @@ import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Filter } from "lucide-react";
 import { useTableContext } from ".";
+import { FilterSkeleton } from "../skeleton/filterSkeleton";
+import { truncateText } from "@/utils/turncateText";
+
+type TableFilterProps = {
+  fieldName: string;
+  filterArray: { name: string; value: string }[];
+  isLoading?: boolean;
+  title?: string;
+};
 
 /**
  * TableFilter Component
@@ -23,17 +31,17 @@ import { useTableContext } from ".";
 export const TableFilter = ({
   fieldName = "category",
   filterArray = [],
-}: {
-  fieldName: string;
-  filterArray: string[];
-}) => {
+  isLoading,
+  title = "Filter",
+}: TableFilterProps) => {
   /**
    * Local State for Filter Value
    *
    * Holds the selected filter value.
    * Updates when a user selects a new category from the dropdown.
    */
-  const [filterValue, setFilter] = useState("");
+  const [filterName, setFilterName] = useState("");
+  const [filterValue, setFilterValue] = useState("");
 
   /**
    * Access Table Context
@@ -41,7 +49,7 @@ export const TableFilter = ({
    * Extracts `updateFilter` function to update the filter state globally.
    * Retrieves the current filter state to check for changes.
    */
-  const { updateFilter, filter } = useTableContext();
+  const { updateFilter } = useTableContext();
 
   /**
    * Effect Hook: Synchronize Filter State
@@ -50,10 +58,8 @@ export const TableFilter = ({
    * Ensures the table filter is updated only when the selected value changes.
    */
   useEffect(() => {
-    if (filter.name !== fieldName || filter.value !== filterValue) {
-      updateFilter({ name: fieldName, value: filterValue });
-    }
-  }, [filterValue, fieldName, filter, updateFilter]);
+    updateFilter({ name: fieldName, value: filterValue });
+  }, [filterValue, fieldName, updateFilter]);
 
   /**
    * Memoized Categories List
@@ -61,7 +67,15 @@ export const TableFilter = ({
    * Stores the available filter options.
    * Memoization prevents unnecessary recalculations on re-renders.
    */
-  const categories = filterArray
+  const categories = filterArray;
+
+  const onChangeFilter = (value: string) => {
+    const filter =
+      filterArray.find((item) => item.value === value)?.name || "All";
+      setFilterName(filter); 
+      setFilterValue(value)
+  };
+
 
   return (
     <DropdownMenu>
@@ -74,7 +88,7 @@ export const TableFilter = ({
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className="gap-2 w-full sm:w-auto">
           <Filter className="h-4 w-4" />
-          {filterValue || "Select"}
+          {truncateText(filterName || title, 15)}
         </Button>
       </DropdownMenuTrigger>
 
@@ -84,8 +98,7 @@ export const TableFilter = ({
        * Displays the list of filter options inside a dropdown.
        * Includes a label and separator for better structure.
        */}
-      <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>Filter {fieldName}</DropdownMenuLabel>
+      <DropdownMenuContent className="w-56 ">
         <DropdownMenuSeparator />
 
         {/**
@@ -94,12 +107,17 @@ export const TableFilter = ({
          * Allows users to pick a filter value.
          * Updates `filterValue` state when an option is selected.
          */}
-        <DropdownMenuRadioGroup value={filterValue} onValueChange={setFilter}>
-          {categories.map((item) => (
-            <DropdownMenuRadioItem key={item} value={item}>
-              {item}
-            </DropdownMenuRadioItem>
-          ))}
+        <DropdownMenuRadioGroup
+          value={filterValue}
+          onValueChange={onChangeFilter}
+        >
+          {isLoading && <FilterSkeleton />}
+          {categories &&
+            categories.map((item) => (
+              <DropdownMenuRadioItem key={item.value} value={item.value}>
+                {item.name}
+              </DropdownMenuRadioItem>
+            ))}
           <DropdownMenuRadioItem key={"all"} value={""}>
             All
           </DropdownMenuRadioItem>

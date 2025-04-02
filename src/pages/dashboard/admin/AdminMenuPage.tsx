@@ -6,18 +6,18 @@ import {
   TableHeaderRow,
   TablePagination,
   TableProvider,
-  TableFilter,
   useTableData,
   RenderTableBody,
 } from "./index";
 
 import {
-  menuFoodCategoryOptions,
   menuTableHeadsOptions,
   useGetAllMenusQuery,
 } from "@/features/menu";
 import { ParentTable } from "@/components/table/ParentTable";
 import MenuTable from "@/features/menu/MenuTable";
+import { FilterRestaurants } from "@/features/restaurants/components/filterRestaurants";
+import { FilterByMenuCategory } from "@/features/restaurants/components/filterByMenuCategory";
 
 /**
  * AdminMenuPage Component:
@@ -62,6 +62,9 @@ const MenuTableContainer = () => {
   );
 };
 
+
+
+
 /**
  * MenuTableTopHeadings Component:
  * - Displays the title and action buttons (search, filter, add menu).
@@ -69,12 +72,15 @@ const MenuTableContainer = () => {
  * - Example: Admin clicks 'Add Menu' -> Opens modal/form for menu creation.
  */
 const MenuTableTopHeadings = () => {
+
+
   return (
     <div className="p-2 sm:p-4 pt-10 pb-8 md:pb-3 sm:pt-7 sm:flex flex-wrap justify-between items-center">
       <Title text="Menu" />
       <div className="flex flex-wrap items-center gap-4">
         <TableSearch />
-        <TableFilter filterArray={menuFoodCategoryOptions} fieldName="food_category" />
+        <FilterByMenuCategory/>
+        <FilterRestaurants/>
         <Button className="gap-2 bg-blue-600 w-full sm:w-auto hover:bg-blue-700">
           Add Menu
         </Button>
