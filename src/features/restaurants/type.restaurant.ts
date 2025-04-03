@@ -10,7 +10,7 @@ export type TRestaurant = { // ...
   category: string;
   related_images: string[];
   totalMenus?: number;
-  subscription?: {
+  subscription: {
     endDate: string;
     startDate: string;
   };

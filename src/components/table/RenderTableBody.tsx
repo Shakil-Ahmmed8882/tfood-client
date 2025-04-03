@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { NoItemFound } from "../wrapper/noItemFoundContainer";
 import TableSkeleton from "./Skeleton";
 import { useTableContext } from ".";
+import { ErrorFallback } from "../wrapper/CustomErrorBoundary";
 
 /**
  * A wrapper component responsible for rendering the table body based on different states.
@@ -24,7 +25,7 @@ export const RenderTableBody = ({ children }: { children: ReactNode }) => {
    */
   const renderContent = () => {
     if (isLoading || isFetching) return <TableSkeleton />;
-    if (isError) return <>Error</>;
+    if (isError) return <ErrorFallback/>;
     if (!data || data.length === 0)
       return <NoItemFound {...{ data }}><></></NoItemFound>;
     return children;

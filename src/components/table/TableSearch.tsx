@@ -19,7 +19,7 @@ const debouncedQuery = tableDebounce(
     500
   );
 
-export const TableSearch = () => {
+export const TableSearch = ({placeholder}:{placeholder?:string}) => {
   const {  searchQuery, updateSearchQuery } = useTableContext();
 
   /**
@@ -72,7 +72,7 @@ export const TableSearch = () => {
       <div className="relative w-full sm:w-auto">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
         <Input
-          placeholder="Search"
+          placeholder={placeholder || "search..."}
           className="pl-10 w-full "
           value={query}
           onChange={(e) =>  handleSearch(e)}

@@ -50,21 +50,21 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
-    <Container>
-      <header className="sticky top-0 z-50 w-full border-b bg-white">
-        <div className="container justify-between w-full flex h-14 items-center">
+    <header className="sticky top-0 z-50 w-full border-b bg-white">
+      <Container>
+        <div className=" justify-between w-full flex h-14 items-center">
           <TFLogo />
           <MobileMenuTrigger isOpen={isOpen} setIsOpen={setIsOpen} />
           <DesktopMenu currentPath={location.pathname} />
           <AuthSection />
         </div>
-      </header>
+      </Container>
       <MobileMenu
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         currentPath={location.pathname}
       />
-    </Container>
+    </header>
   );
 }
 
@@ -138,7 +138,6 @@ interface MobileMenuTriggerProps {
  * - Closes when a link or login button is clicked.
  */
 function MobileMenuTrigger({ isOpen, setIsOpen }: MobileMenuTriggerProps) {
-
   return (
     <div className="lg:hidden">
       <Dialog>
@@ -165,7 +164,6 @@ interface MobileMenuProps {
   currentPath: string;
 }
 function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
-
   const user = useAppSelector(selectCurrentUser);
 
   /**
@@ -177,7 +175,7 @@ function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
     { path: "/restaurants", label: "Restaurant" },
     { path: `/${user?.role}/dashboard`, label: "Dashboard" },
   ];
-  
+
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetContent side="right" className="w-[300px] p-6 sm:w-[400px]">

@@ -74,8 +74,8 @@ export function DashboardSidebar({
         </SidebarContent>
         <SidebarFooter>
           <SidebarNavigation items={navItems.navBottom} />
-        </SidebarFooter>
-        <SidebarRail />
+        </SidebarFooter> 
+         <SidebarRail />
       </Sidebar>
 
       {/* Confirm Modal for Logout */}

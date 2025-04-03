@@ -26,7 +26,7 @@ export const restaurantTableHeadsOptions = [
     "Name",
     "Date",
     "Location",
-    "Type",
+    "Category",
     "Subscription",
     "Status",
     "Action",
