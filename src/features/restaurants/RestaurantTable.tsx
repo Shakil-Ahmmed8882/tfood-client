@@ -25,7 +25,7 @@ const RestaurantTable = () => {
                 index +
                 1}
             </TableCell>
-            <TableCell>{restaurant.name}</TableCell>
+            <TableCell>{truncateText(restaurant.name, 28)}</TableCell>
             <TableCell>{formatDateGeneric("2025-04-03T00:00:00.000Z", "d MMM, yy")}</TableCell>
             <TableCell>{truncateText(restaurant.location, 20)}</TableCell>
             <TableCell>{truncateText(restaurant.category, 10)}</TableCell>

@@ -6,6 +6,8 @@ export type TMenu = {
     related_images: string[]
     price: number;
     description: string;
+    restaurant_name: string;
+    creator: string;
     food_category: string;
   }
   

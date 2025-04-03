@@ -20,6 +20,7 @@ const MenuTable = () => {
                 index +
                 1}
             </TableCell>
+
             <TableCell>{truncateText(menu.title, 10)}</TableCell>
             <TableCell>
               <img
@@ -28,10 +29,11 @@ const MenuTable = () => {
                 alt=""
               />
             </TableCell>
-            <TableCell>{menu.food_category}</TableCell>
             <TableCell>{menu.price}</TableCell>
-            <TableCell>Date</TableCell>
-            <TableCell>Type</TableCell>
+
+            <TableCell>{truncateText(menu.restaurant_name, 15)}</TableCell>
+            <TableCell>{truncateText(menu?.creator, 15)}</TableCell>
+            <TableCell>{truncateText(menu.food_category, 15)}</TableCell>
             <TableCell>
               <TableActionWrapper menu={menu} />
             </TableCell>

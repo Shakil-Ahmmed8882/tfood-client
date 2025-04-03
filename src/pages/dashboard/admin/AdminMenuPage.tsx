@@ -11,13 +11,13 @@ import {
 } from "./index";
 
 import {
-  menuTableHeadsOptions,
   useGetAllMenusQuery,
 } from "@/features/menu";
 import { ParentTable } from "@/components/table/ParentTable";
 import MenuTable from "@/features/menu/MenuTable";
 import { FilterRestaurants } from "@/features/restaurants/components/filterRestaurants";
 import { FilterByMenuCategory } from "@/features/restaurants/components/filterByMenuCategory";
+import { menuTableHeadsOptions } from "@/features/menu/constants";
 
 /**
  * AdminMenuPage Component:

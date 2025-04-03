@@ -3,6 +3,7 @@ import { TRestaurant } from "../type.restaurant";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "@/store/hooks";
 import { setRestaurant } from "@/store/features/restaurants/restaurantSlice";
+import { truncateText } from "@/utils/turncateText";
 const fallbackUrl = "https://media.istockphoto.com/id/1324813226/photo/modern-cafe-interior-with-wooden-table-chairs-and-vertical-garden-eco-friendly-cafe-with.jpg?s=612x612&w=0&k=20&c=7gzxZGLObCoCPjZlUxtNwzB_OIrhUupYfwpzLxuztQw="
 
 
@@ -45,7 +46,7 @@ export const RestaurantCard = ({ restaurant }: { restaurant: TRestaurant }) => {
           </div>
         </div>
 
-        <h3 className="text-md font-medium py-2">{restaurant.name}</h3>
+        <h3 className="text-md font-medium py-2">{truncateText(restaurant.name, 30)}</h3>
         <p className="text-sm text-gray-500">{restaurant.category}</p>
       </div>
     </div>
