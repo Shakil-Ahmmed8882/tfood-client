@@ -78,7 +78,7 @@ const MenuTableTopHeadings = () => {
     <div className="p-2 sm:p-4 pt-10 pb-8 md:pb-3 sm:pt-7 sm:flex flex-wrap justify-between items-center">
       <Title text="Menu" />
       <div className="flex flex-wrap items-center gap-4">
-        <TableSearch />
+        <TableSearch placeholder="Menu/restaurant/creator"/>
         <FilterByMenuCategory/>
         <FilterRestaurants/>
         <Button className="gap-2 bg-blue-600 w-full sm:w-auto hover:bg-blue-700">
