@@ -75,17 +75,6 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
             type="number"
           />
           <TextField<TMenuFormValues> name="description" label="Description" />
-          {restaurants && (
-            <SelectField<TMenuFormValues>
-              name="restaurant"
-              label="Select Restaurant"
-              placeholder="Select a Restaurant"
-              options={restaurants?.map((r: TRestaurant) => ({
-                value: r.id,
-                text: r.name,
-              }))}
-            />
-          )}
           {/* <TextField<TMenuFormValues>
             name="food_category"
             label="Food Category"
@@ -96,7 +85,6 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
               label="Food Category"
               placeholder="Select a Category"
               options={menu_categories?.map((c: TMenuCategory) => {
-                // setRestaurantId(r.id);
                 return {
                   value: c.name,
                   text: c.name,

@@ -17,3 +17,22 @@ export const initialMenuFormValues: TMenuFormValues = {
   food_category: "",
   restaurant: "",
 };
+
+
+
+
+export const menuCategoryFormSchema = z.object({
+  restaurant: z.string().uuid().min(1, "Restaurant is required"),
+  creator: z.string().email().min(1, "Creator is required"),
+  name: z.string().min(1, "Name is required"),
+  description: z.string().min(1, "Description is required"),
+});
+
+export type TMenuCategoryFormValues = z.infer<typeof menuCategoryFormSchema>
+
+export const initialMenuCategoryFormValues: TMenuCategoryFormValues = {
+  restaurant: "",
+  creator: "example@me.com",
+  name: "",
+  description: "",
+};
