@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Container } from "@/components/wrapper/Container";
 import LoginForm from "@/features/auth/components/LoginForm";
 import { AuthLeftSide } from "@/features/auth/components/AuthLeftSide";
-import { TFLogo } from "@/components/ui/TFLogo";
+import { LogoText } from "@/components/ui/TFLogo";
 
 
 export const LoginPage = () => {
@@ -14,7 +14,7 @@ export const LoginPage = () => {
         {/* Right Section (Login Form) */}
         <div className="w-full lg:max-w-lg lg:p-8">
           <div className="mb-8">
-            <TFLogo className="justify-center"/>
+            <LogoText className="justify-center"/>
             <div className="py-5">
               <p className="text-2xl text-center font-semibold mb-4 text-gray-900 mt-2">
                 Sign in

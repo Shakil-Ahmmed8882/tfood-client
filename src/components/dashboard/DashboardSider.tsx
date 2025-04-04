@@ -11,7 +11,6 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { SidebarNavigation } from "./SidebarNavigation";
-import TFood from "../../assets/t-food.png";
 import { shopOwnerPaths } from "@/routes/shopOwnerRoutes";
 import { sidebarItemsGenerator } from "@/utils/sidebarItemGenerator";
 import { TSidebarItem } from "@/types/global";
@@ -20,7 +19,7 @@ import { logout } from "@/store/features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useState, useCallback } from "react";
 import { ConfirmModal } from "../custom-ui/ConfirmModal";
-import { TFLogo } from "../ui/TFLogo";
+import { LogoImage, LogoText } from "../ui/TFLogo";
 
 type SidebarItemType = {
   navTop: TSidebarItem[];
@@ -64,9 +63,9 @@ export function DashboardSidebar({
     <>
       <Sidebar collapsible="icon" {...props}>
         <SidebarHeader>
-          <div className="flex items-center justify-start gap-4">
-            <img src={TFood} className="size-[30px]" alt="" />
-            {open && <TFLogo />}
+          <div className="flex items-center justify-start gap-1">
+            <LogoImage/>
+            {open && <LogoText />}
           </div>
         </SidebarHeader>
         <SidebarContent>

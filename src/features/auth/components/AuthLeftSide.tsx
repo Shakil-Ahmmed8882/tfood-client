@@ -34,7 +34,7 @@ export const AuthLeftSide = () => {
   const { src, alt } = imageMap[currentPage] ?? imageMap.default;
 
   return (
-    <div className=" p-8 hidden lg:block">
+    <div className=" p-8 hidden lg:block ">
       <img
         src={src}
         alt={alt}

@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { useDispatch } from "react-redux";
 import { EmailIcon, PasswordIcon } from "./Icons";
 import { IdCard } from "lucide-react";
+import { RadioGroupField } from "@/components/form/fields/RadioGroupField";
 export const SignupForm = () => {
   const [signUp] = useSignUpMutation();
   const dispatch = useDispatch();
@@ -47,7 +48,7 @@ export const SignupForm = () => {
       }}
       ref={formRef}
     >
-      <div className="space-y-4">
+      <div className="space-y-6">
         <TextField<signUpFormValue>
           name="name"
           placeholder="Enter your name"
@@ -56,6 +57,19 @@ export const SignupForm = () => {
           icon={<IdCard className="text-gray-600" />}
           // action={() => console.log("action")}
         />
+
+        <RadioGroupField
+          name="role"
+          label="Choose Your Role!"
+          options={[
+            { value: "customer", label: "Customer" },
+            { value: "shop_owner", label: "Shop Owner" },
+          ]}
+          required
+          rowGroup
+          defaultValue="customer"
+        />
+
         <TextField<signUpFormValue>
           name="email"
           placeholder="Email"

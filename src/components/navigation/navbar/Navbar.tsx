@@ -16,7 +16,7 @@ import { ToggleMenuIcon } from "@/assets/icons/Icons";
 import { Authbutton } from "./AuthButton";
 import { Dialog } from "@radix-ui/react-dialog";
 import { Container } from "@/components/wrapper/Container";
-import { TFLogo } from "@/components/ui/TFLogo";
+import { Logo } from "@/components/ui/TFLogo";
 import { useAppSelector } from "@/store/hooks";
 import { selectCurrentUser } from "@/store/features/auth/authSlice";
 
@@ -53,7 +53,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b bg-white">
       <Container>
         <div className=" justify-between w-full flex h-14 items-center">
-          <TFLogo />
+          <Logo />
           <MobileMenuTrigger isOpen={isOpen} setIsOpen={setIsOpen} />
           <DesktopMenu currentPath={location.pathname} />
           <AuthSection />
@@ -181,7 +181,7 @@ function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
       <SheetContent side="right" className="w-[300px] p-6 sm:w-[400px]">
         <SheetHeader className="p-0">
           <SheetTitle>
-            <TFLogo />
+            <Logo />
           </SheetTitle>
         </SheetHeader>
         <div className="flex flex-col mt-4">
