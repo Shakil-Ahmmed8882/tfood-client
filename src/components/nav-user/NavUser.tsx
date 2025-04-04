@@ -42,8 +42,8 @@ const UserInfo = ({ user }: { user: TUser }) => (
       <AvatarFallback className="rounded-lg" />
     </Avatar>
     <div className="grid flex-1 text-left text-sm leading-tight">
-      <span className="truncate font-semibold">{user?.name}</span>
-      <span className="truncate text-xs">{user?.email}</span>
+      <span className="truncate font-semibold pb-1">{user?.name}</span>
+      <span className="truncate text-xs text-gray-500">{user?.email}</span>
     </div>
   </div>
 );
@@ -59,7 +59,7 @@ const NavUserContent = ({
   menuItems: MenuItem[];
 }) => (
   <DropdownMenuContent
-    className="w-[--radix-dropdown-menu-trigger-width] min-w-52 rounded-lg"
+    className="w-[--radix-dropdown-menu-trigger-width] min-w-52 py-4  rounded-lg"
     align="end"
     sideOffset={4}
   >
@@ -70,7 +70,7 @@ const NavUserContent = ({
     <DropdownMenuGroup>
       {menuItems.map((item) => (
         <div key={item.label}>
-          <DropdownMenuItem onClick={item.onClick}>
+          <DropdownMenuItem className="py-2 px-3 cursor-pointer" onClick={item.onClick}>
             <item.icon className="mr-2" />
             {item.label}
           </DropdownMenuItem>

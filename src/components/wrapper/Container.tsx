@@ -19,6 +19,6 @@ export const Container: React.FC<ContainerProps> = ({
   className,
 }) => {
   return (
-    <div className={`${className} mx-auto max-w-[1250px] px-6 lg:px-0`}>{children}</div>
+    <div className={`${className} mx-auto max-w-[1250px] px-2 lg:px-2`}>{children}</div>
   );
 };

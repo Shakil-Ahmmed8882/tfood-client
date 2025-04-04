@@ -6,6 +6,7 @@ import { useDeleteMenuMutation } from "@/store/features/menu/menuApi";
 import { useState } from "react";
 import { ConfirmModal } from "@/components/custom-ui/ConfirmModal";
 import { MenuModalForm } from "./components/MenuModalForm";
+import { truncateText } from "@/utils/turncateText";
 
 const MenuTable = () => {
   const { data, pagination } = useTableContext<TMenu>();
@@ -19,7 +20,8 @@ const MenuTable = () => {
                 index +
                 1}
             </TableCell>
-            <TableCell>{menu.title}</TableCell>
+
+            <TableCell>{truncateText(menu.title, 10)}</TableCell>
             <TableCell>
               <img
                 className="size-8 rounded-full"
@@ -27,10 +29,11 @@ const MenuTable = () => {
                 alt=""
               />
             </TableCell>
-            <TableCell>{menu.food_category}</TableCell>
             <TableCell>{menu.price}</TableCell>
-            <TableCell>Date</TableCell>
-            <TableCell>Type</TableCell>
+
+            <TableCell>{truncateText(menu.restaurant_name, 15)}</TableCell>
+            <TableCell>{truncateText(menu?.creator, 15)}</TableCell>
+            <TableCell>{truncateText(menu.food_category, 15)}</TableCell>
             <TableCell>
               <TableActionWrapper menu={menu} />
             </TableCell>

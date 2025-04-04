@@ -15,13 +15,18 @@ export type { TRestaurant } from "./type.restaurant";
 
 
 // ____________________ contants _______________________
-export const restaurantCategoryOptions = ["food", "Italian", "sweet","fast food"]
+export const restaurantCategoryOptions = [
+  { name: "food", value: "food" },
+  { name: "Italian", value: "Italian" },
+  { name: "sweet", value: "sweet" },
+  { name: "fast food", value: "fast food" },
+];
 export const restaurantTableHeadsOptions = [
     "SI NO.",
     "Name",
     "Date",
     "Location",
-    "Type",
+    "Category",
     "Subscription",
     "Status",
     "Action",

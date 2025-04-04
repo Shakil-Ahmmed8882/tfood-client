@@ -9,3 +9,9 @@ export function TabSkeleton({ className }: { className?: string }) {
     </div>
   );
 }
+
+export  const SingleTabSkeleton = () => {
+    return (
+        <Skeleton className="h-8 w-20 rounded-lg" />
+    )
+}
