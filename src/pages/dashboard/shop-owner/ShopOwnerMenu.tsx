@@ -15,7 +15,6 @@ import { useMenuModal } from "@/features/menu/hooks/useMenuModal";
 import { ShopOwnerMenusList } from "@/features/menu/shopOwnerMenusList";
 import { useState } from "react";
 import { useRestaurantOptions } from "@/features/menu/hooks/useRestaurantOptions";
-import useMenus from "@/features/menu/hooks/useMenus";
 
 const ShopOwnerMenu = () => {
   /**
@@ -27,8 +26,6 @@ const [selectedRestaurantId, setSelectedRestaurantId] = useState("");
   const { isModalOpen, setIsModalOpen } = useMenuModal();
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const {restaurantOptions} = useRestaurantOptions();
-  const menus = useMenus({searchQuery: "", filters: {restaurant:selectedRestaurantId}});
-  // console.log(selectedRestaurantId);
 
   return (
     <>
@@ -41,7 +38,7 @@ const [selectedRestaurantId, setSelectedRestaurantId] = useState("");
         <div className="flex items-center justify-between flex-wrap">
           <div className="flex justify-between items-center space-x-2 gap-2">
             <h1 className="text-2xl font-semibold">Menus</h1>
-            <Select defaultValue="value" onValueChange={(value) => setSelectedRestaurantId(value)}>
+            <Select  onValueChange={(value) => setSelectedRestaurantId(value)}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Select a Restaurant" />
               </SelectTrigger>

@@ -34,10 +34,15 @@ export const ShopOwnerMenusList = ({
    * - Example: Logged-in user sees only their restaurant listings.
    */
   const user = useAppSelector(selectCurrentUser);
-  const filters = {
-    restaurant: restaurantId ,
-  };
-  const options = { ...{ filters } };
+  let filters;
+  if (restaurantId) {
+    console.log(restaurantId);
+    filters = { restaurant: restaurantId || "" };
+    console.log(filters);
+  } else {
+    filters = { creator: user?.email || "" };
+  }
+  const options = { ...{ filters: filters as Record<string, string> } };
 
   /**
    *

@@ -1,6 +1,6 @@
 import { ReusableModal } from "@/components/custom-ui/ReusableModal";
-import { TMenu, TMenuCategory } from "../menu.type";
-import { GenericForm } from "@/components/form/GenericForm";
+import { TMenu } from "../menu.type";
+import { GenericForm, GenericFormRef } from "@/components/form/GenericForm";
 import {
   initialMenuFormValues,
   menuFormSchema,
@@ -14,7 +14,10 @@ import { FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useMenuFormManager } from "../hooks/useMenuFormManager";
 import { SelectField } from "@/components/form/fields/SelectField";
-import { TRestaurant } from "@/features/restaurants";
+
+import { useEffect, useRef, useState } from "react";
+import { useRestaurantOptions } from "../hooks/useRestaurantOptions";
+import { useMenuCategoryOptions } from "../hooks/useMenuCategoryOptions";
 
 interface MenuModalFormProps {
   menuItem?: TMenu;
@@ -27,22 +30,34 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
   isModalOpen,
   setIsModalOpen,
 }) => {
+  const formRef = useRef<GenericFormRef<TMenuFormValues>>(null);
+  const [restaurantId, setRestaurantId] = useState<string>("");
+  const { restaurantOptions, isRestaurantsLoading } = useRestaurantOptions();
+  const { categoriesOptions, isMenuCategoriesLoading } = useMenuCategoryOptions(
+    { restaurantId }
+  );
+  console.log({ restaurantOptions });
+  console.log({ categoriesOptions });
   const {
     existingImages,
     newImages,
-    formRef,
     handleImageUpload,
     handleRemoveImage,
     handleSubmit,
     isCreating,
     isUpdating,
-    restaurants,
-    menu_categories,
   } = useMenuFormManager({ menuItem, setIsModalOpen });
+  // console.log(resId,menu_categories);
+  useEffect(() => {
+    if (menuItem?.restaurant) {
+      setRestaurantId(menuItem.restaurant as string); // Set the restaurantId state to the restaurant ID from menuItem
+    }
+  }, [menuItem?.restaurant]);
 
-  // const v= formRef.current?.getValues("restaurant");
-  
-// console.log(formRef.current?.getValues());
+  const handleSelectChange = (value: string) => {
+    setRestaurantId(value); // Update the restaurantId state with the selected value
+  };
+  console.log({ restaurantId, menuItem });
   return (
     <ReusableModal
       open={isModalOpen}
@@ -57,17 +72,14 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
         ref={formRef}
       >
         <div className="space-y-4">
-          {restaurants && (
+          {restaurantOptions && (
             <SelectField<TMenuFormValues>
               name="restaurant"
               label="Select Restaurant"
               placeholder="Select a Restaurant"
-              options={restaurants?.map((r: TRestaurant) => {
-                return {
-                  value: r.id,
-                  text: r.name,
-                };
-              })}
+              onChange={handleSelectChange}
+              loading={isRestaurantsLoading}
+              options={restaurantOptions}
             />
           )}
           <TextField<TMenuFormValues> name="title" label="Title" />
@@ -77,21 +89,14 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
             type="number"
           />
           <TextField<TMenuFormValues> name="description" label="Description" />
-          {/* <TextField<TMenuFormValues>
-            name="food_category"
-            label="Food Category"
-          /> */}
-          {menu_categories && (
+          {categoriesOptions && (
             <SelectField<TMenuFormValues>
               name="food_category"
               label="Food Category"
               placeholder="Select a Category"
-              options={menu_categories?.map((c: TMenuCategory) => {
-                return {
-                  value: c.name,
-                  text: c.name,
-                };
-              })}
+              // defaultValue={menuItem?.food_category}
+              loading={isMenuCategoriesLoading}
+              options={categoriesOptions}
             />
           )}
         </div>
