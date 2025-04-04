@@ -26,7 +26,7 @@ export const ShopOwnerDropdown = () => {
    */
   const shopOwnerOptions = (data?.data as TUser[])?.map((owner: TUser) => ({
     value: owner.id,
-    text: owner.name,
+    text: owner.email,
   }));
 
   /**

@@ -1,17 +1,11 @@
 import { useState } from "react";
-import {
-  MenuCard,
-  MenuSkeleton,
-  ShouldPaginateWrapper,
-  CustomPagination,
-} from ".";
+import { MenuCard, MenuSkeleton, CustomPagination } from ".";
 
 import { TMenu } from "./menu.type";
 import { DataHandler } from "@/components/wrapper/DataHandler";
 import { useAppSelector } from "@/store/hooks";
 import { selectCurrentUser } from "@/store/features/auth/authSlice";
 import useMenus from "./hooks/useMenus";
-
 
 /**
  * MenuFeature: Fetches and displays menu items while handling loading, errors, and empty states.
@@ -26,36 +20,40 @@ import useMenus from "./hooks/useMenus";
  * - Utilizes `NoItemFound` to display a message when no menu items are available.
  */
 
-export const ShopOwnerMenusList = () => {
+export const ShopOwnerMenusList = ({
+  restaurantId,
+}: {
+  restaurantId: string;
+}) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-    
-    /**
-     * Fetch Current User:
-     * - Retrieves the logged-in shop owner's email.
-     * - Used to filter restaurant data for the specific owner.
-     * - Example: Logged-in user sees only their restaurant listings.
-     */
-    const user = useAppSelector(selectCurrentUser);
-    const filters = { creator: user?.email || "" };
-    const options = {...{ filters } };
-  
-    /**
-     * 
-     * Fetch Restaurant Data:
-     * - Calls useRestaurants to retrieve restaurant listings.
-     * - Provides loading, error handling, and pagination metadata.
-     * - Example: Admin loads restaurant list -> API fetches and returns paginated results.
-     */
+  /**
+   * Fetch Current User:
+   * - Retrieves the logged-in shop owner's email.
+   * - Used to filter restaurant data for the specific owner.
+   * - Example: Logged-in user sees only their restaurant listings.
+   */
+  const user = useAppSelector(selectCurrentUser);
+  const filters = {
+    restaurant: restaurantId ,
+  };
+  const options = { ...{ filters } };
 
+  /**
+   *
+   * Fetch Restaurant Data:
+   * - Calls useRestaurants to retrieve restaurant listings.
+   * - Provides loading, error handling, and pagination metadata.
+   * - Example: Admin loads restaurant list -> API fetches and returns paginated results.
+   */
+  console.log(restaurantId);
   const {
     data: menus,
     meta,
     isLoading,
     isFetching,
     isError,
-  } = useMenus(options)
-
+  } = useMenus(options);
 
   return (
     <>
@@ -74,7 +72,7 @@ export const ShopOwnerMenusList = () => {
         // onError={(error, info) => console.error("Runtime error:", error, info)}
       >
         {(menus) => (
-          <div className="grid grid-cols-1 pt-3 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center">
+          <div className="grid grid-cols-1 pt-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 ">
             {menus.map((food) => (
               <MenuCard key={food.id} menu={food} />
             ))}
@@ -82,14 +80,12 @@ export const ShopOwnerMenusList = () => {
         )}
       </DataHandler>
 
-      <ShouldPaginateWrapper shouldPaginate={false}>
-        <CustomPagination
-          itemsPerPage={meta?.limit || 0}
-          currentPage={currentPage}
-          totalItems={meta?.total || 0}
-          onPageChange={setCurrentPage}
-        />
-      </ShouldPaginateWrapper>
+      <CustomPagination
+        itemsPerPage={meta?.limit || 0}
+        currentPage={currentPage}
+        totalItems={meta?.total || 0}
+        onPageChange={setCurrentPage}
+      />
     </>
   );
 };

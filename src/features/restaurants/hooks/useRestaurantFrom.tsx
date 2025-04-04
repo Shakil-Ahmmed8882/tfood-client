@@ -16,7 +16,7 @@ interface RestaurantFormProps {
 
 export const useRestaurantForm = ({ restaurant, onOpenChange }: RestaurantFormProps) => {
   const user = useAppSelector(selectCurrentUser);
-  
+  console.log(restaurant);
   const [createRestaurant, { isLoading: isCreating }] = useCreateRestaurantMutation();
   const [updateRestaurant, { isLoading: isUpdating }] = useUpdateRestaurantMutation();
   const [logo, setLogo] = useState<File | null>(null);
@@ -42,13 +42,18 @@ export const useRestaurantForm = ({ restaurant, onOpenChange }: RestaurantFormPr
           // Update existing restaurant
           formData.append("data", JSON.stringify(values));
           formData.append("id", restaurant.id);
-          await updateRestaurant(formData).unwrap();
-        } if(user?.role === USER_ROLES.SHOP_OWNER) {
+         const res=  await updateRestaurant(formData).unwrap();
+          console.log('update res>>',res);
+
+
+        } if(user?.role === USER_ROLES.SHOP_OWNER && !restaurant?.id){
+          // If user is a shop owner and restaurant id is not present, create new restaurant{
           // Create new restaurant
           const formDataWithId = { ...values, user: user!.userId };
           formData.append("data", JSON.stringify(formDataWithId));
           await createRestaurant(formData).unwrap();
-        } else{
+        }
+         if(user?.role === USER_ROLES.ADMIN && !restaurant?.id){
           const formDataWithId = { ...values};
           formData.append("data", JSON.stringify(formDataWithId));
           await createRestaurant(formData).unwrap();
@@ -56,7 +61,7 @@ export const useRestaurantForm = ({ restaurant, onOpenChange }: RestaurantFormPr
 
         setLogo(null);
         onOpenChange(false);
-        toast.success(restaurant ? "Menu updated!" : "Menu created!", { id: toastId });
+        toast.success(restaurant ? "Restaurant updated!" : "New restaurant created!", { id: toastId });
       } catch (error) {
         console.error("Error submitting form:", error);
         toast.error("Failed to save restaurant", { id: toastId });

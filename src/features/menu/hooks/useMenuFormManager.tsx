@@ -39,6 +39,8 @@ export const useMenuFormManager = ({
   menuItem,
   setIsModalOpen
 }: UseMenuFormManagerProps) => {
+  const [restaurantId, setRestaurantId] = useState<string | null>(null);
+  // console.log(restaurantId);
   // Auth and Data
   const user = useAppSelector(selectCurrentUser);
   const formRef = useRef<GenericFormRef<TMenuFormValues>>(null);
@@ -182,6 +184,7 @@ export const useMenuFormManager = ({
     setIsModalOpen,
     
     // Mode
-    isEditMode: mode === "edit"
+    // isEditMode: mode === "edit",
+    setRestaurantId
   };
 };

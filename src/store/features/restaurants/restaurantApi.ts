@@ -73,8 +73,8 @@ export const restaurantApi = baseApi.injectEndpoints({
       }),
     }),
     updateRestaurant: builder.mutation<ApiResponse<TRestaurant>, FormData>({
-      query: (data ) => {
 
+      query: (data ) => {
         return {
           url: `/restaurants/${data.get("id")}`,
           method: "PUT",

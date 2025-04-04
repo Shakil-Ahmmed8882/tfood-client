@@ -64,7 +64,7 @@ export const RestaurantSchema = z.object({
       }),
     })
     .optional(),
-  status: z.enum(["inactive", "active"], {
+  status: z.enum(["inactive", "active",'blocked'], {
     required_error: "Restaurant status is required.",
     invalid_type_error: "Restaurant status must be 'inactive' or 'active'.",
   }).optional(),

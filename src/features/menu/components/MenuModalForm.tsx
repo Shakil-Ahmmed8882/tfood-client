@@ -40,6 +40,9 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
     menu_categories,
   } = useMenuFormManager({ menuItem, setIsModalOpen });
 
+  // const v= formRef.current?.getValues("restaurant");
+  
+// console.log(formRef.current?.getValues());
   return (
     <ReusableModal
       open={isModalOpen}
@@ -60,7 +63,6 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
               label="Select Restaurant"
               placeholder="Select a Restaurant"
               options={restaurants?.map((r: TRestaurant) => {
-                // setRestaurantId(r.id);
                 return {
                   value: r.id,
                   text: r.name,

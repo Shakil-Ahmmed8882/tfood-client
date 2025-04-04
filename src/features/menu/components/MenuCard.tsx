@@ -15,6 +15,7 @@ import { useDeleteMenuMutation } from "@/store/features/menu/menuApi";
 import { ConfirmModal } from "@/components/custom-ui/ConfirmModal";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { truncateText } from "@/utils/turncateText";
 
 /**
  * MenuCard: A visually appealing card component to display menu items.
@@ -46,7 +47,7 @@ export const MenuCard: React.FC<{ menu: TMenu }> = ({ menu }) => {
   const showActions = location.pathname.includes("shop_owner");
 
   return (
-    <Card className="overflow-hidden pt-0 group gap-4 ">
+    <Card className="overflow-hidden pt-0 group gap-4 w-full ">
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
           src={menu.related_images[0] || menufallbackUrl}
@@ -90,15 +91,15 @@ export const MenuCard: React.FC<{ menu: TMenu }> = ({ menu }) => {
         )}
       </div>
       <CardContent className="">
-        <div className="flex items-start justify-between">
-          <h3 className="font-semibold text-lg">{menu.title}</h3>
+        <div className="flex items-start justify-between gap-5">
+          <h3 className="font-semibold text-lg">{truncateText(menu.title, 15)}</h3>
           <span className="font-semibold">৳ {menu.price}</span>
         </div>
         <p className="text-sm text-muted-foreground">{menu.food_category}</p>
       </CardContent>
       <CardFooter>
         <p className="text-sm text-muted-foreground line-clamp-2">
-          {menu.description}
+        {truncateText(menu.description, 35)}
         </p>
       </CardFooter>
 
