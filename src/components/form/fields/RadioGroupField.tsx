@@ -11,7 +11,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 type OptionType = {
 	value: string;
-	text: string;
+	label: string;
 };
 
 type QuestionTypeRadioGroupProps<T extends FieldValues> = {
@@ -20,6 +20,7 @@ type QuestionTypeRadioGroupProps<T extends FieldValues> = {
 	label?: string;
 	required?: boolean;
 	className?: string;
+	defaultValue: string;
 	column?: boolean;
 	longGap?: boolean;
 	reverse?: boolean;
@@ -75,8 +76,8 @@ export const RadioGroupField = <T extends FieldValues>({
 			render={({ field }) => (
 				<FormItem>
 					{label && (
-						<FormLabel>
-							<span>{label}</span>
+						<FormLabel className='mb-1'>
+							<span className=''>{label}</span>
 							{required && <span className="ml-1 text-red-500">*</span>}
 						</FormLabel>
 					)}
@@ -96,7 +97,7 @@ export const RadioGroupField = <T extends FieldValues>({
 									<FormControl>
 										<div
 											className={cn(
-												'relative flex items-center',
+												'relative  items-center flex',
 												`gap-${gap}`,
 												column ? 'flex-col items-start' : '',
 												longGap ? 'justify-between' : ''
@@ -109,9 +110,9 @@ export const RadioGroupField = <T extends FieldValues>({
 											/>
 											<FormLabel
 												htmlFor={option.value}
-												className={cn(reverse ? 'order-0' : 'order-1')}
+												className={`${cn(reverse ? 'order-0' : 'order-1')} text-gray-500`}
 											>
-												{option.text}
+												{option.label}
 											</FormLabel>
 										</div>
 									</FormControl>

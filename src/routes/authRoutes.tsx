@@ -11,7 +11,7 @@ export const authPaths = [
   },
   {
     path: "signup",
-    element: <SignupPage />,
+    element: <SignupPage/>,
   },
   {
     path: "forgot-password",
