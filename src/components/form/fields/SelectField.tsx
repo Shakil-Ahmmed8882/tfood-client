@@ -40,6 +40,7 @@ type Props<T extends FieldValues> = {
  * @param {boolean} disabled - Whether the field is disabled
  * @param {boolean} loading - Whether the field is in a loading state
  * @param {(value: string) => void} onChange - The onChange handler of the field
+ * @param {string} defaultValue - The default value of the field
  *
  * @returns {ReactElement} - The select field component
  *
@@ -81,7 +82,7 @@ export const SelectField = <T extends FieldValues>({
             </FormLabel>
           )}
           <Select
-            defaultValue="value"
+            defaultValue={defaultValue}
             onValueChange={(value) => {
               field.onChange(value); // Update form state
               if (onChange) onChange(value); // Call parent's onChange
@@ -104,7 +105,7 @@ export const SelectField = <T extends FieldValues>({
                 <SelectItem value="null" disabled>
                   Loading...
                 </SelectItem>
-              ) : options.length === 0 && !defaultValue ? (
+              ) : options.length === 0 ? (
                 <SelectItem value="null" disabled>
                   No options available
                 </SelectItem>

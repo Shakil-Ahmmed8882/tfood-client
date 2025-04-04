@@ -36,8 +36,6 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
   const { categoriesOptions, isMenuCategoriesLoading } = useMenuCategoryOptions(
     { restaurantId }
   );
-  console.log({ restaurantOptions });
-  console.log({ categoriesOptions });
   const {
     existingImages,
     newImages,
@@ -57,7 +55,7 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
   const handleSelectChange = (value: string) => {
     setRestaurantId(value); // Update the restaurantId state with the selected value
   };
-  console.log({ restaurantId, menuItem });
+  // console.log({ restaurantId, menuItem });
   return (
     <ReusableModal
       open={isModalOpen}
