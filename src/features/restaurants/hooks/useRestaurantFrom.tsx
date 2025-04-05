@@ -16,7 +16,7 @@ interface RestaurantFormProps {
 
 export const useRestaurantForm = ({ restaurant, onOpenChange }: RestaurantFormProps) => {
   const user = useAppSelector(selectCurrentUser);
-  console.log(restaurant);
+  // console.log(restaurant);
   const [createRestaurant, { isLoading: isCreating }] = useCreateRestaurantMutation();
   const [updateRestaurant, { isLoading: isUpdating }] = useUpdateRestaurantMutation();
   const [logo, setLogo] = useState<File | null>(null);

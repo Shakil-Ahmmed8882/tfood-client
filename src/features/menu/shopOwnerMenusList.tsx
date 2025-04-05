@@ -38,12 +38,11 @@ export const ShopOwnerMenusList = ({
   if (restaurantId) {
     console.log(restaurantId);
     filters = { restaurant: restaurantId || "" };
-    console.log(filters);
   } else {
     filters = { creator: user?.email || "" };
   }
   const options = { ...{ filters: filters as Record<string, string> } };
-
+  
   /**
    *
    * Fetch Restaurant Data:
@@ -51,7 +50,6 @@ export const ShopOwnerMenusList = ({
    * - Provides loading, error handling, and pagination metadata.
    * - Example: Admin loads restaurant list -> API fetches and returns paginated results.
    */
-  console.log(restaurantId);
   const {
     data: menus,
     meta,

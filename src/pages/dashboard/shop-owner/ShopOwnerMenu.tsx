@@ -1,13 +1,5 @@
 import DashboardContainer from "@/components/dashboard/DashboardContainer";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import { Button } from "@/components/ui/button";
 import { MenuCategoryModalForm } from "@/features/menu/components/MenuCategoryModalForm";
 import { MenuModalForm } from "@/features/menu/components/MenuModalForm";
@@ -15,6 +7,7 @@ import { useMenuModal } from "@/features/menu/hooks/useMenuModal";
 import { ShopOwnerMenusList } from "@/features/menu/shopOwnerMenusList";
 import { useState } from "react";
 import { useRestaurantOptions } from "@/features/menu/hooks/useRestaurantOptions";
+import ReusableSelect from "@/components/custom-ui/ReusableSelect";
 
 const ShopOwnerMenu = () => {
   /**
@@ -22,10 +15,10 @@ const ShopOwnerMenu = () => {
    * Example use case: A shop owner clicks the "Add Menu" button, triggering the modal to open.
    * Expected output: `isModalOpen` becomes `true`, showing the form for adding a menu item.
    */
-const [selectedRestaurantId, setSelectedRestaurantId] = useState("");
+  const [selectedRestaurantId, setSelectedRestaurantId] = useState("");
   const { isModalOpen, setIsModalOpen } = useMenuModal();
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
-  const {restaurantOptions} = useRestaurantOptions();
+  const { restaurantOptions } = useRestaurantOptions();
 
   return (
     <>
@@ -38,23 +31,12 @@ const [selectedRestaurantId, setSelectedRestaurantId] = useState("");
         <div className="flex items-center justify-between flex-wrap">
           <div className="flex justify-between items-center space-x-2 gap-2">
             <h1 className="text-2xl font-semibold">Menus</h1>
-            <Select  onValueChange={(value) => setSelectedRestaurantId(value)}>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select a Restaurant" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Restaurants</SelectLabel>
-                  {
-                    restaurantOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.text}
-                      </SelectItem>
-                    ))
-                  }
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+            <ReusableSelect
+              options={restaurantOptions}
+              onValueChange={setSelectedRestaurantId}
+              placeholder="Select a Restaurant"
+              label="Select a Restaurant"
+            />
           </div>
           <div className="space-x-2">
             <Button onClick={() => setIsCategoryModalOpen(true)}>
