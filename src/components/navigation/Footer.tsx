@@ -42,7 +42,7 @@ import { Link } from "react-router-dom";
 import { Container } from "../wrapper/Container";
 import { Mail, Phone } from "lucide-react";
 import { ReactNode } from "react";
-import { TFLogo } from "../ui/TFLogo";
+import { LogoText } from "../ui/TFLogo";
 
 
 
@@ -101,7 +101,7 @@ function FooterPresentation({
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <TFLogo />
+            <LogoText />
             <p className="mt-3 text-gray-600">{company.description}</p>
 
           </div>

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Container } from "@/components/wrapper/Container";
 import ResetPasswordForm from "@/features/auth/components/ResetPasswordForm";
 import { AuthLeftSide } from "@/features/auth/components/AuthLeftSide";
-import { TFLogo } from "@/components/ui/TFLogo";
+import { LogoText } from "@/components/ui/TFLogo";
 export const ResetPasswordPage = () => {
 
 
@@ -16,7 +16,7 @@ export const ResetPasswordPage = () => {
         {/* Right Section (Login Form) */}
         <div className="w-full lg:max-w-lg p-8">
           <div className="mb-8">
-            <TFLogo/>
+            <LogoText/>
           </div>
           <div className="">
             <p className="text-2xl text-center font-semibold mb-4 text-gray-900 mt-2">

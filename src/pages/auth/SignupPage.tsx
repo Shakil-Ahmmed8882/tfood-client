@@ -5,13 +5,13 @@ import { SignupForm } from "@/features/auth/components/SignUpForm";
 
 export const SignupPage = () => {
   return (
-    <Container>
-      <div className="flex justify-between flex-wrap-reverse items-center gap-5 h-screen ">
+    <div className="bg-[#f5f6fb]">
+        <Container className="flex justify-center gap-x-14  flex-wrap-reverse items-center  min-h-screen ">
         {/* Left Section (Image/Illustration) */}
+        
         <AuthLeftSide />
-
         {/* Right Section (Signup Form) */}
-        <div className="w-full lg:max-w-lg p-8">
+        <div className="w-full lg:max-w-lg p-8 bg-white my-8">
           <div className="mb-8">
             <h2 className="text-3xl font-righteous font-semibold text-center text-yellow-500">
               tfoodbd
@@ -34,8 +34,8 @@ export const SignupPage = () => {
             </Link>
           </p>
         </div>
-      </div>
     </Container>
+      </div>
   );
 };
 
