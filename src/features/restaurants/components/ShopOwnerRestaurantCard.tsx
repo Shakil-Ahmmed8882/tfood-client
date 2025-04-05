@@ -32,6 +32,7 @@ export const ShopOwnerRestaurantCard = memo(
     return (
       <Card className="p-6">
         <div className="flex flex-col md:flex-row items-start justify-between gap-6">
+          {/* Logo and Details Section */}
           <div className="w-full md:w-72 flex-shrink-0">
             <img
               src={restaurant.logo || "/placeholder.svg"}
@@ -40,19 +41,24 @@ export const ShopOwnerRestaurantCard = memo(
               loading="lazy"
             />
           </div>
-
+          {/* Details Section */}
           <div className="flex-1 grid gap-4 md:grid-cols-2">
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <h3 className="font-semibold text-lg">{restaurant.name}</h3>
                 <span
                   className={cn(
-                    "text-sm capitalize",
+                    "text-sm capitalize font-semibold",
                     restaurant.status === "active"
                       ? "text-green-600"
                       : "text-red-600"
                   )}
                 >
+                  {restaurant.status === "active" ? (
+                    <span className="animate-pulse h-2 w-2 mr-1 bg-green-600 rounded-full inline-block" />
+                  ) : (
+                    <span className="animate-ping h-2 w-2  mr-1 bg-red-600 rounded-full inline-block" />
+                  )}
                   {restaurant.status}
                 </span>
               </div>
@@ -69,7 +75,7 @@ export const ShopOwnerRestaurantCard = memo(
               </div>
             </div>
 
-            <div className="flex justify-between ">
+            <div className="flex justify-between  gap-20">
               <div className="space-y-2">
                 <p className="font-medium">Subscription</p>
                 <p className="text-sm text-muted-foreground">
