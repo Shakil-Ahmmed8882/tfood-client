@@ -4,12 +4,12 @@ import { AdminRestaurantPage } from "@/pages/dashboard/admin/AdminRestaurantPage
 import AnalyticsPage from "@/pages/dashboard/admin/AnalyticsPage";
 
 export const adminPaths = [
-  // {
-  //   name: "Dashboard",
-  //   path: "dashboard",
-  //   element: <AnalyticsPage />,
-  //   icon: "LayoutDashboard",
-  // },
+  {
+    name: "Dashboard",
+    path: "dashboard",
+    element: <AnalyticsPage />,
+    icon: "LayoutDashboard",
+  },
   {
     name: "Dashboard",
     path: "restaurants",
