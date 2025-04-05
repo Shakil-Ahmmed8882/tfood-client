@@ -4,13 +4,13 @@ import ShopOwnerRestaurants from "@/pages/dashboard/shop-owner/ShopOwnerRestaura
 import {  LayoutDashboard, Store, UtensilsCrossed } from "lucide-react";
 
 export const shopOwnerPaths = [
-  {
-    title: "Dashboard",
-    icon: LayoutDashboard,
-    path: "dashboard",
+  // {
+  //   title: "Dashboard",
+  //   icon: LayoutDashboard,
+  //   path: "dashboard",
 
-    element: <ShopOwnerDashboard />,
-  },
+  //   element: <ShopOwnerDashboard />,
+  // },
   {
     title: "Restaurants",
     icon: Store,

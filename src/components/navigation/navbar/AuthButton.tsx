@@ -2,7 +2,7 @@ import { UserIcon } from "@/assets/icons/Icons";
 // import { NavUser } from "@/components/nav-user/NavUser";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { logout, selectCurrentToken, selectCurrentUser } from "@/store/features/auth/authSlice";
+import { logout, selectCurrentUser } from "@/store/features/auth/authSlice";
 import { useAppSelector } from "@/store/hooks";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -26,8 +26,8 @@ type AuthButtonProps = {
 export const Authbutton = ({ mobile = false }: AuthButtonProps) => {
   const navigate = useNavigate();
   const user = useAppSelector(selectCurrentUser);
-  const token = useAppSelector(selectCurrentToken);
-  console.log(token);
+  // const token = useAppSelector(selectCurrentToken);
+  // console.log(token);
   const dispatch = useDispatch();
 
   const handleClick = () => {

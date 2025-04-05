@@ -15,6 +15,7 @@ import { USER_ROLES } from "@/constants";
 import { HasRole } from "@/lib/pm/AuthGuard";
 import { restaurantStatusOptions } from "./constants";
 import { ShopOwnerDropdown } from "./ShopOwnerDropdown";
+import { DateField } from "@/components/form/fields/DateField";
 
 interface RestaurantFormProps {
   open: boolean;
@@ -29,7 +30,6 @@ export function RestaurantFormModal({
 }: RestaurantFormProps) {
   const { isLoading, handleFileUpload, handleSubmit, formRef } =
     useRestaurantForm({ restaurant, onOpenChange });
-
   // Memoize form fields to prevent unnecessary re-renders
   const FormFields = () => (
     <div className="space-y-4">
@@ -51,7 +51,16 @@ export function RestaurantFormModal({
       <HasRole requiredRole={USER_ROLES.ADMIN}>
         <ShopOwnerDropdown />
       </HasRole>
-
+      <div className="grid grid-cols-2 gap-4">
+        <DateField<TRestaurantFromValues>
+          name="subscription.startDate"
+          label="Subscription start date"
+        />
+        <DateField<TRestaurantFromValues>
+          name="subscription.endDate"
+          label="Subscription end date"
+        />
+      </div>
       <TextField<TRestaurantFromValues>
         name="name"
         placeholder="Enter Shop Name"

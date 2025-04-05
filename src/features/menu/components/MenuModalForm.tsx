@@ -1,6 +1,6 @@
 import { ReusableModal } from "@/components/custom-ui/ReusableModal";
 import { TMenu } from "../menu.type";
-import { GenericForm } from "@/components/form/GenericForm";
+import { GenericForm, GenericFormRef } from "@/components/form/GenericForm";
 import {
   initialMenuFormValues,
   menuFormSchema,
@@ -14,7 +14,10 @@ import { FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useMenuFormManager } from "../hooks/useMenuFormManager";
 import { SelectField } from "@/components/form/fields/SelectField";
-import { TRestaurant } from "@/features/restaurants";
+
+import { useEffect, useRef, useState } from "react";
+import { useRestaurantOptions } from "../hooks/useRestaurantOptions";
+import { useMenuCategoryOptions } from "../hooks/useMenuCategoryOptions";
 
 interface MenuModalFormProps {
   menuItem?: TMenu;
@@ -27,18 +30,32 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
   isModalOpen,
   setIsModalOpen,
 }) => {
+  const formRef = useRef<GenericFormRef<TMenuFormValues>>(null);
+  const [restaurantId, setRestaurantId] = useState<string>("");
+  const { restaurantOptions, isRestaurantsLoading } = useRestaurantOptions();
+  const { categoriesOptions, isMenuCategoriesLoading } = useMenuCategoryOptions(
+    { restaurantId }
+  );
   const {
     existingImages,
     newImages,
-    formRef,
     handleImageUpload,
-    handleRemoveExistingImage,
-    handleRemoveNewImage,
+    handleRemoveImage,
     handleSubmit,
     isCreating,
     isUpdating,
-    restaurants
-  } = useMenuFormManager({ menuItem,setIsModalOpen });
+  } = useMenuFormManager({ menuItem, setIsModalOpen });
+  // console.log(resId,menu_categories);
+  useEffect(() => {
+    if (menuItem?.restaurant) {
+      setRestaurantId(menuItem.restaurant as string); // Set the restaurantId state to the restaurant ID from menuItem
+    }
+  }, [menuItem?.restaurant]);
+
+  const handleSelectChange = (value: string) => {
+    setRestaurantId(value); // Update the restaurantId state with the selected value
+  };
+  // console.log({ restaurantId, menuItem });
   return (
     <ReusableModal
       open={isModalOpen}
@@ -48,17 +65,19 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
     >
       <GenericForm
         schema={menuFormSchema}
-        initialValues={menuItem  ?? initialMenuFormValues}
+        initialValues={menuItem ?? initialMenuFormValues}
         onSubmit={handleSubmit}
         ref={formRef}
       >
         <div className="space-y-4">
-          {restaurants && (
+          {restaurantOptions && (
             <SelectField<TMenuFormValues>
               name="restaurant"
               label="Select Restaurant"
               placeholder="Select a Restaurant"
-              options={restaurants?.map((r: TRestaurant) => ({ value: r.id, text: r.name }))}
+              onChange={handleSelectChange}
+              loading={isRestaurantsLoading}
+              options={restaurantOptions}
             />
           )}
           <TextField<TMenuFormValues> name="title" label="Title" />
@@ -68,10 +87,16 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
             type="number"
           />
           <TextField<TMenuFormValues> name="description" label="Description" />
-          <TextField<TMenuFormValues>
-            name="food_category"
-            label="Food Category"
-          />
+          {categoriesOptions && (
+            <SelectField<TMenuFormValues>
+              name="food_category"
+              label="Food Category"
+              placeholder="Select a Category"
+              // defaultValue={menuItem?.food_category}
+              loading={isMenuCategoriesLoading}
+              options={categoriesOptions}
+            />
+          )}
         </div>
         <div className="space-y-4 my-3">
           <FormLabel htmlFor="image-upload mb-2">Images</FormLabel>
@@ -91,7 +116,7 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
                 {existingImages.map((image, index) => (
                   <div key={`existing-${index}`} className="relative">
                     <img
-                      src={image}
+                      src={image.url}
                       alt={`Menu Item ${index}`}
                       className="w-24 h-24 object-cover rounded"
                     />
@@ -99,7 +124,7 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
                       type="button"
                       variant="destructive"
                       size="icon"
-                      onClick={() => handleRemoveExistingImage(index)}
+                      onClick={() => handleRemoveImage(index)}
                       className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-1"
                     >
                       <X className="h-4 w-4" />
@@ -117,7 +142,7 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
                 {newImages.map((image, index) => (
                   <div key={`new-${index}`} className="relative">
                     <img
-                      src={URL.createObjectURL(image)}
+                      src={URL.createObjectURL(image.file)}
                       alt={`New Image ${index}`}
                       className="w-24 h-24 object-cover rounded"
                     />
@@ -125,7 +150,7 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
                       type="button"
                       variant="destructive"
                       size="icon"
-                      onClick={() => handleRemoveNewImage(index)}
+                      onClick={() => handleRemoveImage(index)}
                       className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-1"
                     >
                       <X className="h-4 w-4" />
@@ -151,8 +176,13 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
             type="submit"
             className="bg-yellow-400 text-black hover:bg-yellow-500"
           >
-            {isCreating ? "Creating..." : isUpdating ? "Updating..." : menuItem ? "Update" : "Create"}
-
+            {isCreating
+              ? "Creating..."
+              : isUpdating
+              ? "Updating..."
+              : menuItem
+              ? "Update"
+              : "Create"}
           </Button>
         </div>
       </GenericForm>

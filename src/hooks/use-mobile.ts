@@ -20,7 +20,7 @@ export function useIsMobile() {
     };
   }, []);
 
-  console.log("___________>>>>isMobile<<<<", isMobile);
+  // console.log("___________>>>>isMobile<<<<", isMobile);
 
   return isMobile; // ✅ Correct return based on the screen width
 }

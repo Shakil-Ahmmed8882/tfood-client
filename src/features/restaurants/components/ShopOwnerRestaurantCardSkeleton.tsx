@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export const ShopOwnerCardSkeleton = () => {
+export const ShopOwnerRestaurantCardSkeleton = () => {
   return (
 <Card className="p-6">
       <div className="flex flex-col md:flex-row items-start justify-between gap-6">

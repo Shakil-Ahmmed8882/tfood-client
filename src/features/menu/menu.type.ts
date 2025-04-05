@@ -16,6 +16,6 @@ export type TMenuCategory = {
     id: string;
     restaurant: string;
     name: string;
-    description: string[]
+    description: string
   }
   

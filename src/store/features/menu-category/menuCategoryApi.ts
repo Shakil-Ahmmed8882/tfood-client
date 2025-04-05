@@ -79,6 +79,16 @@ export const menuCategoryApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [API_tAGS.MENU_CATEGORY],
     }),
+
+
+    updateMenuCategory: builder.mutation<ApiResponse<TMenu>, FormData>({
+      query: (data) => ({
+        url: "/menu-categories",
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: [API_tAGS.MENU_CATEGORY],
+    }),
   }),
 });
 
@@ -88,4 +98,4 @@ export const menuCategoryApi = baseApi.injectEndpoints({
  * Example: `const { data } = useGetAllMenuCategoriesQuery();`
  * Output: Provides hooks for making API requests within React components.
  */
-export const { useGetAllMenuCategoriesQuery, useCreateMenuCategoryMutation } = menuCategoryApi;
+export const { useGetAllMenuCategoriesQuery, useCreateMenuCategoryMutation, useUpdateMenuCategoryMutation } = menuCategoryApi;

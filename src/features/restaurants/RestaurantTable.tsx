@@ -8,8 +8,9 @@ import { TRestaurant } from "./type.restaurant";
 import { useDeleteRestaurantMutation } from "@/store/features/restaurants/restaurantApi";
 import { RestaurantFormModal } from "./components/RestaurantFormModal";
 import { getStatusColor } from "@/components/table/utility";
-import { formatDateGeneric, formatDateRange } from "@/lib/utils/datetime";
+import { formatDateGeneric,} from "@/lib/utils/datetime";
 import { truncateText } from "@/utils/turncateText";
+import { calculateDaysLeft } from "@/utils/calculateDaysLeft";
 
 const RestaurantTable = () => {
   const { data, pagination } = useTableContext<TRestaurant>();
@@ -29,18 +30,22 @@ const RestaurantTable = () => {
             <TableCell>{formatDateGeneric("2025-04-03T00:00:00.000Z", "d MMM, yy")}</TableCell>
             <TableCell>{truncateText(restaurant.location, 20)}</TableCell>
             <TableCell>{truncateText(restaurant.category, 10)}</TableCell>
-            <TableCell>
-              {formatDateRange(
+            <TableCell className="font-bold">
+              {/* {formatDateRange(
                 restaurant?.subscription?.startDate,
                 restaurant?.subscription?.endDate 
-              )}
+              )} */}
+              {calculateDaysLeft(restaurant?.subscription)}-days left
             </TableCell>
             <TableCell>
               <Badge className={`${getStatusColor(restaurant.status)}`}>
-                {restaurant.status}
+                {restaurant.status} 
               </Badge>
             </TableCell>
+            <TableCell>
+
             <TableActionWrapper restaurant={restaurant} />
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>

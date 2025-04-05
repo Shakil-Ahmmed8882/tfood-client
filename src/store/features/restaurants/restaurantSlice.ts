@@ -36,10 +36,12 @@ const restaurantSlice = createSlice({
     setRestaurant: (state, action) => {
       state.restaurant = action.payload;
     },
+
+
   },
 });
 
-export const { setRestaurant } = restaurantSlice.actions;
+export const { setRestaurant} = restaurantSlice.actions;
 // Export reducer to be used in the store
 export const restaurantReducer = restaurantSlice.reducer;
 
@@ -49,3 +51,5 @@ export const restaurantReducer = restaurantSlice.reducer;
  */
 export const selectCurrentRestaurant = (state: RootState) =>
   state.restaurant?.restaurant;
+
+

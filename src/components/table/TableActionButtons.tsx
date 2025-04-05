@@ -28,7 +28,7 @@ export const TableActionButtons: React.FC<TableActionButtonsProps> = ({
   showEit = true,
 }) => {
   return (
-    <div className="p-0 flex">
+    <>
       {/**
        * Edit Button
        *
@@ -52,6 +52,6 @@ export const TableActionButtons: React.FC<TableActionButtonsProps> = ({
       <Button variant="ghost" className="p-0" size="icon" onClick={onDelete}>
         <Trash2 className="h-4 w-4 text-red-500" />
       </Button>
-    </div>
+    </>
   );
 };
