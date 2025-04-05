@@ -1,4 +1,3 @@
-"use client";
 
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
@@ -96,7 +95,7 @@ function DesktopMenu({ currentPath }: DesktopMenuProps) {
     { path: "/", label: "Home" },
     { path: "/menus", label: "Menu" },
     { path: "/restaurants", label: "Restaurant" },
-    { path: `/${user?.role}/dashboard`, label: "Dashboard" },
+    { path: `/${user?.role}/restaurants`, label: "Dashboard" },
   ];
   return (
     <nav className="hidden lg:flex items-center space-x-6 text-sm font-medium flex-1 justify-center">

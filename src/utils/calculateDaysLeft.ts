@@ -31,10 +31,10 @@ export function calculateDaysLeft(subscription: Subscription): number | string {
 }
 
 // Example usage:
-const subscription: Subscription = {
-    startDate: '',
-    endDate: '2023-12-31'
-};
+// const subscription: Subscription = {
+//     startDate: '',
+//     endDate: '2023-12-31'
+// };
 
-const daysLeft = calculateDaysLeft(subscription);
-console.log(daysLeft); // Output: Start date and end date must not be empty.
+// const daysLeft = calculateDaysLeft(subscription);
+// console.log(daysLeft); // Output: Start date and end date must not be empty.
