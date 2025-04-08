@@ -91,6 +91,7 @@ export class PermissionManager {
     });
   }
 
+
   /**
    * Returns the highest role among the user's roles.
    * - Iterates over the user's roles and compares them based on the hierarchy.

@@ -146,6 +146,46 @@ export const HasRoleAndPermission = (
   return <AuthGuard {...props} />;
 };
 
+
+
+/**
+ * 
+ * Multi-role access component.
+ * Purpose: Grants access if the user has any of the specified roles.
+ * Example: Allowing either "admin" or "user" roles to view content.
+ * Output: Renders children if any role matches, fallback otherwise.
+ */
+export const HasRoles = (
+  props: Omit<AuthGuardProps, "requiredRole"> & {
+    requiredRoles: string[];
+  }
+) => {
+  const { requiredRoles, ...rest } = props;
+
+  const user = useAppSelector(selectCurrentUser);
+  const isAuthenticated = !!user;
+
+  if (!isAuthenticated || !user?.role) {
+    return rest.fallback ?? null;
+  }
+
+  const hasAnyRole =   requiredRoles.includes(user.role)
+
+  return hasAnyRole ? rest.children : rest.fallback ?? null;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 
   How to use
