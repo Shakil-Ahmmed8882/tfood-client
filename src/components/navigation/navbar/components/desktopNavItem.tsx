@@ -5,6 +5,7 @@ import { selectCurrentUser } from "@/store/features/auth/authSlice";
 import { HasRoles } from "@/lib/pm/AuthGuard";
 import { DesktopMenuProps } from "../type";
 import { navigationLinks } from "../constants";
+import appConfig from "@/config/appConfig";
 
 
 /**
@@ -73,7 +74,7 @@ export function DesktopMenu({ currentPath }: DesktopMenuProps) {
           {link.label}
         </Link>
       ))}
-         <HasRoles requiredRoles={["super_admin", "shop_owner", "admin"]}>
+         <HasRoles requiredRoles={appConfig.roleBasedRouteOptions}>
             {renderDesktopDashboardRoute()}
           </HasRoles>
     </nav>

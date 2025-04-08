@@ -14,10 +14,11 @@ import { Dialog } from "@radix-ui/react-dialog";
 
 import { Logo } from "@/components/ui/TFLogo";
 import { HasRoles } from "@/lib/pm/AuthGuard";
-import { DesktopMenuProps, MobileMenuProps, MobileMenuTriggerProps } from "../type";
+import { MobileMenuProps, MobileMenuTriggerProps } from "../type";
 import { useAppSelector } from "@/store/hooks";
 import { selectCurrentUser } from "@/store/features/auth/authSlice";
 import { navigationLinks } from "../constants";
+import appConfig from "@/config/appConfig";
 
 
 
@@ -105,7 +106,7 @@ export function MobileMenuTrigger({ isOpen, setIsOpen }: MobileMenuTriggerProps)
               </Link>
             ))}
   
-            <HasRoles requiredRoles={["super_admin", "shop_owner", "admin"]}>
+            <HasRoles requiredRoles={appConfig.roleBasedRouteOptions}>
               {renderMobileDashboardRoute()}
             </HasRoles>
   
