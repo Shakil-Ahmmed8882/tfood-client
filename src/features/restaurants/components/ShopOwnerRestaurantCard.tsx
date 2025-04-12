@@ -91,8 +91,8 @@ export const ShopOwnerRestaurantCard = memo(
                   ).toLocaleDateString()}
                 </p>
                 <p className="w-fit rounded bg-yellow-50 px-2 py-1 text-sm text-yellow-600">
-                  {restaurant.subscription &&
-                    calculateDaysLeft(restaurant.subscription)}{" "}
+                  {/* {restaurant.subscription &&
+                    calculateDaysLeft(restaurant.subscription)}{" "} */}
                   days left
                 </p>
               </div>

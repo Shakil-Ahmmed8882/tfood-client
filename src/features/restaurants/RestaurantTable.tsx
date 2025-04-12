@@ -35,7 +35,7 @@ const RestaurantTable = () => {
                 restaurant?.subscription?.startDate,
                 restaurant?.subscription?.endDate 
               )} */}
-              {calculateDaysLeft(restaurant?.subscription)}-days left
+              {/* {calculateDaysLeft(restaurant?.subscription)}-days left */}
             </TableCell>
             <TableCell>
               <Badge className={`${getStatusColor(restaurant.status)}`}>

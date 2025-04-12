@@ -172,7 +172,7 @@ function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
     { path: "/", label: "Home" },
     { path: "/menus", label: "Menu" },
     { path: "/restaurants", label: "Restaurant" },
-    { path: `/${user?.role}/dashboard`, label: "Dashboard" },
+    { path: `/${user?.role}/dashboard`, },
   ];
 
   return (

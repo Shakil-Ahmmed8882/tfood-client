@@ -31,6 +31,20 @@ export function RestaurantFormModal({
   const { isLoading, handleFileUpload, handleSubmit, formRef } =
     useRestaurantForm({ restaurant, onOpenChange });
   // Memoize form fields to prevent unnecessary re-renders
+  // console.log(restaurant);
+    // Normalize restaurant data
+    const normalizedRestaurant = {
+      ...initialRestaurantValues,
+      ...restaurant,
+      subscription: {
+          startDate: restaurant?.subscription?.startDate
+              ? new Date(restaurant.subscription.startDate)
+              : null,
+          endDate: restaurant?.subscription?.endDate
+              ? new Date(restaurant.subscription.endDate)
+              : null,
+      },
+  };
   const FormFields = () => (
     <div className="space-y-4">
       <ImageUploadField<TRestaurantFromValues>
@@ -123,7 +137,7 @@ export function RestaurantFormModal({
     >
       <GenericForm
         schema={RestaurantSchema}
-        initialValues={restaurant || initialRestaurantValues}
+        initialValues={normalizedRestaurant}
         onSubmit={handleSubmit}
         ref={formRef}
       >
@@ -151,4 +165,49 @@ export function RestaurantFormModal({
       </GenericForm>
     </ReusableModal>
   );
+}
+
+
+
+
+import * as React from "react"
+import { format } from "date-fns"
+import { CalendarIcon } from "lucide-react"
+
+
+import { Calendar } from "@/components/ui/calendar"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+
+export function DatePickerDemo() {
+  const [date, setDate] = React.useState<Date>()
+  console.log(date);
+
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button
+          variant={"outline"}
+          className={cn(
+            "w-[240px] justify-start text-left font-normal",
+            !date && "text-muted-foreground"
+          )}
+        >
+          <CalendarIcon />
+          {date ? format(date, "PPP") : <span>Pick a date</span>}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-auto p-0" align="start">
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={setDate}
+          autoFocus
+        />
+      </PopoverContent>
+    </Popover>
+  )
 }
