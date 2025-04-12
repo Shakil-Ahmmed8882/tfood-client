@@ -1,7 +1,7 @@
 import { TabsProvider, useTabs } from "@/components/custom-ui/Tabs";
 import MenuTabHeader from "./MenuHeader";
 import { MenuFeature } from "@/features/menu/MenuFeature";
-import { useParams } from "react-router-dom";
+
 
 
 /**
@@ -10,9 +10,9 @@ import { useParams } from "react-router-dom";
  * - Includes `MenuTabHeader` for tab selection.
  * - Renders `TabsContentWrapper` to display content based on the selected tab.
  */
-export default function MenuTabs() {
-    const { id } = useParams();
-    const filters = {restaurant: id}
+export default function MenuTabs({res_id}:{res_id:string | undefined}) {
+    
+    const filters = {restaurant: res_id}
 
   return (
     <div className="container py-6 space-y-6 pt-8">
