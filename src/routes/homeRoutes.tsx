@@ -15,7 +15,7 @@ export const homeRoutes = [
     element: <RestaurantPage />,
   },
   {
-    path: "/restaurants/:id",
+    path: "/:slug",
     element: <RestaurantDetails />,
   },
   {

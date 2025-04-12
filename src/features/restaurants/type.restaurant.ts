@@ -14,5 +14,8 @@ export type TRestaurant = { // ...
     endDate: string;
     startDate: string;
   };
+  slug:string;
+  website?:string;
+  contact?:string;
   status: "inactive" | "active";
 } ;

@@ -22,7 +22,7 @@ export const RestaurantCard = ({ restaurant }: { restaurant: TRestaurant }) => {
   
   return (
     // Cache the restaurant to prevent unnecessary data load
-    <Link to={`/restaurants/${restaurant.id}`} onClick={() => dispatch(setRestaurant(restaurant))}>
+    <Link to={`/${restaurant?.slug}`} onClick={() => dispatch(setRestaurant(restaurant))}>
     <div key={restaurant.id} className="rounded-lg overflow-hidden shadow-sm">
       <div className="relative h-[129px] bg-yellow-400">
         <img
