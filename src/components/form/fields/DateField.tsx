@@ -29,41 +29,47 @@ type Props<T extends FieldValues> = {
  */
 
 export const DateField = <T extends FieldValues>({
-	name,
-	label,
-	required = false,
-	disabled = false,
-	className,
+    name,
+    label,
+    required = false,
+    disabled = false,
+    className,
 }: Props<T>) => {
-	const { control } = useFormContext<T>();
+    const { control } = useFormContext<T>();
 
-	return (
-		<FormField
-			control={control}
-			name={name}
-			render={({ field }) => (
-				<FormItem className={className}>
-					{label && (
-						<FormLabel htmlFor={name}>
-							<span>{label}</span>
-							{required && <span className="ml-1 text-red-500">*</span>}
-						</FormLabel>
-					)}
-					<FormControl>
-						<div>
-							<DateTimePicker
-								disabled={disabled}
-								value={field.value}
-								onChange={field.onChange}
-								granularity="day"
-							/>
-						</div>
-					</FormControl>
-					<FormMessage />
-				</FormItem>
-			)}
-		/>
-	);
+    return (
+        <FormField
+            control={control}
+            name={name}
+            render={({ field }) => {
+                // console.log(`DateField - Name: ${name}, Value:`, field.value); // Check the value passed to DateTimePicker
+                return (
+                    <FormItem className={className}>
+                        {label && (
+                            <FormLabel htmlFor={name}>
+                                <span>{label}</span>
+                                {required && <span className="ml-1 text-red-500">*</span>}
+                            </FormLabel>
+                        )}
+                        <FormControl>
+                            <div>
+                                <DateTimePicker
+                                    disabled={disabled}
+                                    value={field.value}
+                                    onChange={(date) => {
+                                        // console.log(`DateTimePicker - onChange - Date:`, date); // Check the value coming from DateTimePicker
+                                        field.onChange(date);
+                                    }}
+                                    granularity="day"
+                                />
+                            </div>
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                );
+            }}
+        />
+    );
 };
 
 DateField.displayName = 'DateField';

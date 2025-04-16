@@ -13,8 +13,8 @@ import { useMenuModal } from "../hooks/useMenuModal";
 import { MenuModalForm } from "./MenuModalForm";
 import { useDeleteMenuMutation } from "@/store/features/menu/menuApi";
 import { ConfirmModal } from "@/components/custom-ui/ConfirmModal";
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { use, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { truncateText } from "@/utils/turncateText";
 
 /**
@@ -35,6 +35,7 @@ export const MenuCard: React.FC<{ menu: TMenu }> = ({ menu }) => {
   const { isModalOpen, setIsModalOpen } = useMenuModal();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const handleDelete = async () => {
     try {
@@ -47,7 +48,7 @@ export const MenuCard: React.FC<{ menu: TMenu }> = ({ menu }) => {
   const showActions = location.pathname.includes("shop_owner");
 
   return (
-    <Card className="overflow-hidden pt-0 group gap-4 w-full ">
+    <Card onClick={() => navigate(`/menus/${menu.id}`)} className="overflow-hidden pt-0 group gap-4 w-full ">
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
           src={menu.related_images[0] || menufallbackUrl}

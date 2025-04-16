@@ -65,6 +65,7 @@ export function RestaurantFormModal({
       <HasRole requiredRole={USER_ROLES.ADMIN}>
         <ShopOwnerDropdown />
       </HasRole>
+      <HasRole requiredRole={USER_ROLES.ADMIN}>
       <div className="grid grid-cols-2 gap-4">
         <DateField<TRestaurantFromValues>
           name="subscription.startDate"
@@ -75,6 +76,7 @@ export function RestaurantFormModal({
           label="Subscription end date"
         />
       </div>
+      </HasRole>
       <TextField<TRestaurantFromValues>
         name="name"
         placeholder="Enter Shop Name"
