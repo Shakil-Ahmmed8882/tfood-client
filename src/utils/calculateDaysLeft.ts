@@ -7,9 +7,9 @@ export function calculateDaysLeft(subscription: Subscription): number | string {
     const { startDate, endDate } = subscription;
 
     // Check if startDate or endDate is an empty string
-    if (startDate.trim() === '' || endDate.trim() === '') {
-        return 0
-    }
+    // if (startDate.trim() === '' || endDate.trim() === '') {
+    //     return 0
+    // }
 
     // Parse the start and end dates
     const parsedStartDate = new Date(startDate);

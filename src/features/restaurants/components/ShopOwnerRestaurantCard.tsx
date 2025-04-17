@@ -78,7 +78,7 @@ export const ShopOwnerRestaurantCard = memo(
             <div className="flex justify-between  gap-20">
               <div className="space-y-2">
                 <p className="font-medium">Subscription</p>
-                <p className="text-sm text-muted-foreground">
+                {/* <p className="text-sm text-muted-foreground">
                   {new Date(
                     restaurant.subscription?.startDate !== undefined
                       ? restaurant.subscription?.startDate
@@ -89,7 +89,7 @@ export const ShopOwnerRestaurantCard = memo(
                       ? restaurant.subscription?.endDate
                       : ""
                   ).toLocaleDateString()}
-                </p>
+                </p> */}
                 <p className="w-fit rounded bg-yellow-50 px-2 py-1 text-sm text-yellow-600">
                   {restaurant.subscription &&
                     calculateDaysLeft(restaurant.subscription)}{" "}

@@ -45,7 +45,7 @@ export function DesktopMenu({ currentPath }: DesktopMenuProps) {
   const renderDesktopDashboardRoute = () => {
     return (
       <Link
-        to={`/${user?.role}/dashboard`}
+        to={`/${user?.role}/restaurants`}
         className={cn(
           "transition-colors hover:text-blue-500",
           isActivePath(`/${user?.role}/dashboard`, currentPath)

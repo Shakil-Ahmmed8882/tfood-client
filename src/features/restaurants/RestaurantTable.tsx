@@ -92,7 +92,18 @@ const TableActionWrapper = ({ restaurant }: { restaurant: TRestaurant }) => {
       <RestaurantFormModal
         open={isModalOpen}
         onOpenChange={setIsModalOpen}
-        restaurant={restaurant}
+        restaurant={{
+          ...restaurant,
+          subscription: {
+            ...restaurant.subscription,
+            startDate: restaurant.subscription?.startDate
+              ? new Date(restaurant.subscription.startDate)
+              : null,
+            endDate: restaurant.subscription?.endDate
+              ? new Date(restaurant.subscription.endDate)
+              : null,
+          },
+        }}
       />
     </>
   );

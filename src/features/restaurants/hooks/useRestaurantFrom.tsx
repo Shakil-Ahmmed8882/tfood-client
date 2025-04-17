@@ -29,9 +29,7 @@ export const useRestaurantForm = ({ restaurant, onOpenChange }: RestaurantFormPr
     async (values: FormEvent<HTMLFormElement> | TRestaurantFromValues) => {
       const toastId = toast.loading(restaurant ? "Updating menu..." : "Creating menu...");
       const formData = new FormData();
-
-
-
+      
       
       try {
         if (logo) {
@@ -51,6 +49,7 @@ export const useRestaurantForm = ({ restaurant, onOpenChange }: RestaurantFormPr
           // Create new restaurant
           const formDataWithId = { ...values, user: user!.userId };
           formData.append("data", JSON.stringify(formDataWithId));
+        console.log(Object.values(formDataWithId));
           await createRestaurant(formData).unwrap();
         }
          if(user?.role === USER_ROLES.ADMIN && !restaurant?.id){
@@ -76,6 +75,7 @@ export const useRestaurantForm = ({ restaurant, onOpenChange }: RestaurantFormPr
   // Memoize handleFileUpload
   const handleFileUpload = useCallback((file: File) => {
     if (!file) return;
+    
     setLogo(file);
     return URL.createObjectURL(file);
   }, []);

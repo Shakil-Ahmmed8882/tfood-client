@@ -77,7 +77,7 @@ export function MobileMenuTrigger({ isOpen, setIsOpen }: MobileMenuTriggerProps)
     const renderMobileDashboardRoute = () => {
       return (
         <Link
-          to={`/${user?.role}/dashboard`}
+          to={`/${user?.role}/restaurants`}
           className="flex w-full py-4 border-b transition-colors hover:text-blue-500"
           onClick={() => setIsOpen(false)}
         >
