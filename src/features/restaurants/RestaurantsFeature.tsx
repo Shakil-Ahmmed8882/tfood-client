@@ -60,7 +60,7 @@ export const RestaurantsFeature = ({
           Array.isArray(menus) && menus.length > 0
         }
         errorMessage="Failed to load Restaurants"
-        noDataMessage="No menus found"
+        noDataMessage="No Restaurant found"
         // onRetry={() => console.log("Retry logic here")}
         // onError={(error, info) => console.error("Runtime error:", error, inf
       >
