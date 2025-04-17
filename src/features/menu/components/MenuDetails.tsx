@@ -1,54 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { menufallbackUrl } from "@/constants";
-import { MoreVertical, Pencil, Trash2, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { TMenu } from "../menu.type";
-import { useMenuModal } from "../hooks/useMenuModal";
-import { MenuModalForm } from "./MenuModalForm";
-import { useDeleteMenuMutation } from "@/store/features/menu/menuApi";
-import { ConfirmModal } from "@/components/custom-ui/ConfirmModal";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
 
-/**
- * MenuDetails: A visually appealing component to display detailed information about a food menu item.
- *
- * Props:
- * - menu (TMenu) - Contains details like id, title, related_images, price, description,
- *   food_category, restaurant_name, and creator.
- *
- * Features:
- * - Displays all menu item images in a responsive carousel with navigation.
- * - Shows full details (title, price, category, description, restaurant, creator) in an elegant layout.
- * - Includes edit and delete actions for shop owners.
- * - Optimized for food menus with vibrant imagery and appetizing presentation.
- * - Responsive and accessible across screen sizes.
- */
+
 
 export const MenuDetails: React.FC<{ menu: TMenu }> = ({ menu }) => {
-  const [menuDelete] = useDeleteMenuMutation();
-  const { isModalOpen, setIsModalOpen } = useMenuModal();
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const location = useLocation();
-
   const images = menu.related_images.length > 0 ? menu.related_images : [menufallbackUrl];
-
-  const handleDelete = async () => {
-    try {
-      await menuDelete(menu.id);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const showActions = location.pathname.includes("shop_owner");
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % images.length);
@@ -101,35 +62,6 @@ export const MenuDetails: React.FC<{ menu: TMenu }> = ({ menu }) => {
               </div>
             </>
           )}
-          {/* Shop Owner Actions */}
-          {showActions && (
-            <div className="absolute top-4 right-4">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="secondary"
-                    size="icon"
-                    className="h-8 w-8 bg-white/90 hover:bg-white"
-                  >
-                    <MoreVertical className="h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem onClick={() => setIsModalOpen(true)}>
-                    <Pencil className="mr-2 h-4 w-4" />
-                    <span>Edit</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => setIsDeleteModalOpen(true)}
-                    className="text-red-500 focus:text-red-500"
-                  >
-                    <Trash2 className="mr-2 h-4 w-4" />
-                    <span>Delete</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-          )}
         </div>
       </CardHeader>
 
@@ -157,23 +89,6 @@ export const MenuDetails: React.FC<{ menu: TMenu }> = ({ menu }) => {
           {menu.description}
         </p>
       </CardFooter>
-
-      {/* Modals */}
-      <ConfirmModal
-        isOpen={isDeleteModalOpen}
-        onOpenChange={setIsDeleteModalOpen}
-        onConfirm={handleDelete}
-        title="Are you sure?"
-        description="This action cannot be undone."
-        confirmText="Yes, delete it"
-        cancelText="No, cancel"
-      />
-
-      <MenuModalForm
-        menuItem={menu}
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-      />
     </Card>
   );
 };

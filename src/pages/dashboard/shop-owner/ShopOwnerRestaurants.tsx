@@ -112,7 +112,24 @@ export default function ShopOwnerRestaurants() {
       {/* Restaurant Form Modal */}
       <RestaurantFormModal
         open={isModalOpen}
-        restaurant={editingRestaurant}
+        restaurant={
+          editingRestaurant
+            ? {
+                ...editingRestaurant,
+                subscription: editingRestaurant.subscription
+                  ? {
+                      ...editingRestaurant.subscription,
+                      startDate: editingRestaurant.subscription.startDate
+                        ? new Date(editingRestaurant.subscription.startDate)
+                        : undefined,
+                      endDate: editingRestaurant.subscription.endDate
+                        ? new Date(editingRestaurant.subscription.endDate)
+                        : undefined,
+                    }
+                  : undefined,
+              }
+            : undefined
+        }
         onOpenChange={setIsModalOpen}
       />
     </div>

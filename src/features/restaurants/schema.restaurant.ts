@@ -1,4 +1,4 @@
-import { date, z } from "zod";
+import {  z } from "zod";
 
 export const RestaurantSchema = z.object({
   id: z
@@ -70,6 +70,10 @@ export const RestaurantSchema = z.object({
           message: "Please enter a valid date",
       }).nullable().optional(), // Allow null for optional dates
   }),
+  //     subscription: z.object({
+  //     startDate: z.string().nullable().optional(), // Allow null for optional dates
+  //     endDate: z.string().nullable().optional(), // Allow null for optional dates
+  // }),
   status: z
     .enum(["inactive", "active", "blocked"], {
       required_error: "Restaurant status is required.",
