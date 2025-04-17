@@ -16,6 +16,7 @@ export interface TConfig {
 
   // Frontend URLs mapped to environments
   frontend: Record<Env, string>;
+  roleBasedRouteOptions: string[];
 
   // API-related settings
   api: {

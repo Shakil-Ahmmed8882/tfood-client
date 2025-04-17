@@ -19,6 +19,7 @@ import { menuApi } from "./features/menu/menuApi";
 import { restaurantReducer } from "./features/restaurants/restaurantSlice";
 import { analyticsApi } from "./features/analytics/analyticsApi";
 import { menuCategoryApi } from "./features/menu-category/menuCategoryApi";
+import { slugApi } from "./features/slug/slugApi";
 
 const authPersistConfig = {
   key: "auth",
@@ -43,7 +44,8 @@ export const store = configureStore({
       restaurantApi.middleware,
       menuApi.middleware,
       analyticsApi.middleware,
-      menuCategoryApi.middleware
+      menuCategoryApi.middleware,
+      slugApi.middleware
     ),
 });
 

@@ -12,18 +12,19 @@ import { TRestaurant } from "../restaurants/type.restaurant.ts";
 import { useAppSelector } from "@/store/hooks.ts";
 import { selectCurrentRestaurant } from "@/store/features/restaurants/restaurantSlice.ts";
 import MenuTabs from "./components/MenuTabItem.tsx";
+import { RestaurantUrlEditor } from "./components/RestaurantURLEditor.tsx";
+
 
 export const RestaurantDetails = () => {
   const cachedRestaurant = useAppSelector(selectCurrentRestaurant);
-  const { id } = useParams();
-
+  const { slug } = useParams();
 
   /**
    * Conditionally skip the API call if the restaurant data is already cached.
    * If the cached restaurant ID matches the current route ID, avoid unnecessary fetching.
    */
-  const shouldSkip = cachedRestaurant?.id === id;
-  const { data, isLoading, isError } = useGetRestaurantByIdQuery(id as string, {
+  const shouldSkip = cachedRestaurant?.slug === slug;
+  const { data, isLoading, isError } = useGetRestaurantByIdQuery(slug as string, {
     skip: shouldSkip,
   });
 
@@ -31,7 +32,7 @@ export const RestaurantDetails = () => {
    * Use the cached restaurant data if available; otherwise, use API response data.
    * This ensures data consistency and avoids redundant API calls.
    */
-  const restaurant = cachedRestaurant?.id === id ? cachedRestaurant : data?.data;
+  const restaurant = cachedRestaurant?.slug === slug ? cachedRestaurant : data?.data;
 
   return (
     <Container className="py-6">
@@ -51,10 +52,13 @@ export const RestaurantDetails = () => {
           </NoItemFound>
         </CustomSuspense>
       </CustomErrorBoundary>
-      <MenuTabs/>
+      <MenuTabs res_id={restaurant?.id}/>
     </Container>
   );
 };
+
+
+
 
 /**
  * RestaurantDetailsCard Component:
@@ -63,11 +67,14 @@ export const RestaurantDetails = () => {
  * - Operating hours, location, and description.
  * - Contact details such as phone number and website link.
  */
-const RestaurantDetailsCard = ({
-  restaurant,
-}: {
-  restaurant: TRestaurant | undefined | null;
-}) => {
+
+type TRestaurantDetailsCardProps = {
+  restaurant: TRestaurant | null | undefined;
+};
+const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
+
+
+
   return (
     <Card className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
       <CardContent className="">
@@ -76,10 +83,10 @@ const RestaurantDetailsCard = ({
           <div className="w-full md:w-1/4 lg:w-1/2">
             <img
               src={
-                restaurant?.related_images ? restaurant.related_images[0] : ""
+                restaurant?.related_images ? restaurant.logo : ""
               }
               alt="Hot Tgys Restaurant"
-              className="w-full h-full rounded-lg object-cover"
+              className="w-full h-full rounded-lg object-top object-cover"
             />
           </div>
 
@@ -129,6 +136,9 @@ const RestaurantDetailsCard = ({
               <h3 className="font-medium text-gray-900 mb-2">Description</h3>
               <p className="text-sm text-gray-600">{restaurant?.description}</p>
             </div>
+            <div className="mt-3">
+            <RestaurantUrlEditor  res_id={restaurant?.id} />
+              </div>
           </div>
 
           {/* Contact Information */}
@@ -146,12 +156,14 @@ const RestaurantDetailsCard = ({
                   rel="noopener noreferrer"
                   className="text-sm text-blue-600 hover:underline"
                 >
-                  http://resonica.net
+                  {restaurant?.website}
                 </a>
               </div>
             </div>
           </div>
+        
         </div>
+
       </CardContent>
     </Card>
   );

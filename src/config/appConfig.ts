@@ -19,7 +19,7 @@ const appConfig: TConfig = {
     production: "https://api.tfoodbd.top/api/v1",
     development: "http://localhost:3000/api/v1",
   },
-
+  roleBasedRouteOptions:["super_admin", "shop_owner", "admin"],
   // Frontend application URLs for different environments
   frontend: {
     production: "https://t-food.com",
