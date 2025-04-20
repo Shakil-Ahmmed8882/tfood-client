@@ -78,6 +78,7 @@ export function SidebarNavigation({
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton
                 asChild
+                
                 tooltip={item.title}
                 onClick={item.onClick}
               >

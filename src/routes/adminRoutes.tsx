@@ -2,30 +2,32 @@ import { AdminUsersPage } from "@/features/users/AdminUsersPage";
 import { AdminMenuPage } from "@/pages/dashboard/admin/AdminMenuPage";
 import { AdminRestaurantPage } from "@/pages/dashboard/admin/AdminRestaurantPage";
 import AnalyticsPage from "@/pages/dashboard/admin/AnalyticsPage";
+import { TRouteDefinition} from "@/types/global";
+import { LayoutDashboard, Store, User, UtensilsCrossed } from "lucide-react";
 
-export const adminPaths = [
+export const adminPaths:TRouteDefinition[] = [
   {
-    name: "Dashboard",
+    title: "Dashboard",
     path: "dashboard",
     element: <AnalyticsPage />,
-    icon: "LayoutDashboard",
+    icon: LayoutDashboard,
   },
   {
-    name: "Dashboard",
+    title: "Restaurants",
     path: "restaurants",
     element: <AdminRestaurantPage />,
-    icon: "LayoutDashboard",
+    icon: Store,
   },
   {
-    name: "Dashboard",
+    title: "Menu",
     path: "menu",
     element: <AdminMenuPage />,
-    icon: "LayoutDashboard",
+    icon: UtensilsCrossed,
   },
   {
-    name: "Dashboard",
+    title: "Users",
     path: "users",
     element: <AdminUsersPage />,
-    icon: "LayoutDashboard",
+    icon: User,
   },
 ];

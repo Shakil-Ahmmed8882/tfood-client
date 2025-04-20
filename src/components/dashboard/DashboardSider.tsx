@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { LogOut, ShieldQuestion } from "lucide-react";
+import { LogOut, ShieldQuestion, User } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -15,11 +15,14 @@ import { shopOwnerPaths } from "@/routes/shopOwnerRoutes";
 import { sidebarItemsGenerator } from "@/utils/sidebarItemGenerator";
 import { TSidebarItem } from "@/types/global";
 import { useDispatch } from "react-redux";
-import { logout } from "@/store/features/auth/authSlice";
+import { logout, selectCurrentUser } from "@/store/features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useState, useCallback } from "react";
 import { ConfirmModal } from "../custom-ui/ConfirmModal";
 import { LogoImage, LogoText } from "../ui/TFLogo";
+import { USER_ROLES } from "@/constants";
+import { useAppSelector } from "@/store/hooks";
+import { adminPaths } from "@/routes/adminRoutes";
 
 type SidebarItemType = {
   navTop: TSidebarItem[];
@@ -29,6 +32,7 @@ type SidebarItemType = {
 export function DashboardSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
+  const user = useAppSelector(selectCurrentUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false); // State to control modal visibility
@@ -36,12 +40,24 @@ export function DashboardSidebar({
   const handleConfirmLogout = useCallback(() => {
     // User confirmed the logout action
     dispatch(logout());
-    navigate("/"); // Redirect to the home page or login page after logout
+    navigate("/"); //
   }, [dispatch, navigate]);
+  let sidebarItem: TSidebarItem[] = [];
 
-  const sidebarItem = sidebarItemsGenerator(shopOwnerPaths);
+
+  switch (user?.role) {
+    case USER_ROLES.ADMIN:
+      sidebarItem = sidebarItemsGenerator(adminPaths);
+      break;
+    case USER_ROLES.SHOP_OWNER:
+      sidebarItem = sidebarItemsGenerator(shopOwnerPaths);
+      break;
+    default:
+      break;
+  }
+
   const { open } = useSidebar();
-
+  if(!sidebarItem) return null;
   const navItems: SidebarItemType = {
     navTop: sidebarItem,
     navBottom: [
@@ -64,7 +80,7 @@ export function DashboardSidebar({
       <Sidebar collapsible="icon" {...props}>
         <SidebarHeader>
           <div className="flex items-center justify-start gap-1">
-            <LogoImage/>
+            <LogoImage />
             {open && <LogoText />}
           </div>
         </SidebarHeader>
@@ -73,8 +89,8 @@ export function DashboardSidebar({
         </SidebarContent>
         <SidebarFooter>
           <SidebarNavigation items={navItems.navBottom} />
-        </SidebarFooter> 
-         <SidebarRail />
+        </SidebarFooter>
+        <SidebarRail />
       </Sidebar>
 
       {/* Confirm Modal for Logout */}
