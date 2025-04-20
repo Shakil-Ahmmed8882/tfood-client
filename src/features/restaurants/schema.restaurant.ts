@@ -47,11 +47,11 @@ export const RestaurantSchema = z.object({
       invalid_type_error: "Restaurant logo URL must be a string.",
     })
     .nullable(),
-  type: z
-    .string({
-      invalid_type_error: "Restaurant type must be a string.",
-    })
-    .optional(),
+  // type: z
+  //   .string({
+  //     invalid_type_error: "Restaurant type must be a string.",
+  //   })
+  //   .optional(),
   category: z.string({
     required_error: "Restaurant category is required.",
     invalid_type_error: "Restaurant category must be a string.",
@@ -89,7 +89,6 @@ export const initialRestaurantValues: Partial<TRestaurantFromValues> = {
   location: "",
   description: "",
   category: "",
-  type: "",
   subscription: {
     startDate: null,
     endDate: null,

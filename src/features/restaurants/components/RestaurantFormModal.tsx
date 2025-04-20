@@ -107,13 +107,13 @@ export function RestaurantFormModal({
         inputClass="border-gray-50"
         disabled={isLoading}
       />
-      <TextField<TRestaurantFromValues>
+      {/* <TextField<TRestaurantFromValues>
         name="type"
         placeholder="Enter your Shop Type"
         label="Shop Type"
         inputClass="border-gray-50"
         disabled={isLoading}
-      />
+      /> */}
       <TextField<TRestaurantFromValues>
         name="description"
         placeholder="Enter your description"

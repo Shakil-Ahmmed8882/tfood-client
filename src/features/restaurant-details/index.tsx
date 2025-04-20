@@ -13,7 +13,7 @@ import { useAppSelector } from "@/store/hooks.ts";
 import { selectCurrentRestaurant } from "@/store/features/restaurants/restaurantSlice.ts";
 import MenuTabs from "./components/MenuTabItem.tsx";
 import { RestaurantUrlEditor } from "./components/RestaurantURLEditor.tsx";
-import { HasRole } from "@/lib/pm/AuthGuard";
+import {  HasRoles } from "@/lib/pm/AuthGuard";
 import { USER_ROLES } from "@/constants/index.ts";
 
 export const RestaurantDetails = () => {
@@ -80,75 +80,81 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
   return (
     <Card className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden transition-shadow hover:shadow-lg">
       <CardContent className="p-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Restaurant Logo */}
-          <div className="col-span-1">
-            <img
-              src={restaurant?.related_images ? restaurant.logo : fallbackImage}
-              alt={restaurant?.name}
-              onError={(e) => (e.currentTarget.src = fallbackImage)}
-              className="w-full h-48 md:h-64 rounded-lg object-contain object-top transition-transform duration-300 hover:scale-105"
-            />
+        <div className="flex justify-between flex-wrap md:gap-6">
+          {/* Left Section: Logo and Basic Details */}
+          <div className="flex gap-4 md:gap-6 items-start">
+            {/* Restaurant Logo */}
+            <div className="shrink-0">
+              <img
+                src={restaurant?.related_images ? restaurant.logo : fallbackImage}
+                alt={restaurant?.name}
+                onError={(e) => (e.currentTarget.src = fallbackImage)}
+                className="w-32 h-32 md:w-34 md:h-34 rounded-lg  object-cover object-top transition-transform duration-300 hover:scale-105"
+              />
+            </div>
+
+            {/* Main Restaurant Details */}
+            <div>
+              <CardHeader className="p-0 mb-2">
+                {/* Restaurant Name & Category */}
+                <CardTitle className="md:text-2xl font-bold text-gray-900">
+                  {restaurant?.name || "Restaurant Name"}
+                </CardTitle>
+                <p className="text-sm text-gray-500">{restaurant?.category}</p>
+              </CardHeader>
+
+              {/* Rating Section */}
+              <div className="flex items-center mb-2">
+                <div className="flex items-center">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star
+                      key={star}
+                      className={`h-5 w-5 ${
+                        star <= 4.8
+                          ? "text-yellow-400 fill-yellow-400"
+                          : "text-gray-200"
+                      }`}
+                      aria-label={`Star ${star}`}
+                    />
+                  ))}
+                </div>
+                <span className="ml-2 text-sm font-semibold text-gray-700">
+                  4.8
+                </span>
+              </div>
+
+              {/* Opening Hours and Location */}
+              <div className="space-y-2">
+                <div className="flex items-center text-sm text-gray-600">
+                  <Clock
+                    className="h-5 w-5 mr-2 text-gray-400"
+                    aria-hidden="true"
+                  />
+                  <span>9AM - 10PM</span>
+                </div>
+                <div className="flex items-center text-sm text-gray-600">
+                  <MapPin
+                    className="h-5 w-5 mr-2 text-gray-400"
+                    aria-hidden="true"
+                  />
+                  <a
+                    href="https://maps.google.com/?q=123+Main+Street"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-blue-600 transition-colors"
+                    aria-label="View location on map"
+                  >
+                    123 Main Street
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Main Restaurant Details Section */}
-          <div className="col-span-1">
-            <CardHeader className="p-0 mb-4">
-              {/* Restaurant Name & Category */}
-              <CardTitle className="text-2xl font-bold text-gray-900">
-                Hot Tgys Restaurant
-              </CardTitle>
-              <p className="text-sm text-gray-500">Cuisine Type</p>
-            </CardHeader>
-
-            {/* Rating Section (Static 4.8) */}
-            <div className="flex items-center mb-4">
-              <div className="flex items-center">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <Star
-                    key={star}
-                    className={`h-5 w-5 ${
-                      star <= 4.8
-                        ? "text-yellow-400 fill-yellow-400"
-                        : "text-gray-200"
-                    }`}
-                    aria-label={`Star ${star}`}
-                  />
-                ))}
-              </div>
-              <span className="ml-2 text-sm font-semibold text-gray-700">
-                4.8
-              </span>
-            </div>
-
-            {/* Opening Hours and Location */}
-            <div className="space-y-3 mb-4">
-              <div className="flex items-center text-sm text-gray-600">
-                <Clock
-                  className="h-5 w-5 mr-2 text-gray-400"
-                  aria-hidden="true"
-                />
-                <span>9AM - 10PM</span>
-              </div>
-              <div className="flex items-center text-sm text-gray-600">
-                <MapPin
-                  className="h-5 w-5 mr-2 text-gray-400"
-                  aria-hidden="true"
-                />
-                <a
-                  href="https://maps.google.com/?q=123+Main+Street"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-blue-600 transition-colors"
-                  aria-label="View location on map"
-                >
-                  123 Main Street
-                </a>
-              </div>
-            </div>
-
+          {/* Right Section: Description and Contact */}
+          <div className="mt-4 md:mt-0">
             {/* Description Section */}
-            <div className="mt-4">
+            <div className="mb-4">
               <h3 className="font-semibold text-gray-900 mb-2">Description</h3>
               <p className="text-sm text-gray-600 line-clamp-3">
                 {restaurant?.description ||
@@ -156,45 +162,45 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
               </p>
             </div>
 
-            {/* Restaurant URL Editor */}
-            <div className="mt-4">
-              <HasRole requiredRole={USER_ROLES.ADMIN || USER_ROLES.SHOP_OWNER}>
-                <RestaurantUrlEditor res_id={restaurant?.id} />
-              </HasRole>
-            </div>
-          </div>
-
-          {/* Contact Information (Right Side on Large Screens) */}
-          <div className="col-span-1 md:col-span-2 lg:col-span-1  lg:pl-6 flex flex-col justify-start align-s ">
-            <h3 className="font-semibold text-gray-900 mb-3">Contact</h3>
-            <div className="space-y-4">
-              <div className="flex items-center">
-                <Phone
-                  className="h-5 w-5 mr-2 text-gray-400"
-                  aria-hidden="true"
-                />
-                <a
-                  href="tel:+01234567890"
-                  className="text-sm text-gray-700 hover:text-blue-600 transition-colors"
-                  aria-label="Call restaurant"
-                >
-                  {restaurant?.contact || "N/A"}
-                </a>
+            {/* Contact Information */}
+            <div>
+              <h3 className="font-semibold text-gray-900 mb-3">Contact</h3>
+              <div className="space-y-2">
+                <div className="flex items-center">
+                  <Phone
+                    className="h-5 w-5 mr-2 text-gray-400"
+                    aria-hidden="true"
+                  />
+                  <a
+                    href="tel:+01234567890"
+                    className="text-sm text-gray-700 hover:text-blue-600 transition-colors"
+                    aria-label="Call restaurant"
+                  >
+                    {restaurant?.contact || "N/A"}
+                  </a>
+                </div>
+                <div className="flex items-center">
+                  <Globe
+                    className="h-5 w-5 mr-2 text-gray-400"
+                    aria-hidden="true"
+                  />
+                  <a
+                    href={`https://${restaurant?.website}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-blue-600 hover:underline"
+                    aria-label="Visit restaurant website"
+                  >
+                    {restaurant?.website || "N/A"}
+                  </a>
+                </div>
               </div>
-              <div className="flex items-center">
-                <Globe
-                  className="h-5 w-5 mr-2 text-gray-400"
-                  aria-hidden="true"
-                />
-                <a
-                  href={`https://${restaurant?.website}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-blue-600 hover:underline"
-                  aria-label="Visit restaurant website"
-                >
-                  {restaurant?.website || "N/A"}
-                </a>
+
+              {/* Restaurant URL Editor */}
+              <div className="mt-4">
+                <HasRoles requiredRoles={[USER_ROLES.ADMIN, USER_ROLES.SHOP_OWNER]}>
+                  <RestaurantUrlEditor res_id={restaurant?.id} />
+                </HasRoles>
               </div>
             </div>
           </div>

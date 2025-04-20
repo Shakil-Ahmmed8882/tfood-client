@@ -27,7 +27,7 @@ export function SidebarNavigation({
   items: TSidebarItem[];
   label?: string;
 }) {
-  
+// const { open ,isMobile ,setOpen} = useSidebar();
   return (
     <SidebarGroup>
       {label && <SidebarGroupLabel>{label}</SidebarGroupLabel>}
@@ -83,7 +83,7 @@ export function SidebarNavigation({
                 onClick={item.onClick}
               >
                 {item.url ? (
-                  <Link to={item.url}>
+                  <Link to={item.url} >
                     {renderIcon(item.icon)}
                     <span>{item.title}</span>
                   </Link>

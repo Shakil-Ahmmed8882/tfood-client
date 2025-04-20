@@ -16,7 +16,7 @@ import { sidebarItemsGenerator } from "@/utils/sidebarItemGenerator";
 import { TSidebarItem } from "@/types/global";
 import { useDispatch } from "react-redux";
 import { logout, selectCurrentUser } from "@/store/features/auth/authSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useCallback } from "react";
 import { ConfirmModal } from "../custom-ui/ConfirmModal";
 import { LogoImage, LogoText } from "../ui/TFLogo";
@@ -44,7 +44,6 @@ export function DashboardSidebar({
   }, [dispatch, navigate]);
   let sidebarItem: TSidebarItem[] = [];
 
-
   switch (user?.role) {
     case USER_ROLES.ADMIN:
       sidebarItem = sidebarItemsGenerator(adminPaths);
@@ -57,7 +56,7 @@ export function DashboardSidebar({
   }
 
   const { open } = useSidebar();
-  if(!sidebarItem) return null;
+  if (!sidebarItem) return null;
   const navItems: SidebarItemType = {
     navTop: sidebarItem,
     navBottom: [
@@ -80,8 +79,10 @@ export function DashboardSidebar({
       <Sidebar collapsible="icon" {...props}>
         <SidebarHeader>
           <div className="flex items-center justify-start gap-1">
-            <LogoImage />
-            {open && <LogoText />}
+            <Link to="/" className="flex items-center gap-1">
+              <LogoImage />
+              {open && <LogoText />}
+            </Link>
           </div>
         </SidebarHeader>
         <SidebarContent>
