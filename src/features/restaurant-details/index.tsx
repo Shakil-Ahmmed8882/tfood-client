@@ -13,7 +13,8 @@ import { useAppSelector } from "@/store/hooks.ts";
 import { selectCurrentRestaurant } from "@/store/features/restaurants/restaurantSlice.ts";
 import MenuTabs from "./components/MenuTabItem.tsx";
 import { RestaurantUrlEditor } from "./components/RestaurantURLEditor.tsx";
-
+import { HasRole } from "@/lib/pm/AuthGuard";
+import { USER_ROLES } from "@/constants/index.ts";
 
 export const RestaurantDetails = () => {
   const cachedRestaurant = useAppSelector(selectCurrentRestaurant);
@@ -24,15 +25,19 @@ export const RestaurantDetails = () => {
    * If the cached restaurant ID matches the current route ID, avoid unnecessary fetching.
    */
   const shouldSkip = cachedRestaurant?.slug === slug;
-  const { data, isLoading, isError } = useGetRestaurantByIdQuery(slug as string, {
-    skip: shouldSkip,
-  });
+  const { data, isLoading, isError } = useGetRestaurantByIdQuery(
+    slug as string,
+    {
+      skip: shouldSkip,
+    }
+  );
 
   /**
    * Use the cached restaurant data if available; otherwise, use API response data.
    * This ensures data consistency and avoids redundant API calls.
    */
-  const restaurant = cachedRestaurant?.slug === slug ? cachedRestaurant : data?.data;
+  const restaurant =
+    cachedRestaurant?.slug === slug ? cachedRestaurant : data?.data;
 
   return (
     <Container className="py-6 ">
@@ -52,13 +57,10 @@ export const RestaurantDetails = () => {
           </NoItemFound>
         </CustomSuspense>
       </CustomErrorBoundary>
-      {/* <MenuTabs res_id={restaurant?.id}/> */}
+      <MenuTabs res_id={restaurant?.id} />
     </Container>
   );
 };
-
-
-
 
 /**
  * RestaurantDetailsCard Component:
@@ -105,23 +107,33 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
                   <Star
                     key={star}
                     className={`h-5 w-5 ${
-                      star <= 4.8 ? "text-yellow-400 fill-yellow-400" : "text-gray-200"
+                      star <= 4.8
+                        ? "text-yellow-400 fill-yellow-400"
+                        : "text-gray-200"
                     }`}
                     aria-label={`Star ${star}`}
                   />
                 ))}
               </div>
-              <span className="ml-2 text-sm font-semibold text-gray-700">4.8</span>
+              <span className="ml-2 text-sm font-semibold text-gray-700">
+                4.8
+              </span>
             </div>
 
             {/* Opening Hours and Location */}
             <div className="space-y-3 mb-4">
               <div className="flex items-center text-sm text-gray-600">
-                <Clock className="h-5 w-5 mr-2 text-gray-400" aria-hidden="true" />
+                <Clock
+                  className="h-5 w-5 mr-2 text-gray-400"
+                  aria-hidden="true"
+                />
                 <span>9AM - 10PM</span>
               </div>
               <div className="flex items-center text-sm text-gray-600">
-                <MapPin className="h-5 w-5 mr-2 text-gray-400" aria-hidden="true" />
+                <MapPin
+                  className="h-5 w-5 mr-2 text-gray-400"
+                  aria-hidden="true"
+                />
                 <a
                   href="https://maps.google.com/?q=123+Main+Street"
                   target="_blank"
@@ -138,13 +150,16 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
             <div className="mt-4">
               <h3 className="font-semibold text-gray-900 mb-2">Description</h3>
               <p className="text-sm text-gray-600 line-clamp-3">
-                {restaurant?.description || "Delicious food with a cozy ambiance."}
+                {restaurant?.description ||
+                  "Delicious food with a cozy ambiance."}
               </p>
             </div>
 
             {/* Restaurant URL Editor */}
             <div className="mt-4">
-              <RestaurantUrlEditor res_id={restaurant?.id} />
+              <HasRole requiredRole={USER_ROLES.ADMIN || USER_ROLES.SHOP_OWNER}>
+                <RestaurantUrlEditor res_id={restaurant?.id} />
+              </HasRole>
             </div>
           </div>
 
@@ -153,25 +168,31 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
             <h3 className="font-semibold text-gray-900 mb-3">Contact</h3>
             <div className="space-y-4">
               <div className="flex items-center">
-                <Phone className="h-5 w-5 mr-2 text-gray-400" aria-hidden="true" />
+                <Phone
+                  className="h-5 w-5 mr-2 text-gray-400"
+                  aria-hidden="true"
+                />
                 <a
                   href="tel:+01234567890"
                   className="text-sm text-gray-700 hover:text-blue-600 transition-colors"
                   aria-label="Call restaurant"
                 >
-                  +01234567890
+                  {restaurant?.contact || "N/A"}
                 </a>
               </div>
               <div className="flex items-center">
-                <Globe className="h-5 w-5 mr-2 text-gray-400" aria-hidden="true" />
+                <Globe
+                  className="h-5 w-5 mr-2 text-gray-400"
+                  aria-hidden="true"
+                />
                 <a
-                  href="http://resonica.net"
+                  href={`https://${restaurant?.website}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-blue-600 hover:underline"
                   aria-label="Visit restaurant website"
                 >
-                  resonica.net
+                  {restaurant?.website || "N/A"}
                 </a>
               </div>
             </div>
