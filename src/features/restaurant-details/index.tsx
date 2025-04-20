@@ -35,7 +35,7 @@ export const RestaurantDetails = () => {
   const restaurant = cachedRestaurant?.slug === slug ? cachedRestaurant : data?.data;
 
   return (
-    <Container className="py-6">
+    <Container className="py-6 ">
       {/* Search bar and header for the restaurant page */}
       <FoodHeaderContainer searchQuery="" setSearchQuery={() => {}} />
       <CustomErrorBoundary error={isError}>
@@ -52,7 +52,7 @@ export const RestaurantDetails = () => {
           </NoItemFound>
         </CustomSuspense>
       </CustomErrorBoundary>
-      <MenuTabs res_id={restaurant?.id}/>
+      {/* <MenuTabs res_id={restaurant?.id}/> */}
     </Container>
   );
 };
@@ -72,99 +72,114 @@ type TRestaurantDetailsCardProps = {
   restaurant: TRestaurant | null | undefined;
 };
 const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
-
-
+  // Fallback image for missing logo
+  const fallbackImage = "https://via.placeholder.com/150?text=No+Image";
 
   return (
-    <Card className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-      <CardContent className="">
-        <div className="flex flex-col md:flex-row gap-6 h-80 ">
+    <Card className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden transition-shadow hover:shadow-lg">
+      <CardContent className="p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Restaurant Logo */}
-          <div className="w-full md:w-1/4 lg:w-1/2">
+          <div className="col-span-1">
             <img
-              src={
-                restaurant?.related_images ? restaurant.logo : ""
-              }
+              src={restaurant?.related_images ? restaurant.logo : fallbackImage}
               alt="Hot Tgys Restaurant"
-              className="w-full h-full rounded-lg object-top object-cover"
+              className="w-full h-48 md:h-64 rounded-lg object-cover object-top transition-transform duration-300 hover:scale-105"
             />
           </div>
 
           {/* Main Restaurant Details Section */}
-          <div className="w-full md:w-2/4 lg:w-3/5">
-            <CardHeader className="p-0">
+          <div className="col-span-1">
+            <CardHeader className="p-0 mb-4">
               {/* Restaurant Name & Category */}
-              <CardTitle className="text-2xl font-bold text-gray-900 mb-1">
-                {restaurant?.name || "Hot Tgys Restaurant"}
+              <CardTitle className="text-2xl font-bold text-gray-900">
+                Hot Tgys Restaurant
               </CardTitle>
-              <p className="text-gray-600 mb-3">{restaurant?.category}</p>
+              <p className="text-sm text-gray-500">Cuisine Type</p>
             </CardHeader>
 
-            {/* Rating Section (Static 4.8 for now) */}
+            {/* Rating Section (Static 4.8) */}
             <div className="flex items-center mb-4">
               <div className="flex items-center">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <Star
                     key={star}
-                    className={`h-4 w-4 ${
-                      star <= 4.8
-                        ? "text-[#fdc000] fill-[#fdc000]"
-                        : "text-gray-300"
+                    className={`h-5 w-5 ${
+                      star <= 4.8 ? "text-yellow-400 fill-yellow-400" : "text-gray-200"
                     }`}
+                    aria-label={`Star ${star}`}
                   />
                 ))}
               </div>
-              <span className="ml-2 text-sm font-medium text-gray-700">
-                4.8
-              </span>
+              <span className="ml-2 text-sm font-semibold text-gray-700">4.8</span>
             </div>
 
             {/* Opening Hours and Location */}
-            <div className="space-y-2 mb-4">
+            <div className="space-y-3 mb-4">
               <div className="flex items-center text-sm text-gray-600">
-                <Clock className="h-4 w-4 mr-2 text-gray-500" />
+                <Clock className="h-5 w-5 mr-2 text-gray-400" aria-hidden="true" />
                 <span>9AM - 10PM</span>
               </div>
               <div className="flex items-center text-sm text-gray-600">
-                <MapPin className="h-4 w-4 mr-2 text-gray-500" />
-                <span>{restaurant?.location}</span>
+                <MapPin className="h-5 w-5 mr-2 text-gray-400" aria-hidden="true" />
+                <a
+                  href="https://maps.google.com/?q=123+Main+Street"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-blue-600 transition-colors"
+                  aria-label="View location on map"
+                >
+                  123 Main Street
+                </a>
               </div>
             </div>
 
             {/* Description Section */}
             <div className="mt-4">
-              <h3 className="font-medium text-gray-900 mb-2">Description</h3>
-              <p className="text-sm text-gray-600">{restaurant?.description}</p>
+              <h3 className="font-semibold text-gray-900 mb-2">Description</h3>
+              <p className="text-sm text-gray-600 line-clamp-3">
+                {restaurant?.description || "Delicious food with a cozy ambiance."}
+              </p>
             </div>
-            <div className="mt-3">
-            <RestaurantUrlEditor  res_id={restaurant?.id} />
-              </div>
+
+            {/* Restaurant URL Editor */}
+            <div className="mt-4">
+              <RestaurantUrlEditor res_id={restaurant?.id} />
+            </div>
           </div>
 
-          {/* Contact Information */}
-          <div className="w-full md:w-1/4 lg:w-1/5">
+          {/* Contact Information (Right Side on Large Screens) */}
+          <div className="col-span-1 md:col-span-2 lg:col-span-1  lg:pl-6 flex flex-col justify-start align-s ">
+            <h3 className="font-semibold text-gray-900 mb-3">Contact</h3>
             <div className="space-y-4">
               <div className="flex items-center">
-                <Phone className="h-4 w-4 mr-2 text-gray-500" />
-                <span className="text-sm text-gray-700">+01234567890</span>
+                <Phone className="h-5 w-5 mr-2 text-gray-400" aria-hidden="true" />
+                <a
+                  href="tel:+01234567890"
+                  className="text-sm text-gray-700 hover:text-blue-600 transition-colors"
+                  aria-label="Call restaurant"
+                >
+                  +01234567890
+                </a>
               </div>
               <div className="flex items-center">
-                <Globe className="h-4 w-4 mr-2 text-gray-500" />
+                <Globe className="h-5 w-5 mr-2 text-gray-400" aria-hidden="true" />
                 <a
                   href="http://resonica.net"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-blue-600 hover:underline"
+                  aria-label="Visit restaurant website"
                 >
-                  {restaurant?.website}
+                  resonica.net
                 </a>
               </div>
             </div>
           </div>
-        
         </div>
-
       </CardContent>
     </Card>
   );
 };
+
+export default RestaurantDetailsCard;
