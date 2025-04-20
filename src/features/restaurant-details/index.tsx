@@ -85,8 +85,9 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
           <div className="col-span-1">
             <img
               src={restaurant?.related_images ? restaurant.logo : fallbackImage}
-              alt="Hot Tgys Restaurant"
-              className="w-full h-48 md:h-64 rounded-lg object-cover object-top transition-transform duration-300 hover:scale-105"
+              alt={restaurant?.name}
+              onError={(e) => (e.currentTarget.src = fallbackImage)}
+              className="w-full h-48 md:h-64 rounded-lg object-contain object-top transition-transform duration-300 hover:scale-105"
             />
           </div>
 

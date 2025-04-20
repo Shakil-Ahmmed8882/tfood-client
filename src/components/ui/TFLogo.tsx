@@ -14,9 +14,9 @@ export const LogoImage = () => {
 };
 
 
-export const Logo = () => {
+export const Logo = ({className}:{className?:string}) => {
   return (
-    <div className="flex items-center justify-start gap-1">
+    <div className={`flex items-center justify-start gap-1 ${className}`}>
       <LogoImage />
       <LogoText />
     </div>
