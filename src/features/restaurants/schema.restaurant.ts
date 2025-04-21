@@ -74,6 +74,10 @@ export const RestaurantSchema = z.object({
   //     startDate: z.string().nullable().optional(), // Allow null for optional dates
   //     endDate: z.string().nullable().optional(), // Allow null for optional dates
   // }),
+  operatingHours: z.object({
+    start: z.string().nullable().optional(), // Allow null for optional dates
+    end: z.string().nullable().optional(), // Allow null for optional dates
+  }),
   status: z
     .enum(["inactive", "active", "blocked"], {
       required_error: "Restaurant status is required.",
@@ -92,6 +96,10 @@ export const initialRestaurantValues: Partial<TRestaurantFromValues> = {
   subscription: {
     startDate: null,
     endDate: null,
+  },
+  operatingHours: {
+    start: null,
+    end: null,
   },
   status: "active",
 };

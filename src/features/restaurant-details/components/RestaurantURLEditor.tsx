@@ -1,5 +1,5 @@
 import type React from "react";
-import { Check, Edit2, Link, X } from "lucide-react";
+import { Check, Edit2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";

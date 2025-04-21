@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Container } from "../wrapper/Container";
 import { Mail, Phone } from "lucide-react";
 import { ReactNode } from "react";
-import { Logo, LogoText } from "../ui/TFLogo";
+import { Logo, } from "../ui/TFLogo";
 
 // Container layer
 export default function Footer() {
