@@ -2,17 +2,16 @@
 import { TUser } from "@/types/user.type";
 import {
   ComboboxField,
-  ComboboxOption,
 } from "@/components/form/fields/ComboboxField";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useDebounce } from "@/hooks/useDebounce";
 import useGetShopOwners from "../hooks/useGetShopOwners";
 
 export const ShopOwnerDropdown = () => {
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 500);
-  const [shopOwnerOptions, setShopOwnerOptions] = useState<ComboboxOption[]>([]);
-  const {data, isLoading} = useGetShopOwners( {filters:{}, searchQuery:debouncedQuery});
+  
+  const {data, isLoading} = useGetShopOwners( {filters:{role:"shop_owner"}, searchQuery:debouncedQuery});
 
   const Options = useMemo(() => {
     if (data && Array.isArray(data)) {
@@ -24,9 +23,9 @@ export const ShopOwnerDropdown = () => {
     return [];
   }, [data]);
   
-  useEffect(() => {
-    setShopOwnerOptions(Options);
-  }, [Options]);
+
+
+  
   const handleSearchShopOwner = (value: string) => {
     setQuery(value);
   };
@@ -36,7 +35,7 @@ export const ShopOwnerDropdown = () => {
       name="user"
       label="Shop owner"
       loading={isLoading}
-      options={shopOwnerOptions}
+      options={Options}
       onInputValueChange={handleSearchShopOwner}
     />
   );
