@@ -67,7 +67,7 @@ const RestaurantsWrapper = () => {
     <>
       <div className="flex justify-between items-center mb-3 mt-1">
         <Title text="Restaurants" />
-        <Link to="/restaurants" className="text-[16px] underline text-blue-500">
+        <Link to="/restaurants" className="text-md underline text-blue-500">
           See more
         </Link>
       </div>

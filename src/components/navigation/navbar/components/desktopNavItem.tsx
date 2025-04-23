@@ -6,6 +6,7 @@ import { HasRoles } from "@/lib/pm/AuthGuard";
 import { DesktopMenuProps } from "../type";
 import { navigationLinks } from "../constants";
 import appConfig from "@/config/appConfig";
+import { USER_ROLES } from "@/constants";
 
 
 /**
@@ -41,11 +42,21 @@ const isActivePath: PathChecker = (path, currentPath) => currentPath === path;
 
 export function DesktopMenu({ currentPath }: DesktopMenuProps) {
   const user = useAppSelector(selectCurrentUser);
-
+  let dashboardPath:string;
+switch (user?.role) {
+  case USER_ROLES.ADMIN:
+    dashboardPath =`/${user?.role}/dashboard`;
+    break;
+  case USER_ROLES.SHOP_OWNER:
+    dashboardPath = `/${user?.role}/restaurants`;
+    break;
+  default:
+    break;
+}
   const renderDesktopDashboardRoute = () => {
     return (
       <Link
-        to={`/${user?.role}/dashboard`}
+        to={dashboardPath}
         className={cn(
           "transition-colors hover:text-blue-500",
           isActivePath(`/${user?.role}/dashboard`, currentPath)

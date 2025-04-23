@@ -93,7 +93,6 @@ export function NavUser() {
   const navigate = useNavigate();
 
   const user = userData?.data;
-
   const handleLogout = useCallback(async() => {
     setIsConfirmModalOpen(true);
     dispatch(logout());

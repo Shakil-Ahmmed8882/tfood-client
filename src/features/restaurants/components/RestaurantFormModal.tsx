@@ -16,6 +16,7 @@ import { HasRole } from "@/lib/pm/AuthGuard";
 import { restaurantStatusOptions } from "./constants";
 import { ShopOwnerDropdown } from "./ShopOwnerDropdown";
 import { DateField } from "@/components/form/fields/DateField";
+import { TimePickerField } from "@/components/form/fields/TimePickerField";
 
 interface RestaurantFormProps {
   open: boolean;
@@ -28,9 +29,29 @@ export function RestaurantFormModal({
   onOpenChange,
   restaurant,
 }: RestaurantFormProps) {
+
+
+
+
   const { isLoading, handleFileUpload, handleSubmit, formRef } =
     useRestaurantForm({ restaurant, onOpenChange });
   // Memoize form fields to prevent unnecessary re-renders
+  // console.log(restaurant);
+    // Normalize restaurant data
+    const normalizedRestaurant = {
+      ...initialRestaurantValues,
+      ...restaurant,
+      subscription: {
+          startDate: restaurant?.subscription?.startDate
+              ? new Date(restaurant.subscription.startDate)
+              : null,
+          endDate: restaurant?.subscription?.endDate
+              ? new Date(restaurant.subscription.endDate)
+              : null,
+      },
+  };
+
+
   const FormFields = () => (
     <div className="space-y-4">
       <ImageUploadField<TRestaurantFromValues>
@@ -50,7 +71,15 @@ export function RestaurantFormModal({
       </HasRole>
       <HasRole requiredRole={USER_ROLES.ADMIN}>
         <ShopOwnerDropdown />
+        {/* <TextField<TRestaurantFromValues>
+          name="user"
+          placeholder="Enter Shop Owner"
+          label="Shop Owner"
+          inputClass="border-gray-50"
+          disabled={isLoading}
+        /> */}
       </HasRole>
+      <HasRole requiredRole={USER_ROLES.ADMIN}>
       <div className="grid grid-cols-2 gap-4">
         <DateField<TRestaurantFromValues>
           name="subscription.startDate"
@@ -61,6 +90,7 @@ export function RestaurantFormModal({
           label="Subscription end date"
         />
       </div>
+      </HasRole>
       <TextField<TRestaurantFromValues>
         name="name"
         placeholder="Enter Shop Name"
@@ -69,6 +99,12 @@ export function RestaurantFormModal({
         inputClass="border-gray-50"
         disabled={isLoading}
       />
+    <div className="flex gap-4 w-full">
+
+    <TimePickerField name="operating_hours.open" label="Opening Time"/>
+    <TimePickerField name="operating_hours.close" label="Closing Time"/>
+    </div>
+
       <TextField<TRestaurantFromValues>
         name="website"
         placeholder="Enter Shop Website"
@@ -76,6 +112,7 @@ export function RestaurantFormModal({
         inputClass="border-gray-50"
         disabled={isLoading}
       />
+
       <TextField<TRestaurantFromValues>
         name="contact"
         placeholder="Enter Shop Contact"
@@ -91,13 +128,13 @@ export function RestaurantFormModal({
         inputClass="border-gray-50"
         disabled={isLoading}
       />
-      <TextField<TRestaurantFromValues>
+      {/* <TextField<TRestaurantFromValues>
         name="type"
         placeholder="Enter your Shop Type"
         label="Shop Type"
         inputClass="border-gray-50"
         disabled={isLoading}
-      />
+      /> */}
       <TextField<TRestaurantFromValues>
         name="description"
         placeholder="Enter your description"
@@ -123,7 +160,7 @@ export function RestaurantFormModal({
     >
       <GenericForm
         schema={RestaurantSchema}
-        initialValues={restaurant || initialRestaurantValues}
+        initialValues={normalizedRestaurant}
         onSubmit={handleSubmit}
         ref={formRef}
       >
@@ -149,6 +186,8 @@ export function RestaurantFormModal({
           </Button>
         </div>
       </GenericForm>
+      <div>
+    </div>
     </ReusableModal>
   );
 }

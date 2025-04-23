@@ -56,7 +56,15 @@ export const menuApi = baseApi.injectEndpoints({
       providesTags: [API_tAGS.MENU],
       transformResponse: transformApiResponse<TMenu>,
     }),
-
+    getMenuById: builder.query<{ data: TMenu }, string>({
+      query: (id: string) => {
+        return {
+          url: `/menus/${id}`,
+          method: "GET",
+        };
+      },
+      providesTags: [API_tAGS.RESTAURANT],
+    }),
     editMenu: builder.mutation<ApiResponse<TMenu>, FormData>({
       query: (data) => ({
         url: `/menus/${data.get("id")}`,
@@ -85,4 +93,4 @@ export const menuApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllMenusQuery, useEditMenuMutation, useDeleteMenuMutation, useCreateMenuMutation } = menuApi;
+export const { useGetAllMenusQuery,useGetMenuByIdQuery, useEditMenuMutation, useDeleteMenuMutation, useCreateMenuMutation } = menuApi;

@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { TRestaurantFromValues } from "../schema.restaurant";
 import { GenericFormRef } from "@/components/form/GenericForm";
 import { USER_ROLES } from "@/constants";
+// import { convertTo12HourFormat } from "@/utils/convertTo12HourFormat";
 
 
 interface RestaurantFormProps {
@@ -27,12 +28,8 @@ export const useRestaurantForm = ({ restaurant, onOpenChange }: RestaurantFormPr
   // Memoize handleSubmit to prevent unnecessary re-renders
   const handleSubmit = useCallback(
     async (values: FormEvent<HTMLFormElement> | TRestaurantFromValues) => {
-      const toastId = toast.loading(restaurant ? "Updating menu..." : "Creating menu...");
+      const toastId = toast.loading(restaurant ? "Updating restaurants..." : "Creating restaurants...");
       const formData = new FormData();
-
-
-
-      
       try {
         if (logo) {
           formData.append("logo", logo);
@@ -42,8 +39,8 @@ export const useRestaurantForm = ({ restaurant, onOpenChange }: RestaurantFormPr
           // Update existing restaurant
           formData.append("data", JSON.stringify(values));
           formData.append("id", restaurant.id);
-         const res=  await updateRestaurant(formData).unwrap();
-          console.log('update res>>',res);
+           await updateRestaurant(formData).unwrap();
+          // console.log('update res>>',res);
 
 
         } if(user?.role === USER_ROLES.SHOP_OWNER && !restaurant?.id){
@@ -51,6 +48,7 @@ export const useRestaurantForm = ({ restaurant, onOpenChange }: RestaurantFormPr
           // Create new restaurant
           const formDataWithId = { ...values, user: user!.userId };
           formData.append("data", JSON.stringify(formDataWithId));
+        console.log(Object.values(formDataWithId));
           await createRestaurant(formData).unwrap();
         }
          if(user?.role === USER_ROLES.ADMIN && !restaurant?.id){
@@ -76,6 +74,7 @@ export const useRestaurantForm = ({ restaurant, onOpenChange }: RestaurantFormPr
   // Memoize handleFileUpload
   const handleFileUpload = useCallback((file: File) => {
     if (!file) return;
+    
     setLogo(file);
     return URL.createObjectURL(file);
   }, []);

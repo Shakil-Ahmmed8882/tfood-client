@@ -2,7 +2,7 @@ import { API_tAGS } from "@/store/api";
 import { baseApi } from "@/store/api/baseApi";
 import { TFilterBody, TQueryParam } from "@/types/global";
 import { TUser } from "@/types/user.type";
-import { transformApiResponse } from "@/utils/transformApiResponse";
+// import { transformApiResponse } from "@/utils/transformApiResponse";
 
 const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -40,7 +40,7 @@ const userApi = baseApi.injectEndpoints({
         };
       },
       providesTags: [API_tAGS.MENU],
-      transformResponse: transformApiResponse<TUser[]>,
+      // transformResponse: transformApiResponse<TUser[]>,
     }),
 
     getUser: builder.query({

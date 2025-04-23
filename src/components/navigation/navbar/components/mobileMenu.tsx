@@ -19,6 +19,7 @@ import { useAppSelector } from "@/store/hooks";
 import { selectCurrentUser } from "@/store/features/auth/authSlice";
 import { navigationLinks } from "../constants";
 import appConfig from "@/config/appConfig";
+import { USER_ROLES } from "@/constants";
 
 
 
@@ -72,12 +73,22 @@ export function MobileMenuTrigger({ isOpen, setIsOpen }: MobileMenuTriggerProps)
 
   export function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
     const user = useAppSelector(selectCurrentUser);
-  
+    let dashboardPath:string;
+  switch (user?.role) {
+    case USER_ROLES.ADMIN:
+      dashboardPath =`/${user?.role}/dashboard`;
+      break;
+    case USER_ROLES.SHOP_OWNER:
+      dashboardPath = `/${user?.role}/restaurants`;
+      break;
+    default:
+      break;
+  }
   
     const renderMobileDashboardRoute = () => {
       return (
         <Link
-          to={`/${user?.role}/dashboard`}
+          to={dashboardPath}
           className="flex w-full py-4 border-b transition-colors hover:text-blue-500"
           onClick={() => setIsOpen(false)}
         >

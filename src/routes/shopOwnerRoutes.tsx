@@ -1,9 +1,10 @@
 // import ShopOwnerDashboard from "@/pages/dashboard/shop-owner/ShopOwnerDashboard";
 import ShopOwnerMenu from "@/pages/dashboard/shop-owner/ShopOwnerMenu";
 import ShopOwnerRestaurants from "@/pages/dashboard/shop-owner/ShopOwnerRestaurants";
+import { TRouteDefinition } from "@/types/global";
 import {  Store, UtensilsCrossed } from "lucide-react";
 
-export const shopOwnerPaths = [
+export const shopOwnerPaths:TRouteDefinition[] = [
   // {
   //   title: "Dashboard",
   //   icon: LayoutDashboard,

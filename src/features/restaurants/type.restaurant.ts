@@ -17,5 +17,7 @@ export type TRestaurant = { // ...
   slug:string;
   website?:string;
   contact?:string;
-  status: "inactive" | "active";
+  status: "inactive" | "active" | "blocked";
+  created_at: string;
+  updated_at: string;
 } ;
