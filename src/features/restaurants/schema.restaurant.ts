@@ -47,11 +47,11 @@ export const RestaurantSchema = z.object({
       invalid_type_error: "Restaurant logo URL must be a string.",
     })
     .nullable(),
-  type: z
-    .string({
-      invalid_type_error: "Restaurant type must be a string.",
-    })
-    .optional(),
+  // type: z
+  //   .string({
+  //     invalid_type_error: "Restaurant type must be a string.",
+  //   })
+  //   .optional(),
   category: z.string({
     required_error: "Restaurant category is required.",
     invalid_type_error: "Restaurant category must be a string.",
@@ -74,6 +74,11 @@ export const RestaurantSchema = z.object({
   //     startDate: z.string().nullable().optional(), // Allow null for optional dates
   //     endDate: z.string().nullable().optional(), // Allow null for optional dates
   // }),
+  operating_hours: z.object({
+    open: z.string().nullable().optional(), // Allow null for optional dates
+    close: z.string().nullable().optional(), // Allow null for optional dates
+  }),
+
   status: z
     .enum(["inactive", "active", "blocked"], {
       required_error: "Restaurant status is required.",
@@ -89,10 +94,13 @@ export const initialRestaurantValues: Partial<TRestaurantFromValues> = {
   location: "",
   description: "",
   category: "",
-  type: "",
   subscription: {
     startDate: null,
     endDate: null,
+  },
+  operating_hours: {
+    open: '',
+    close: '',
   },
   status: "active",
 };

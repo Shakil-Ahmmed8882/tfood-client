@@ -16,6 +16,7 @@ import { HasRole } from "@/lib/pm/AuthGuard";
 import { restaurantStatusOptions } from "./constants";
 import { ShopOwnerDropdown } from "./ShopOwnerDropdown";
 import { DateField } from "@/components/form/fields/DateField";
+import { TimePickerField } from "@/components/form/fields/TimePickerField";
 
 interface RestaurantFormProps {
   open: boolean;
@@ -28,6 +29,10 @@ export function RestaurantFormModal({
   onOpenChange,
   restaurant,
 }: RestaurantFormProps) {
+
+
+
+
   const { isLoading, handleFileUpload, handleSubmit, formRef } =
     useRestaurantForm({ restaurant, onOpenChange });
   // Memoize form fields to prevent unnecessary re-renders
@@ -45,6 +50,8 @@ export function RestaurantFormModal({
               : null,
       },
   };
+
+
   const FormFields = () => (
     <div className="space-y-4">
       <ImageUploadField<TRestaurantFromValues>
@@ -64,6 +71,13 @@ export function RestaurantFormModal({
       </HasRole>
       <HasRole requiredRole={USER_ROLES.ADMIN}>
         <ShopOwnerDropdown />
+        {/* <TextField<TRestaurantFromValues>
+          name="user"
+          placeholder="Enter Shop Owner"
+          label="Shop Owner"
+          inputClass="border-gray-50"
+          disabled={isLoading}
+        /> */}
       </HasRole>
       <HasRole requiredRole={USER_ROLES.ADMIN}>
       <div className="grid grid-cols-2 gap-4">
@@ -85,6 +99,12 @@ export function RestaurantFormModal({
         inputClass="border-gray-50"
         disabled={isLoading}
       />
+    <div className="flex gap-4 w-full">
+
+    <TimePickerField name="operating_hours.open" label="Opening Time"/>
+    <TimePickerField name="operating_hours.close" label="Closing Time"/>
+    </div>
+
       <TextField<TRestaurantFromValues>
         name="website"
         placeholder="Enter Shop Website"
@@ -92,6 +112,7 @@ export function RestaurantFormModal({
         inputClass="border-gray-50"
         disabled={isLoading}
       />
+
       <TextField<TRestaurantFromValues>
         name="contact"
         placeholder="Enter Shop Contact"
@@ -107,13 +128,13 @@ export function RestaurantFormModal({
         inputClass="border-gray-50"
         disabled={isLoading}
       />
-      <TextField<TRestaurantFromValues>
+      {/* <TextField<TRestaurantFromValues>
         name="type"
         placeholder="Enter your Shop Type"
         label="Shop Type"
         inputClass="border-gray-50"
         disabled={isLoading}
-      />
+      /> */}
       <TextField<TRestaurantFromValues>
         name="description"
         placeholder="Enter your description"
@@ -165,51 +186,8 @@ export function RestaurantFormModal({
           </Button>
         </div>
       </GenericForm>
+      <div>
+    </div>
     </ReusableModal>
   );
-}
-
-
-
-
-import * as React from "react"
-import { format } from "date-fns"
-import { CalendarIcon } from "lucide-react"
-
-
-import { Calendar } from "@/components/ui/calendar"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-
-export function DatePickerDemo() {
-  const [date, setDate] = React.useState<Date>()
-  console.log(date);
-
-  return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button
-          variant={"outline"}
-          className={cn(
-            "w-[240px] justify-start text-left font-normal",
-            !date && "text-muted-foreground"
-          )}
-        >
-          <CalendarIcon />
-          {date ? format(date, "PPP") : <span>Pick a date</span>}
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-auto p-0" align="start">
-        <Calendar
-          mode="single"
-          selected={date}
-          onSelect={setDate}
-          autoFocus
-        />
-      </PopoverContent>
-    </Popover>
-  )
 }

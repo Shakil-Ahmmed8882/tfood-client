@@ -1,16 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
-import { USER_ROLE_TYPE } from "@/constants";
+import { USER_ROLE_TYPE, USER_STATUS_TYPE } from "@/constants";
 
 // Define a type for the user object
 export type TUser = {
   email: string;
   userId: string;
   role: USER_ROLE_TYPE;
+  isVerified: boolean;
+  name: string;
+  status: USER_STATUS_TYPE;
   iat: number; // Issued at timestamp
   exp: number; // Expiration timestamp
 };
-
 // Define a type for the authentication state
 type TAuthState = {
   user: null | TUser; // User object or null if not authenticated

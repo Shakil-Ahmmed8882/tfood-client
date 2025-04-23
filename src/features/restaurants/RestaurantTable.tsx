@@ -10,8 +10,9 @@ import { RestaurantFormModal } from "./components/RestaurantFormModal";
 import { getStatusColor } from "@/components/table/utility";
 import { formatDateGeneric,} from "@/lib/utils/datetime";
 import { truncateText } from "@/utils/turncateText";
-import { calculateDaysLeft } from "@/utils/calculateDaysLeft";
 
+// import { calculateDaysBetweenISO } from "@/utils/calculateDaysBetweenISO";
+import { SubscriptionCountdown } from "./components/SubscriptionCountdown";
 const RestaurantTable = () => {
   const { data, pagination } = useTableContext<TRestaurant>();
 
@@ -27,15 +28,15 @@ const RestaurantTable = () => {
                 1}
             </TableCell>
             <TableCell>{truncateText(restaurant.name, 28)}</TableCell>
-            <TableCell>{formatDateGeneric("2025-04-03T00:00:00.000Z", "d MMM, yy")}</TableCell>
+            <TableCell>{formatDateGeneric(restaurant.created_at, "d MMM, yy")} </TableCell>
             <TableCell>{truncateText(restaurant.location, 20)}</TableCell>
             <TableCell>{truncateText(restaurant.category, 10)}</TableCell>
-            <TableCell className="font-bold">
-              {/* {formatDateRange(
-                restaurant?.subscription?.startDate,
-                restaurant?.subscription?.endDate 
-              )} */}
-              {calculateDaysLeft(restaurant?.subscription)}-days left
+            <TableCell className="">
+            {formatDateGeneric(restaurant.subscription.startDate, "d MMM, yy")} -
+            {formatDateGeneric(restaurant.subscription.endDate, "d MMM, yy")}
+            
+            <SubscriptionCountdown endDate={restaurant?.subscription.endDate} />
+              {/* {calculateDaysBetweenISO(restaurant?.subscription.startDate, restaurant?.subscription.endDate)}-days left */}
             </TableCell>
             <TableCell>
               <Badge className={`${getStatusColor(restaurant.status)}`}>

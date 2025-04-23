@@ -5,7 +5,7 @@ interface Subscription {
 
 export function calculateDaysLeft(subscription: Subscription): number | string {
     const { startDate, endDate } = subscription;
-
+console.log(startDate,endDate);
     // Check if startDate or endDate is an empty string
     // if (startDate.trim() === '' || endDate.trim() === '') {
     //     return 0

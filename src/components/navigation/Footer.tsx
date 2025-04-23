@@ -1,60 +1,17 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-* This component follows the Container-Presentation pattern, improving
-* maintainability, readability, and reusability. It consists of:
-* 
-* 1. **Footer (Container)**
-*    - Manages data and state.
-*    - Defines company information, navigation links, and social media details.
-*    - Passes relevant props to the presentation component.
-* 
-* 2. **FooterPresentation (Presentation)**
-*    - Handles UI rendering based on props.
-*    - Ensures a clean, structured layout using Tailwind CSS.
-
-*/
-
 import { Link } from "react-router-dom";
-
 import { Container } from "../wrapper/Container";
 import { Mail, Phone } from "lucide-react";
 import { ReactNode } from "react";
-import { LogoText } from "../ui/TFLogo";
-
-
+import { Logo, } from "../ui/TFLogo";
 
 // Container layer
 export default function Footer() {
   const companyInfo = {
     name: "tfood",
-    email: "abc@gmail.com",
-    phone: "0123456789",
-    description:
-      "Doloremque quia maiores animi tenetur consequatur saepe mollitia",
-    copyright: "©2024 tfood All Rights Reserved",
+    email: "tfoodbangladesh@gmail.com",
+    phone: "+8801979401082",
+    description: "Reduce waste and increase restaurant experience",
+    copyright: " tfood All Rights Reserved",
   };
 
   const links = [
@@ -65,16 +22,16 @@ export default function Footer() {
 
   const socialLinks = [
     {
-      href: "https://instagram.com",
+      href: "https://www.instagram.com/tfoodbd/",
       label: "Instagram",
       color: "hover:text-pink-600",
-      iconSrc: "https://img.icons8.com/?size=100&id=Xy10Jcu1L2Su&format=png&color=000000", // Image source URL
+      iconSrc: "https://img.icons8.com/?size=100&id=Xy10Jcu1L2Su&format=png&color=000000",
     },
     {
-      href: "https://facebook.com",
+      href: "https://www.facebook.com/tfoodbangladesh",
       label: "Facebook",
       color: "hover:text-blue-600",
-      iconSrc: "https://img.icons8.com/?size=100&id=uLWV5A9vXIPu&format=png&color=000000", // Image source URL
+      iconSrc: "https://img.icons8.com/?size=100&id=uLWV5A9vXIPu&format=png&color=000000",
     },
   ];
 
@@ -87,9 +44,6 @@ export default function Footer() {
   );
 }
 
-
-
-
 // Presentation layer
 function FooterPresentation({
   company,
@@ -97,70 +51,82 @@ function FooterPresentation({
   socialLinks,
 }: FooterPresentationProps) {
   return (
-    <footer className="bg-gray-50 py-8 mt-6">
+    <footer className="bg-gray-100 py-10 mt-8">
       <Container>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <LogoText />
-            <p className="mt-3 text-gray-600">{company.description}</p>
-
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Left Section: Logo & Description */}
+          <div className="flex flex-col">
+            <Logo className="mb-4" />
+            <p className="text-sm text-gray-600 max-w-xs">
+              {company.description}
+            </p>
           </div>
 
-          {/* === Middle Section: Navigation Links === */}
-          <div className="flex flex-col space-y-4">
+          {/* Middle Section: Navigation Links */}
+          <div className="flex flex-col space-y-3">
+            <h3 className="text-lg font-semibold text-gray-900 mb-3">Links</h3>
             {links.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
-                className="text-gray-700 hover:text-gray-900"
+                className="text-sm text-gray-700 hover:text-blue-400 transition-colors duration-200"
+                aria-label={link.label}
               >
                 {link.label}
               </Link>
             ))}
           </div>
 
-          {/* === Right Section: Contact & Social Media === */}
-          <div>
-            <h3 className="text-lg font-medium text-gray-700 mb-4">Contact Us</h3>
+          {/* Right Section: Contact & Social Media */}
+          <div className="flex flex-col">
+            <h3 className="text-lg font-semibold text-gray-900 mb-3">
+              Contact Us
+            </h3>
             <ContactItem
-              icon={<Mail size={18} />}
+              icon={<Mail size={20} className="text-gray-500" />}
               text={company.email}
               href={`mailto:${company.email}`}
             />
             <ContactItem
-              icon={<Phone size={18} />}
+              icon={<Phone size={20} className="text-gray-500" />}
               text={company.phone}
               href={`tel:${company.phone}`}
             />
-
-
           </div>
         </div>
 
-        <div className="mt-8 border-t border-gray-200 pt-8 flex items-center justify-between flex-wrap">
-        <p className=" text-sm text-gray-500">{company.copyright}</p>
-                    {/* Social Media Links */}
-            <div className="flex justify-end space-x-3">
-              {socialLinks.map(({ href, label, color, iconSrc }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`text-gray-500 ${color}`}
-                >
-                  {/* Render the image icon */}
-                  <img src={iconSrc} alt={label} className="w-6 h-6" />
-                </a>
-              ))}
-            </div>
+        {/* Bottom Section: Copyright & Social Media */}
+        <div className="mt-10 border-t border-gray-200 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-gray-500">
+            © {new Date().getFullYear()}
+            {company.copyright}
+          </p>
+          <div className="flex items-center space-x-4">
+            {socialLinks.map(({ href, label, color, iconSrc }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`text-gray-500 ${color} transition-transform duration-200 hover:scale-110`}
+                aria-label={`Visit our ${label} page`}
+              >
+                <img
+                  src={iconSrc}
+                  alt={label}
+                  className="w-7 h-7"
+                  loading="lazy"
+                />
+              </a>
+            ))}
+          </div>
         </div>
       </Container>
     </footer>
   );
 }
 
-// ====== Reusable Contact Item Component ======
+// Reusable Contact Item Component
 function ContactItem({
   icon,
   text,
@@ -171,16 +137,22 @@ function ContactItem({
   href: string;
 }) {
   return (
-    <div className="flex items-center space-x-2 mb-3">
-      <span className="text-gray-500">{icon}</span>
-      <a href={href} className="text-gray-700 hover:text-gray-900">
+    <div className="flex items-center space-x-3 mb-3 group">
+      <span className="text-gray-500 transition-colors duration-200 group-hover:text-blue-400">
+        {icon}
+      </span>
+      <a
+        href={href}
+        className="text-sm text-gray-700 hover:text-blue-400 transition-colors duration-200"
+        aria-label={text}
+      >
         {text}
       </a>
     </div>
   );
 }
 
-// ====== Type Definitions ======
+// Type Definitions
 type FooterPresentationProps = {
   company: {
     name: string;
@@ -190,5 +162,5 @@ type FooterPresentationProps = {
     copyright: string;
   };
   links: { label: string; path: string }[];
-  socialLinks: { href: string; label: string; color: string; iconSrc: string }[]; // Changed to use `iconSrc` instead of `icon`
+  socialLinks: { href: string; label: string; color: string; iconSrc: string }[];
 };

@@ -53,7 +53,7 @@ export const RestaurantUrlEditor = ({
           <>
             <div className="text-sm text-gray-600 flex items-center">
               <span className="text-gray-400">{baseUrl}</span>
-              <span className="font-medium">{inputValue}</span>
+              <span className="font-medium ">{inputValue}</span>
             </div>
             <Button
               variant="ghost"
@@ -76,6 +76,7 @@ export const RestaurantUrlEditor = ({
            */
           <div className="flex items-center w-full animate-in fade-in-0 zoom-in-95 duration-200">
             <div className="flex-1 flex items-center border rounded-l-md bg-muted/40">
+            
               <span className="pl-3 text-sm text-gray-500">{baseUrl}</span>
               <Input
                 ref={inputRef}
@@ -86,6 +87,7 @@ export const RestaurantUrlEditor = ({
               />
             </div>
             <div className="flex">
+              
               <Button
                 size="sm"
                 variant="ghost"

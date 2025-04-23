@@ -20,7 +20,7 @@ export const MenuDetails: React.FC<{ menu: TMenu }> = ({ menu }) => {
   };
 
   return (
-    <Card className="overflow-hidden w-full max-w-3xl mx-auto shadow-lg">
+    <Card className="overflow-hidden w-full max-w-3xl mx-auto py-0 shadow-lg">
       {/* Image Carousel */}
       <CardHeader className="p-0 relative">
         <div className="relative aspect-[4/3] overflow-hidden rounded-t-lg">

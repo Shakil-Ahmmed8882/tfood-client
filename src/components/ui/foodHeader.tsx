@@ -50,7 +50,7 @@ const Location = () => {
     <div className="flex items-center gap-2 text-sm mt-8 mb-2 md:mt-0 md:mb-0">
       <FilledLocationIcon size={28} />
       <span className="font-medium">
-        {"H-12, R-2, Savar, Dhaka, Bangladesh"}
+        {"Dhaka, Bangladesh"}
       </span>
     </div>
   );
