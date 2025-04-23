@@ -31,7 +31,6 @@ export const SignupForm = () => {
           const res = await signUp(values).unwrap();
 
           const user = verifyToken(res.data.accessToken);
-          console.log(res);
           dispatch(setUser({ user, token: res.data.accessToken }));
           toast.success("Signup successful", { id: tostId, duration: 2000 });
           navigate("/");

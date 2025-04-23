@@ -1,47 +1,43 @@
-import { SelectField } from "@/components/form/fields/SelectField";
-import { useGetAllUsersQuery } from "@/store/features/user/userApi";
-import { TUser } from "@/types/user.type";
 
-/**
- * Component: ShopownerDropdown
- * Purpose: Fetches all users and filters shop owners for a dropdown selection.
- * Use Case: Used in forms where an admin assigns a shop owner to a shop.
- * Output: A Select dropdown with shop owner options.
- */
+import { TUser } from "@/types/user.type";
+import {
+  ComboboxField,
+  ComboboxOption,
+} from "@/components/form/fields/ComboboxField";
+import { useEffect, useMemo, useState } from "react";
+import { useDebounce } from "@/hooks/useDebounce";
+import useGetShopOwners from "../hooks/useGetShopOwners";
 
 export const ShopOwnerDropdown = () => {
-  /**
-   * Fetch Data: Retrieves all users from the API.
-   * Purpose: Filters out users with the role of shop owner.
-   * Loading State: Displays "loading..." while fetching data.
-   */
-  const { data, isLoading } = useGetAllUsersQuery({ queryParams: [] });
+  const [query, setQuery] = useState("");
+  const debouncedQuery = useDebounce(query, 500);
+  const [shopOwnerOptions, setShopOwnerOptions] = useState<ComboboxOption[]>([]);
+  const {data, isLoading} = useGetShopOwners( {filters:{}, searchQuery:debouncedQuery});
 
-  if (isLoading) return "loading...";
-
-  /**
-   * Process Data: Maps user data into dropdown options.
-   * Purpose: Extracts relevant fields (`id` and `name`) for selection.
-   * Output: [{ value: "1", text: "John Doe" }, { value: "2", text: "Jane Smith" }]
-   */
-  const shopOwnerOptions = (data?.data as TUser[])?.map((owner: TUser) => ({
-    value: owner.id,
-    text: owner.email,
-  }));
-
-  /**
-   * Render UI: Displays the dropdown with shop owner options.
-   * Purpose: Enables selection of a shop owner in a form.
-   * Components: Uses `SelectField` for standard dropdown styling.
-   */
+  const Options = useMemo(() => {
+    if (data && Array.isArray(data)) {
+      return data.map((owner: TUser) => ({
+        value: owner.id,
+        label: owner.email,
+      }));
+    }
+    return [];
+  }, [data]);
+  
+  useEffect(() => {
+    setShopOwnerOptions(Options);
+  }, [Options]);
+  const handleSearchShopOwner = (value: string) => {
+    setQuery(value);
+  };
+// console.log(data);
   return (
-    <section>
-      <SelectField
-        name="user"
-        label="Shop owner"
-        placeholder="Select shop owner"
-        options={shopOwnerOptions}
-      />
-    </section>
+    <ComboboxField
+      name="user"
+      label="Shop owner"
+      loading={isLoading}
+      options={shopOwnerOptions}
+      onInputValueChange={handleSearchShopOwner}
+    />
   );
 };

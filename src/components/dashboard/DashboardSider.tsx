@@ -79,10 +79,10 @@ export function DashboardSidebar({
       <Sidebar collapsible="icon" {...props}>
         <SidebarHeader>
           <div className="flex items-center justify-start gap-1">
-            <Link to="/" className="flex items-center gap-1">
+            <div  className="flex items-center gap-1">
               <LogoImage />
               {open && <LogoText />}
-            </Link>
+            </div>
           </div>
         </SidebarHeader>
         <SidebarContent>

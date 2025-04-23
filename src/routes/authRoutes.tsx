@@ -1,4 +1,5 @@
 import EmailSuccess from "@/features/auth/components/EmailSuccess";
+import VerifyEmail from "@/features/auth/components/VerifyEmail";
 import { ForgotPasswordPage } from "@/pages/auth/ForgotPasswordPage";
 import { LoginPage } from "@/pages/auth/LoginPage";
 import { ResetPasswordPage } from "@/pages/auth/ResetPasswordPage";
@@ -25,4 +26,8 @@ export const authPaths = [
     path: "reset-password",
     element: <ResetPasswordPage />,
   },
+  {
+    path: "verify-email",
+    element: <VerifyEmail />,
+  }
 ];
