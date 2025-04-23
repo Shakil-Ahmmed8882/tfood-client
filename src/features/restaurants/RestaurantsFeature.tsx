@@ -48,6 +48,9 @@ export const RestaurantsFeature = ({
     isError,
   } = useRestaurants(options);
 
+
+  console.log("___________>>>>restaurants<<<<", restaurants);
+
   return (
     <>
       <DataHandler<TRestaurant[]>

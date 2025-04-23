@@ -38,7 +38,7 @@ const useRestaurants = ({limit="10",currentPage=1,searchQuery='',filters = {} }:
     queryParams: [
       { name: "limit", value: limit.toString() },
       { name: "currentPage", value: currentPage.toString() },
-      { name: "search", value: searchQuery },
+      { name: "search", value: searchQuery }
     ],
     filterBody,
   });

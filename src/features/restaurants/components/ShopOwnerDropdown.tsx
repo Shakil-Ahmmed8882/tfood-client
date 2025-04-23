@@ -15,7 +15,7 @@ export const ShopOwnerDropdown = () => {
    * Purpose: Filters out users with the role of shop owner.
    * Loading State: Displays "loading..." while fetching data.
    */
-  const { data, isLoading } = useGetAllUsersQuery({ queryParams: [] });
+  const { data, isLoading } = useGetAllUsersQuery({ queryParams: [{name:"role",value: "shop_owner"}] });
 
   if (isLoading) return "loading...";
 
