@@ -16,7 +16,7 @@ import { sidebarItemsGenerator } from "@/utils/sidebarItemGenerator";
 import { TSidebarItem } from "@/types/global";
 import { useDispatch } from "react-redux";
 import { logout, selectCurrentUser } from "@/store/features/auth/authSlice";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { useState, useCallback } from "react";
 import { ConfirmModal } from "../custom-ui/ConfirmModal";
 import { LogoImage, LogoText } from "../ui/TFLogo";

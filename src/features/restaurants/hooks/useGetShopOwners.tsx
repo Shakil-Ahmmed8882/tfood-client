@@ -2,7 +2,6 @@
 
 import { useMemo } from "react";
 import { TFilterBody } from "@/types/global";
-import { useGetAllShopOwnersQuery } from "@/store/features/shop-owner/shopOwnerApi";
 import { useGetAllUsersQuery } from "@/features/users";
 
 

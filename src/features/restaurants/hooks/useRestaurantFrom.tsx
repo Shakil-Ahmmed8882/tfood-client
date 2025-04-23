@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { TRestaurantFromValues } from "../schema.restaurant";
 import { GenericFormRef } from "@/components/form/GenericForm";
 import { USER_ROLES } from "@/constants";
-import { convertTo12HourFormat } from "@/utils/convertTo12HourFormat";
+// import { convertTo12HourFormat } from "@/utils/convertTo12HourFormat";
 
 
 interface RestaurantFormProps {
@@ -39,7 +39,7 @@ export const useRestaurantForm = ({ restaurant, onOpenChange }: RestaurantFormPr
           // Update existing restaurant
           formData.append("data", JSON.stringify(values));
           formData.append("id", restaurant.id);
-         const res=  await updateRestaurant(formData).unwrap();
+           await updateRestaurant(formData).unwrap();
           // console.log('update res>>',res);
 
 

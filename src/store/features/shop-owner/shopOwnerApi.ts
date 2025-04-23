@@ -3,7 +3,7 @@ import { baseApi } from "../../api/baseApi";
 import { transformApiResponse } from "@/utils/transformApiResponse";
 import { TRestaurant } from "@/features/restaurants";
 import { ApiResponse, TFilterBody, TQueryParam } from "@/types/global";
-import { TUser } from "../auth/authSlice";
+// import { TUser } from "../auth/authSlice";
 
 export const shopOwnerApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
