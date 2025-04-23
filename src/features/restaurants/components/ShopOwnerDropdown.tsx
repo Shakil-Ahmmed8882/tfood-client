@@ -2,9 +2,8 @@
 import { TUser } from "@/types/user.type";
 import {
   ComboboxField,
-  ComboboxOption,
 } from "@/components/form/fields/ComboboxField";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useDebounce } from "@/hooks/useDebounce";
 import useGetShopOwners from "../hooks/useGetShopOwners";
 
@@ -25,7 +24,6 @@ export const ShopOwnerDropdown = () => {
   }, [data]);
   
 
-console.log("___________>>>>Options<<<<", Options);
 
   
   const handleSearchShopOwner = (value: string) => {
@@ -38,7 +36,6 @@ console.log("___________>>>>Options<<<<", Options);
       label="Shop owner"
       loading={isLoading}
       options={Options}
-      query={query}
       onInputValueChange={handleSearchShopOwner}
     />
   );
