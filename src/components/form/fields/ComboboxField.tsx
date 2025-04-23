@@ -111,19 +111,21 @@ export function ComboboxField<T extends FieldValues>({
                       {options.map((option) => (
                         <CommandItem
                           key={option.value}
-                          value={option.value}
+                          value={option.label}
                           disabled={disabled}
-                          onSelect={(selected) => {
-                            const finalValue = selected === field.value ? "" : selected
+                          onSelect={(selectedLabel) => {
+                            const selectedOption = options.find((opt) => opt.label === selectedLabel)
+                            const finalValue = selectedOption?.value ?? ""
                             field.onChange(finalValue)
                             onChange?.(finalValue)
                             setOpen(false)
                           }}
+                          
                         >
                           {option.label}
                           <Check
                             className={cn(
-                              "ml-auto h-4 w-4",
+                              "ml-auto h-4 w-4 ",
                               field.value === option.value
                                 ? "opacity-100"
                                 : "opacity-0"

@@ -11,8 +11,8 @@ import useGetShopOwners from "../hooks/useGetShopOwners";
 export const ShopOwnerDropdown = () => {
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 500);
-  const [shopOwnerOptions, setShopOwnerOptions] = useState<ComboboxOption[]>([]);
-  const {data, isLoading} = useGetShopOwners( {filters:{}, searchQuery:debouncedQuery});
+  
+  const {data, isLoading} = useGetShopOwners( {filters:{role:"shop_owner"}, searchQuery:debouncedQuery});
 
   const Options = useMemo(() => {
     if (data && Array.isArray(data)) {
@@ -24,9 +24,10 @@ export const ShopOwnerDropdown = () => {
     return [];
   }, [data]);
   
-  useEffect(() => {
-    setShopOwnerOptions(Options);
-  }, [Options]);
+
+console.log("___________>>>>Options<<<<", Options);
+
+  
   const handleSearchShopOwner = (value: string) => {
     setQuery(value);
   };
@@ -36,7 +37,8 @@ export const ShopOwnerDropdown = () => {
       name="user"
       label="Shop owner"
       loading={isLoading}
-      options={shopOwnerOptions}
+      options={Options}
+      query={query}
       onInputValueChange={handleSearchShopOwner}
     />
   );
