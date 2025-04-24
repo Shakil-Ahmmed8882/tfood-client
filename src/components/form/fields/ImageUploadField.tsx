@@ -88,7 +88,8 @@ export const ImageUploadField = <T extends FieldValues>({
                       <Button
                         type="button"
                         variant="secondary"
-                        onClick={(e) => e.stopPropagation()}
+                        className="cursor-pointer"
+                        // onClick={(e) => e.stopPropagation()}
                         disabled={disabled}
                       >
                         <Upload className="mr-2 h-4 w-4" />
