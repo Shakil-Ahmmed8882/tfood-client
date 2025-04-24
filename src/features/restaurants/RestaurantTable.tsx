@@ -8,8 +8,8 @@ import { TRestaurant } from "./type.restaurant";
 import { useDeleteRestaurantMutation } from "@/store/features/restaurants/restaurantApi";
 import { RestaurantFormModal } from "./components/RestaurantFormModal";
 import { getStatusColor } from "@/components/table/utility";
-import { formatDateGeneric,} from "@/lib/utils/datetime";
 import { truncateText } from "@/utils/turncateText";
+import {formatDate} from 'date-fns';
 
 // import { calculateDaysBetweenISO } from "@/utils/calculateDaysBetweenISO";
 import { SubscriptionCountdown } from "./components/SubscriptionCountdown";
@@ -28,12 +28,13 @@ const RestaurantTable = () => {
                 1}
             </TableCell>
             <TableCell>{truncateText(restaurant.name, 28)}</TableCell>
-            <TableCell>{formatDateGeneric(restaurant.created_at, "d MMM, yy")} </TableCell>
+            {/* <TableCell>{formatDateGeneric(restaurant.created_at, "d MMM, yy")} </TableCell> */}
+            <TableCell>{formatDate(restaurant.created_at, "d MMM, yy")} </TableCell>
             <TableCell>{truncateText(restaurant.location, 20)}</TableCell>
             <TableCell>{truncateText(restaurant.category, 10)}</TableCell>
             <TableCell className="">
-            {formatDateGeneric(restaurant.subscription.startDate, "d MMM, yy")} -
-            {formatDateGeneric(restaurant.subscription.endDate, "d MMM, yy")}
+            {formatDate(restaurant.subscription.startDate, "d MMM, yy")} -
+            {formatDate(restaurant.subscription.endDate, "d MMM, yy")}
             
             <SubscriptionCountdown endDate={restaurant?.subscription.endDate} />
               {/* {calculateDaysBetweenISO(restaurant?.subscription.startDate, restaurant?.subscription.endDate)}-days left */}
