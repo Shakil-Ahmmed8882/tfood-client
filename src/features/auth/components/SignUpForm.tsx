@@ -61,8 +61,8 @@ export const SignupForm = () => {
           name="role"
           label="Choose Your Role!"
           options={[
-            { value: "customer", label: "Customer" },
-            { value: "shop_owner", label: "Shop Owner" },
+            { value: "customer", label: "Visitor" },
+            { value: "shop_owner", label: "Restaurant Owner" },
           ]}
           required
           rowGroup
