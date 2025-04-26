@@ -8,6 +8,9 @@ import { useDeleteRestaurantMutation } from "@/store/features/restaurants/restau
 import { ConfirmModal } from "@/components/custom-ui/ConfirmModal";
 import { SubscriptionCountdown } from "./SubscriptionCountdown";
 import { formatDate } from "date-fns";
+import { HasRole } from "@/lib/pm/AuthGuard";
+import { RestaurantUrlEditor } from "@/features/restaurant-details/components/RestaurantURLEditor";
+import { USER_ROLES } from "@/constants";
 
 export const ShopOwnerRestaurantCard = memo(
   ({
@@ -87,6 +90,9 @@ export const ShopOwnerRestaurantCard = memo(
                     endDate={restaurant?.subscription.endDate}
                   />
                 </div>
+                <HasRole requiredRole={USER_ROLES.SHOP_OWNER}>
+                  <RestaurantUrlEditor res_id={restaurant?.id}  />
+                </HasRole>
               </div>
 
               <div className="flex gap-2 self-center mt-4">

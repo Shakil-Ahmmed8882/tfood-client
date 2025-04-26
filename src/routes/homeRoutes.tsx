@@ -1,6 +1,9 @@
+import { FAQ } from "@/features/faq/FAQ";
+import { PrivacyPolicy } from "@/features/privacy-policy/PrivacyPolicy";
 import { EditProfile } from "@/features/profiles/components/EditProfile";
 import UserProfile from "@/features/profiles/UserProfile";
 import { RestaurantDetails } from "@/features/restaurant-details";
+import { TermsAndConditions } from "@/features/termsAndConditions/TermsAndConditions";
 import HomePage from "@/pages/home/HomePage";
 import {MenuDetailPage} from "@/pages/home/MenuDetailsPage";
 import MenuPage from "@/pages/home/MenuPage";
@@ -35,4 +38,16 @@ export const homeRoutes = [
     path: "/edit-profile/:id",
     element: <EditProfile />,
   },
+  {
+    path:"/privacy-policy",
+    element:<PrivacyPolicy/>
+  },
+  {
+    path:"/terms-and-conditions",
+    element:<TermsAndConditions/>
+  },
+  {
+    path:"/faq",
+    element:<FAQ/>
+  }
   ];

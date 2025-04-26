@@ -3,6 +3,7 @@ import { FoodHeaderContainer } from "@/components/ui/foodHeader";
 import Title from "@/components/ui/title";
 import { Container } from "@/components/wrapper/Container";
 import { HomeProvider, useHomeContext } from "@/context/HomeContext";
+import { FAQ } from "@/features/faq/FAQ";
 import { MenuFeature } from "@/features/menu/MenuFeature";
 import { RestaurantsFeature } from "@/features/restaurants/RestaurantsFeature";
 import { useDebounce } from "@/hooks/useDebounce";
@@ -29,6 +30,7 @@ export default function HomePage() {
           <FoodHeaderWrapper />
           <RestaurantsWrapper />
           <MenusWrapper />
+          <FAQ/>
         </main>
       </Container>
     </HomeProvider>
