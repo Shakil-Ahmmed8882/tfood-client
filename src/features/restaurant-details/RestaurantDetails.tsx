@@ -198,7 +198,7 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
 
               {/* Restaurant URL Editor */}
               <div className="mt-4">
-                <HasRoles requiredRoles={[USER_ROLES.ADMIN, USER_ROLES.SHOP_OWNER]}>
+                <HasRoles requiredRoles={[USER_ROLES.ADMIN]}>
                   <RestaurantUrlEditor defaultSlug={restaurant?.slug} res_id={restaurant?.id} />
                 </HasRoles>
               </div>

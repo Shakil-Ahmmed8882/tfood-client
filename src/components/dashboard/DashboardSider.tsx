@@ -60,11 +60,11 @@ export function DashboardSidebar({
   const navItems: SidebarItemType = {
     navTop: sidebarItem,
     navBottom: [
-      {
-        title: "Help",
-        url: "/help",
-        icon: ShieldQuestion,
-      },
+      // {
+      //   title: "Help",
+      //   url: "/help",
+      //   icon: ShieldQuestion,
+      // },
       {
         title: "Logout",
         // url: "/logout",

@@ -20,7 +20,7 @@ export const MenuDetails: React.FC<{ menu: TMenu }> = ({ menu }) => {
   };
 
   return (
-    <Card className="overflow-hidden w-full max-w-3xl mx-auto py-0 my-8 shadow-lg">
+    <Card className="overflow-hidden w-full max-w-5xl mx-auto py-0 my-8 shadow-lg">
       {/* Image Carousel */}
       <CardHeader className="p-0 relative">
         <div className="relative aspect-[4/3] overflow-hidden rounded-t-lg">
@@ -76,9 +76,9 @@ export const MenuDetails: React.FC<{ menu: TMenu }> = ({ menu }) => {
           <p className="text-sm text-muted-foreground">
             <span className="font-medium">Restaurant:</span> {menu.restaurant_name}
           </p>
-          <p className="text-sm text-muted-foreground">
+          {/* <p className="text-sm text-muted-foreground">
             <span className="font-medium">Created by:</span> {menu.creator}
-          </p>
+          </p> */}
         </div>
       </CardContent>
 

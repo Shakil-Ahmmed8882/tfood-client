@@ -12,7 +12,7 @@ type useRestaurantsProps = {
     filters?: Record<string, string>;
   }
 
-const useRestaurants = ({limit="10",currentPage=1,searchQuery='',filters = {} }: useRestaurantsProps ) => {
+const useRestaurants = ({limit="12",currentPage=1,searchQuery='',filters = {} }: useRestaurantsProps ) => {
   
   /** 
    * Constructs a filter body for API requests.
