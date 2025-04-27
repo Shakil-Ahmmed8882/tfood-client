@@ -49,7 +49,7 @@ export const RestaurantsFeature = ({
   } = useRestaurants(options);
 
 
-  console.log("___________>>>>restaurants<<<<", restaurants);
+  // console.log("___________>>>>restaurants<<<<", restaurants);
 
   return (
     <>

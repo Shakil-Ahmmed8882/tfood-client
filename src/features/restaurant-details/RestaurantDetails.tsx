@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import { CustomErrorBoundary } from "@/components/wrapper/CustomErrorBoundary";
 import { CustomSuspense } from "@/components/wrapper/CustomSuspense";
 import { NoItemFound } from "@/components/wrapper/noItemFoundContainer";
-import RestaurantDetailsSkeleton from "./components/RestaurantDetailsSkeleton";
+import RestaurantDetailsSkeleton from "./components/RestaurantDetailsSkeleton.tsx";
 import { TRestaurant } from "../restaurants/type.restaurant.ts";
 import { useAppSelector } from "@/store/hooks.ts";
 import { selectCurrentRestaurant } from "@/store/features/restaurants/restaurantSlice.ts";
@@ -198,8 +198,8 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
 
               {/* Restaurant URL Editor */}
               <div className="mt-4">
-                <HasRoles requiredRoles={[USER_ROLES.ADMIN]}>
-                  <RestaurantUrlEditor res_id={restaurant?.id} />
+                <HasRoles requiredRoles={[USER_ROLES.ADMIN, USER_ROLES.SHOP_OWNER]}>
+                  <RestaurantUrlEditor defaultSlug={restaurant?.slug} res_id={restaurant?.id} />
                 </HasRoles>
               </div>
             </div>

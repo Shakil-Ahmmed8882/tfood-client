@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TFood from "../../assets/tflogo.svg";
 import TFoodText from "../../assets/tfoodbd.svg";
 
@@ -17,10 +17,11 @@ export const LogoImage = () => {
 
 
 export const Logo = ({className}:{className?:string}) => {
+  const navigate = useNavigate();
   return (
-    <Link to="/" className={`flex items-center justify-start gap-1 ${className}`}>
+    <div onClick={() => navigate("/")} className={`flex items-center justify-start gap-1 ${className}`}>
       <LogoImage />
       <LogoText />
-    </Link>
+    </div>
   );
 };
