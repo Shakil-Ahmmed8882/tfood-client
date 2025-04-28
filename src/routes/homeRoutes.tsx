@@ -2,7 +2,7 @@ import { FAQ } from "@/features/faq/FAQ";
 import { PrivacyPolicy } from "@/features/privacy-policy/PrivacyPolicy";
 import { EditProfile } from "@/features/profiles/components/EditProfile";
 import UserProfile from "@/features/profiles/UserProfile";
-import { RestaurantDetails } from "@/features/restaurant-details";
+import { RestaurantDetails } from "@/features/restaurant-details/RestaurantDetails";
 import { TermsAndConditions } from "@/features/termsAndConditions/TermsAndConditions";
 import HomePage from "@/pages/home/HomePage";
 import {MenuDetailPage} from "@/pages/home/MenuDetailsPage";

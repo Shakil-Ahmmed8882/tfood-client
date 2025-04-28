@@ -91,7 +91,7 @@ export const ShopOwnerRestaurantCard = memo(
                   />
                 </div>
                 <HasRole requiredRole={USER_ROLES.SHOP_OWNER}>
-                  <RestaurantUrlEditor res_id={restaurant?.id}  />
+                  <RestaurantUrlEditor defaultSlug={restaurant?.slug} res_id={restaurant?.id}  />
                 </HasRole>
               </div>
 

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { LogOut, ShieldQuestion} from "lucide-react";
+import { LogOut} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -60,11 +60,11 @@ export function DashboardSidebar({
   const navItems: SidebarItemType = {
     navTop: sidebarItem,
     navBottom: [
-      {
-        title: "Help",
-        url: "/help",
-        icon: ShieldQuestion,
-      },
+      // {
+      //   title: "Help",
+      //   url: "/help",
+      //   icon: ShieldQuestion,
+      // },
       {
         title: "Logout",
         // url: "/logout",
