@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { LogOut, ShieldQuestion} from "lucide-react";
+import { LogOut} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
