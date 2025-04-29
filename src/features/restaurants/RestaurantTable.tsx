@@ -81,6 +81,7 @@ const TableActionWrapper = ({ restaurant }: { restaurant: TRestaurant }) => {
         onEdit={onEdit}
         onDelete={() => setIsConfirmModalOpen(true)}
       />
+      
       <ConfirmModal
         isOpen={isConfirmModalOpen}
         onOpenChange={setIsConfirmModalOpen}
@@ -90,12 +91,12 @@ const TableActionWrapper = ({ restaurant }: { restaurant: TRestaurant }) => {
         confirmText="Yes, delete it"
         cancelText="No, cancel"
       />
-
-      <RestaurantFormModal
+    <RestaurantFormModal
         open={isModalOpen}
         onOpenChange={setIsModalOpen}
         restaurant={{
           ...restaurant,
+          status: restaurant.status as "inactive" | "active" | "blocked",
           subscription: {
             ...restaurant.subscription,
             startDate: restaurant.subscription?.startDate

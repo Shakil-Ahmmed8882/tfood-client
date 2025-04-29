@@ -1,22 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 // Define interface for props
 interface SubscriptionCountdownProps {
-    endDate: string;
-    // startDate: string;
+  endDate: string;
+  // startDate: string;
 }
 
 // Define interface for subscription data (for context/example usage)
 
-
-export const SubscriptionCountdown: React.FC<SubscriptionCountdownProps> = ({ endDate }) => {
+export const SubscriptionCountdown: React.FC<SubscriptionCountdownProps> = ({
+  endDate,
+}) => {
   const [daysRemaining, setDaysRemaining] = useState<number>(0);
 
   useEffect(() => {
     const calculateDaysRemaining = (): void => {
       const end: Date = new Date(endDate);
       const now: Date = new Date();
-      
+
       // Validate date
       if (isNaN(end.getTime())) {
         setDaysRemaining(0);
@@ -29,18 +30,23 @@ export const SubscriptionCountdown: React.FC<SubscriptionCountdownProps> = ({ en
     };
 
     calculateDaysRemaining();
-    
+
     // Update every day
-    const interval: NodeJS.Timeout = setInterval(calculateDaysRemaining, 24 * 60 * 60 * 1000);
-    
+    const interval: NodeJS.Timeout = setInterval(
+      calculateDaysRemaining,
+      24 * 60 * 60 * 1000
+    );
+
     return (): void => clearInterval(interval);
   }, [endDate]);
 
   return (
-    <div>
-      <p className='font-semibold'>{daysRemaining} days left</p>
-      {daysRemaining === 0 && <p>Subscription has expired</p>}
+    <div className="mb-3 mt-2 text-pink-400">
+      {daysRemaining === 0 ? (
+        <p>Subscription expired</p>
+      ) : (
+        <p className=" text-green-400">{daysRemaining} days left</p>
+      )}
     </div>
   );
 };
-
