@@ -24,37 +24,37 @@ export const checkEmailUnique = async (email: string) => {
   return !takenEmails.includes(email.toLowerCase());
 };
 
-// const passwordRequirements = {
-//   minLength: 8,
-//   hasUpperCase: /[A-Z]/,
-//   hasLowerCase: /[a-z]/,
-//   hasNumber: /[0-9]/,
-//   hasSpecialChar: /[^A-Za-z0-9]/,
-// };
+const passwordRequirements = {
+  minLength: 8,
+  hasUpperCase: /[A-Z]/,
+  hasLowerCase: /[a-z]/,
+  hasNumber: /[0-9]/,
+  hasSpecialChar: /[^A-Za-z0-9]/,
+};
 
 export const LoginSchema = z.object({
   email: z.string().email(),
-  password: z.string(),
-  // .min(
-  //   passwordRequirements.minLength,
-  //   `Password must be at least ${passwordRequirements.minLength} characters`
-  // )
-  // .regex(
-  //   passwordRequirements.hasUpperCase,
-  //   "Password must contain at least one uppercase letter"
-  // )
-  // .regex(
-  //   passwordRequirements.hasLowerCase,
-  //   "Password must contain at least one lowercase letter"
-  // )
-  // .regex(
-  //   passwordRequirements.hasNumber,
-  //   "Password must contain at least one number"
-  // )
-  // .regex(
-  //   passwordRequirements.hasSpecialChar,
-  //   "Password must contain at least one special character"
-  // ),
+  password: z.string()
+  .min(
+    passwordRequirements.minLength,
+    `Password must be at least ${passwordRequirements.minLength} characters`
+  )
+  .regex(
+    passwordRequirements.hasUpperCase,
+    "Password must contain at least one uppercase letter"
+  )
+  .regex(
+    passwordRequirements.hasLowerCase,
+    "Password must contain at least one lowercase letter"
+  )
+  .regex(
+    passwordRequirements.hasNumber,
+    "Password must contain at least one number"
+  )
+  .regex(
+    passwordRequirements.hasSpecialChar,
+    "Password must contain at least one special character"
+  ),
 });
 export type loginFormValue = z.infer<typeof LoginSchema>;
 

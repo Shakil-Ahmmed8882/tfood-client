@@ -3,12 +3,13 @@ import { Container } from "@/components/wrapper/Container";
 import { AuthLeftSide } from "@/features/auth/components/AuthLeftSide";
 import { SignupForm } from "@/features/auth/components/SignUpForm";
 
+
 export const SignupPage = () => {
   return (
     <div className="bg-[#f5f6fb]">
-        <Container className="flex justify-center gap-x-14  flex-wrap-reverse items-center  min-h-screen ">
+      <Container className="flex justify-center gap-x-14  flex-wrap-reverse items-center  min-h-screen ">
         {/* Left Section (Image/Illustration) */}
-        
+
         <AuthLeftSide />
         {/* Right Section (Signup Form) */}
         <div className="w-full lg:max-w-lg p-8 bg-white my-8">
@@ -27,15 +28,16 @@ export const SignupPage = () => {
           </div>
 
           <SignupForm />
-          <p className="text-center mt-4">
+          <p className="text-center  flex gap-2 justify-center">
             Already have an account??
             <Link to="/login" className="text-blue-500 hover:underline">
               Login
             </Link>
           </p>
         </div>
-    </Container>
-      </div>
+  
+      </Container>
+    </div>
   );
 };
 

@@ -26,7 +26,7 @@ export const LoginPage = () => {
           </div>
 
           <LoginForm />
-          <p className="text-center mt-4">
+          <p className="text-center  flex gap-2 justify-center">
             Don't have an account?
             <Link to="/signup" className="text-blue-500 hover:underline">
               Create Account

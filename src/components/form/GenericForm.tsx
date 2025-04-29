@@ -73,6 +73,8 @@ export const GenericForm = <TSchema extends ZodType>({
 		};
 	});
 
+
+	
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)}>{children}</form>
