@@ -14,8 +14,7 @@ import {formatDate} from 'date-fns';
 // import { calculateDaysBetweenISO } from "@/utils/calculateDaysBetweenISO";
 import { SubscriptionCountdown } from "./components/SubscriptionCountdown";
 const RestaurantTable = () => {
-  const { data, pagination } = useTableContext<TRestaurant>();
-
+const { data, pagination } = useTableContext<TRestaurant>();
 
   return (
     <>

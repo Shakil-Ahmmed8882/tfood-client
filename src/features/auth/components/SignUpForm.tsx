@@ -3,48 +3,27 @@ import { initialSignUpValues, signUpFormValue, SignUpSchema } from "../schema";
 import { useRef } from "react";
 import { TextField } from "@/components/form/fields/TextField";
 import { PasswordField } from "@/components/form/fields/PasswordField";
-import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { useSignUpMutation } from "@/store/features/auth/authApi";
-import { verifyToken } from "@/utils/verifyToken";
-import { setUser } from "@/store/features/auth/authSlice";
-import { toast } from "sonner";
-import { useDispatch } from "react-redux";
 import { EmailIcon, PasswordIcon } from "./Icons";
 import { IdCard } from "lucide-react";
 import { RadioGroupField } from "@/components/form/fields/RadioGroupField";
+import { useSignUp } from "../hooks/useSignUp";
+import { SuccessModal } from "@/components/modal/SuccessModal";
+import mail_icon from "@/assets/icons/img/mail_icon.gif";
+import { useNavigate } from "react-router-dom";
+
+
 export const SignupForm = () => {
-  const [signUp] = useSignUpMutation();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const formRef = useRef<GenericFormRef<signUpFormValue>>(null);
+  const goTo = useNavigate()
+  const { handleSignUp, isSuccess , is_verified} = useSignUp();
+
 
   return (
     <GenericForm
       schema={SignUpSchema}
       initialValues={initialSignUpValues}
-      onSubmit={async (values) => {
-        console.log(values);
-
-        const tostId = toast.loading("Signing up...");
-        try {
-          const res = await signUp(values).unwrap();
-
-          const user = verifyToken(res.data.accessToken);
-          dispatch(setUser({ user, token: res.data.accessToken }));
-          toast.success("Signup successful", { id: tostId, duration: 2000 });
-          navigate("/");
-        } catch (error: unknown) {
-          const errorData = error as {
-            data: { message: string; success: boolean };
-          };
-          console.log(error);
-          toast.error(errorData.data.message || "something went wrong.", {
-            id: tostId,
-            duration: 2000,
-          });
-        }
-      }}
+      onSubmit={handleSignUp}
       ref={formRef}
     >
       <div className="space-y-6">
@@ -99,6 +78,28 @@ export const SignupForm = () => {
       >
         Create Account
       </Button>
+            <SuccessModal
+          isOpen={isSuccess && !is_verified}
+          isFooter={false}
+          icon={
+            <img
+              src={mail_icon}
+              alt={"success icon"}
+              className="rounded-full w-44 h-40"
+            />
+          }
+          onClose={() => {}}
+          title="Please check your email"
+          description="Account created successfully"
+        />
+
+            <SuccessModal
+          isOpen={isSuccess && is_verified}
+          onClose={() => goTo("/login")}
+          title="Already verified"
+          description="Account is already verified"
+          buttonText="Login"
+        />
     </GenericForm>
   );
 };
