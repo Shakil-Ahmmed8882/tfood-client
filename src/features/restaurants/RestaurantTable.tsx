@@ -95,6 +95,7 @@ const TableActionWrapper = ({ restaurant }: { restaurant: TRestaurant }) => {
         onOpenChange={setIsModalOpen}
         restaurant={{
           ...restaurant,
+          status: restaurant.status as "inactive" | "active" | "blocked",
           subscription: {
             ...restaurant.subscription,
             startDate: restaurant.subscription?.startDate

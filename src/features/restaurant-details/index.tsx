@@ -57,7 +57,7 @@ export const RestaurantDetails = () => {
           </NoItemFound>
         </CustomSuspense>
       </CustomErrorBoundary>
-      <MenuTabs res_id={restaurant?.id} />
+      <MenuTabs restaurant={restaurant} />
     </Container>
   );
 };

@@ -81,7 +81,7 @@ const MenuTableTopHeadings = () => {
         <TableSearch placeholder="Menu/restaurant/creator"/>
         <FilterByMenuCategory/>
         <FilterRestaurants/>
-        <Button className="gap-2 bg-blue-600 w-full sm:w-auto hover:bg-blue-700">
+        <Button  className="gap-2 bg-blue-600 w-full sm:w-auto hover:bg-blue-700">
           Add Menu
         </Button>
       </div>
