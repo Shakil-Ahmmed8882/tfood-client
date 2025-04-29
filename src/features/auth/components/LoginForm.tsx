@@ -4,7 +4,6 @@ import { FormEvent, useRef } from "react";
 import { TextField } from "@/components/form/fields/TextField";
 import { PasswordField } from "@/components/form/fields/PasswordField";
 import { Link, useNavigate } from "react-router-dom";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { useLoginMutation } from "@/store/features/auth/authApi";
 import { verifyToken } from "@/utils/verifyToken";

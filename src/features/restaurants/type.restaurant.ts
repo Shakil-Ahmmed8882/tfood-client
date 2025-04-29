@@ -5,7 +5,8 @@
 export interface TRestaurant {
   id: string
   user: string
-  name: string
+  name: string, 
+  type: string | undefined,
   location: string
   website: string
   contact: string

@@ -28,7 +28,7 @@ export function RestaurantFormModal({
   open,
   onOpenChange,
   restaurant,
-}: RestaurantFormProps) {
+}: any & RestaurantFormProps) {
 
 
 
