@@ -1,6 +1,7 @@
 import { TabsProvider, useTabs } from "@/components/custom-ui/Tabs";
 import MenuTabHeader from "./MenuHeader";
 import { MenuFeature } from "@/features/menu/MenuFeature";
+import { TRestaurant } from "@/features/restaurants";
 
 
 
@@ -10,15 +11,16 @@ import { MenuFeature } from "@/features/menu/MenuFeature";
  * - Includes `MenuTabHeader` for tab selection.
  * - Renders `TabsContentWrapper` to display content based on the selected tab.
  */
-export default function MenuTabs({res_id}:{res_id:string | undefined}) {
+export default function MenuTabs({restaurant}:{restaurant:TRestaurant | undefined |null}) {
     
-    const filters = {restaurant: res_id}
+  console.log("___________>>>>restaurant<<<<", restaurant);
+    const filters = {restaurant: restaurant?.id}
 
   return (
     <div className="container py-6 space-y-6 pt-8">
       <TabsProvider defaultTab="All">
         <MenuTabHeader {...{filters}} />
-        <TabsContentWrapper />
+        <TabsContentWrapper owner_email={`${restaurant?.ownerEmail}`}/>
       </TabsProvider>
     </div>
   );
@@ -31,8 +33,11 @@ export default function MenuTabs({res_id}:{res_id:string | undefined}) {
  * - Uses `useTabs` to get the `activeTab`.
  * - Passes `activeTab` as both `notFoundMessage` and `searchQuery` to `MenuFeature`.
  */
-const TabsContentWrapper = () => {
+const TabsContentWrapper = ({owner_email}:{owner_email:string}) => {
   const { activeTab } = useTabs();
-  const filters = activeTab !== "All" ? { food_category: activeTab } : undefined;
+  const filters = {
+    ...(owner_email && { creator: owner_email }),
+    ...(activeTab !== "All" && { food_category: activeTab }),
+  };  
   return <MenuFeature notFoundMessage={activeTab} {...(filters ? { filters } : {})} />;
 };

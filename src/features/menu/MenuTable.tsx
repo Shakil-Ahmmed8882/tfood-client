@@ -53,7 +53,6 @@ const TableActionWrapper = ({ menu }: { menu: TMenu }) => {
 
   const onDelete = async () => {
     await deleteMenu(menu.id);
-    // console.log("___________>>>>res<<<<", res);
   };
 
   return (
