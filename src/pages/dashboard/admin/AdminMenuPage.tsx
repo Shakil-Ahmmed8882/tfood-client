@@ -18,6 +18,8 @@ import MenuTable from "@/features/menu/MenuTable";
 import { FilterRestaurants } from "@/features/restaurants/components/filterRestaurants";
 import { FilterByMenuCategory } from "@/features/restaurants/components/filterByMenuCategory";
 import { menuTableHeadsOptions } from "@/features/menu/constants";
+import { MenuCategoryModalForm } from "@/features/menu/components/MenuCategoryModalForm";
+import { useState } from "react";
 
 /**
  * AdminMenuPage Component:
@@ -73,6 +75,8 @@ const MenuTableContainer = () => {
  */
 const MenuTableTopHeadings = () => {
 
+  const [isCategoryModalOpen,setIsCategoryModalOpen] = useState(false);
+
 
   return (
     <div className="p-2 sm:p-4 pt-10 pb-8 md:pb-3 sm:pt-7 sm:flex flex-wrap justify-between items-center">
@@ -81,10 +85,15 @@ const MenuTableTopHeadings = () => {
         <TableSearch placeholder="Menu/restaurant/creator"/>
         <FilterByMenuCategory/>
         <FilterRestaurants/>
-        <Button  className="gap-2 bg-blue-600 w-full sm:w-auto hover:bg-blue-700">
+        <Button onClick={() => setIsCategoryModalOpen(true)} className="gap-2 cursor-pointer bg-blue-600 w-full sm:w-auto hover:bg-blue-700">
           Add Menu
         </Button>
       </div>
+
+      <MenuCategoryModalForm
+                isModalOpen={isCategoryModalOpen}
+                setIsModalOpen={setIsCategoryModalOpen}
+              />
     </div>
   );
 };
