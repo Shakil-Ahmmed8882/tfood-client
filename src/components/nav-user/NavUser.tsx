@@ -1,9 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
 import {
-  Sparkles,
-  BadgeCheck,
-  CreditCard,
-  Bell,
   LogOut,
   ChevronDown,
 } from "lucide-react";
@@ -101,10 +97,6 @@ export function NavUser() {
 
   const menuItems: MenuItem[] = useMemo(
     () => [
-      { icon: Sparkles, label: "Upgrade to Pro", separatorAfter: true },
-      { icon: BadgeCheck, label: "Account" },
-      { icon: CreditCard, label: "Billing" },
-      { icon: Bell, label: "Notifications", separatorAfter: true },
       { icon: LogOut, label: "Log out", onClick: () => setIsConfirmModalOpen(true) },
     ],
     [setIsConfirmModalOpen]

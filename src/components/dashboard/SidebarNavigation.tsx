@@ -16,6 +16,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { TSidebarItem } from "@/types/global";
 import { Link } from "react-router-dom";
@@ -27,7 +28,7 @@ export function SidebarNavigation({
   items: TSidebarItem[];
   label?: string;
 }) {
-// const { open ,isMobile ,setOpen} = useSidebar();
+  const { isMobile, setOpenMobile } = useSidebar();
   return (
     <SidebarGroup>
       {label && <SidebarGroupLabel>{label}</SidebarGroupLabel>}
@@ -78,12 +79,17 @@ export function SidebarNavigation({
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton
                 asChild
-                
                 tooltip={item.title}
-                onClick={item.onClick}
+                onClick={() => {
+                  if (isMobile) {
+                    setOpenMobile(false);
+                  }
+
+                  return item.onClick && item.onClick();
+                }}
               >
                 {item.url ? (
-                  <Link to={item.url} >
+                  <Link to={item.url}>
                     {renderIcon(item.icon)}
                     <span>{item.title}</span>
                   </Link>

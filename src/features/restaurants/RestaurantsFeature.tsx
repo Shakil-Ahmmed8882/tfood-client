@@ -26,7 +26,7 @@ type TRestaurantFeature = {
  * - Shows a "No Item Found" message if no restaurants are available.
  */
 export const RestaurantsFeature = ({
-  limit = "5",
+  limit = "12",
   searchQuery,
   shouldPaginate = false,
 }: TRestaurantFeature) => {
@@ -49,7 +49,7 @@ export const RestaurantsFeature = ({
   } = useRestaurants(options);
 
 
-  console.log("___________>>>>restaurants<<<<", restaurants);
+  // console.log("___________>>>>restaurants<<<<", restaurants);
 
   return (
     <>

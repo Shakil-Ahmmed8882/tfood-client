@@ -56,7 +56,7 @@ export function RestaurantFormModal({
     <div className="space-y-4">
       <ImageUploadField<TRestaurantFromValues>
         name="logo"
-        label="Shop Logo"
+        label="Logo"
         onUpload={handleFileUpload}
         className="border-gray-50 w-full"
         disabled={isLoading}
@@ -93,9 +93,9 @@ export function RestaurantFormModal({
       </HasRole>
       <TextField<TRestaurantFromValues>
         name="name"
-        placeholder="Enter Shop Name"
+        placeholder="Enter Restaurant Name"
         required
-        label="Shop Name"
+        label="Name"
         inputClass="border-gray-50"
         disabled={isLoading}
       />
@@ -107,24 +107,24 @@ export function RestaurantFormModal({
 
       <TextField<TRestaurantFromValues>
         name="website"
-        placeholder="Enter Shop Website"
-        label="Shop Website"
+        placeholder="Enter your Website-(optional)"
+        label="Website"
         inputClass="border-gray-50"
         disabled={isLoading}
       />
 
       <TextField<TRestaurantFromValues>
         name="contact"
-        placeholder="Enter Shop Contact"
+        placeholder="Enter your Contact"
         required
-        label="Shop Contact"
+        label="Contact"
         inputClass="border-gray-50"
         disabled={isLoading}
       />
       <TextField<TRestaurantFromValues>
         name="location"
-        placeholder="Enter Shop Location"
-        label="Shop Location"
+        placeholder="Enter your Location"
+        label="Location"
         inputClass="border-gray-50"
         disabled={isLoading}
       />
@@ -138,14 +138,14 @@ export function RestaurantFormModal({
       <TextField<TRestaurantFromValues>
         name="description"
         placeholder="Enter your description"
-        label="Shop Description"
+        label="Description"
         inputClass="border-gray-50"
         disabled={isLoading}
       />
       <TextField<TRestaurantFromValues>
         name="category"
-        placeholder="Enter your Shop category"
-        label="Shop Category"
+        placeholder="Enter your category"
+        label="Category"
         inputClass="border-gray-50"
         disabled={isLoading}
       />

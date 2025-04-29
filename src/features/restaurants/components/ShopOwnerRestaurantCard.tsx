@@ -4,9 +4,13 @@ import { MapPin, Pencil, Star, Trash2 } from "lucide-react";
 import { memo, useState } from "react";
 import { TRestaurant } from "../type.restaurant";
 import { cn } from "@/lib/utils";
-import { calculateDaysLeft } from "@/utils/calculateDaysLeft";
 import { useDeleteRestaurantMutation } from "@/store/features/restaurants/restaurantApi";
 import { ConfirmModal } from "@/components/custom-ui/ConfirmModal";
+import { SubscriptionCountdown } from "./SubscriptionCountdown";
+import { formatDate } from "date-fns";
+import { HasRole } from "@/lib/pm/AuthGuard";
+import { RestaurantUrlEditor } from "@/features/restaurant-details/components/RestaurantURLEditor";
+import { USER_ROLES } from "@/constants";
 
 export const ShopOwnerRestaurantCard = memo(
   ({
@@ -78,23 +82,17 @@ export const ShopOwnerRestaurantCard = memo(
             <div className="flex justify-between  gap-20">
               <div className="space-y-2">
                 <p className="font-medium">Subscription</p>
-                {/* <p className="text-sm text-muted-foreground">
-                  {new Date(
-                    restaurant.subscription?.startDate !== undefined
-                      ? restaurant.subscription?.startDate
-                      : ""
-                  ).toLocaleDateString()}
-                  {new Date(
-                    restaurant.subscription?.endDate !== undefined
-                      ? restaurant.subscription?.endDate
-                      : ""
-                  ).toLocaleDateString()}
-                </p> */}
-                <p className="w-fit rounded bg-yellow-50 px-2 py-1 text-sm text-yellow-600">
-                  {restaurant.subscription &&
-                    calculateDaysLeft(restaurant.subscription)}{" "}
-                  days left
-                </p>
+
+                <div className="w-fit rounded bg-yellow-50 px-2 py-1 text-sm text-yellow-600">
+                  {formatDate(restaurant.subscription.startDate, "d MMM, yy")} -
+                  {formatDate(restaurant.subscription.endDate, "d MMM, yy")}
+                  <SubscriptionCountdown
+                    endDate={restaurant?.subscription.endDate}
+                  />
+                </div>
+                <HasRole requiredRole={USER_ROLES.SHOP_OWNER}>
+                  <RestaurantUrlEditor defaultSlug={restaurant?.slug} res_id={restaurant?.id}  />
+                </HasRole>
               </div>
 
               <div className="flex gap-2 self-center mt-4">

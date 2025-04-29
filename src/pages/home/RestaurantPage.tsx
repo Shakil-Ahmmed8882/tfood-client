@@ -24,7 +24,7 @@ export default function RestaurantPage() {
 
   return (
     <Container>
-      <ErrorBoundary fallback={<p>Error occured</p>}>
+      <ErrorBoundary fallback={<p>Error occurred</p>}>
         <Suspense fallback={<>Loading restaurants...</>}>
           <FoodHeaderContainer
             searchQuery={searchQuery}

@@ -10,6 +10,7 @@ import { UrlEditorProps } from "../type";
 export const RestaurantUrlEditor = ({
   baseUrl = "/",
   res_id,
+defaultSlug = "",
 }: UrlEditorProps) => {
   /**
    * =====================================
@@ -33,7 +34,7 @@ export const RestaurantUrlEditor = ({
     isUpdatingSlug,
     isEmpty,
     debouncedSlug,
-  } = useSlugEditor(res_id);
+  } = useSlugEditor(res_id,defaultSlug);
 
   return (
     <div

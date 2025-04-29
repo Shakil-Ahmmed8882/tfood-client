@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 import { useClickOutside } from "@/hooks/useClickOutside";
 import { useAutoFocus } from "@/hooks/useAutoFocus";
@@ -18,11 +18,11 @@ import { toast } from "sonner";
  * (for input change, save, cancel) to control the slug editing UI and functionality.
  */
 
-export const useSlugEditor = (res_id?: string) => {
-  const { slug } = useParams();
+export const useSlugEditor = (res_id?: string, defaultSlug?: string) => {
+
   const [isEditing, setIsEditing] = useState(false);
-  const [inputValue, setInputValue] = useState(slug);
-  const [originalValue] = useState(slug);
+  const [inputValue, setInputValue] = useState(defaultSlug );
+  const [originalValue] = useState(defaultSlug);
   const { inputRef, isEmpty } = useAutoFocus(isEditing);
   const editAreaRef = useClickOutside(() => setIsEditing(false));
   const goTo = useNavigate();
