@@ -40,11 +40,11 @@ export const MenuCategoryModalForm: React.FC<MenuCategoryModalFormProps> = ({
     <ReusableModal
       open={isModalOpen}
       onOpenChange={setIsModalOpen}
-      title={isEditing ? "Edit Menu" : "Create Menu"}
+      title={isEditing ? "Edit Category" : "Create Category"}
       subtitle={
         isEditing
-          ? "Edit an existing menu category"
-          : "Create a new menu category"
+          ? "Edit an existing category"
+          : "Create a new category"
       }
     >
       <GenericForm
