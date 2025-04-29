@@ -42,7 +42,6 @@ export const DateField = <T extends FieldValues>({
             control={control}
             name={name}
             render={({ field }) => {
-                // console.log(`DateField - Name: ${name}, Value:`, field.value); // Check the value passed to DateTimePicker
                 return (
                     <FormItem className={className}>
                         {label && (

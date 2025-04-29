@@ -6,8 +6,6 @@ const MainLayout = () => {
   return (
     <main className="bg-gradient-to-r from-[#fffefb] to-[#f8f9fe]">
       <Navbar/>
-
-
       <Outlet />
       <Footer/>
     </main>

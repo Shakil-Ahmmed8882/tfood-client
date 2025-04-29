@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useRestaurantOptions } from "@/features/menu/hooks/useRestaurantOptions";
 import ReusableSelect from "@/components/custom-ui/ReusableSelect";
 
-const ShopOwnerMenu = () => {
+const ShopOwnerMenuPage = () => {
   /**
    * Handles the state for opening and closing the menu modal.
    * Example use case: A shop owner clicks the "Add Menu" button, triggering the modal to open.
@@ -73,4 +73,4 @@ const ShopOwnerMenu = () => {
   );
 };
 
-export default ShopOwnerMenu;
+export default ShopOwnerMenuPage;

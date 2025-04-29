@@ -17,19 +17,14 @@ export const ForgotPasswordForm = () => {
       schema={ForgotSchema}
       initialValues={initialForgotValues}
       onSubmit={async (values) => {
-        console.log(values);
-
         const tostId = toast.loading("Sending email...");
         try {
-          const res = await forgotPassword(values).unwrap();
-          console.log(res);
+          await forgotPassword(values).unwrap();
+
           toast.success("Check you email for reset", { id: tostId, duration: 2000 });
           navigate("/email-success");
         } catch (error: unknown) {
-          // const errorData = error as {
-          //   data: { message: string; success: boolean };
-          // };
-          console.log(error);
+          console.error(error);
           toast.error( "something went wrong.", {
             id: tostId,
             duration: 2000,

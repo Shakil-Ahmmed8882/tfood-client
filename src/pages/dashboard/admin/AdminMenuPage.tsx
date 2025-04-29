@@ -10,9 +10,7 @@ import {
   RenderTableBody,
 } from "./index";
 
-import {
-  useGetAllMenusQuery,
-} from "@/features/menu";
+import { useGetAllMenusQuery } from "@/features/menu";
 import { ParentTable } from "@/components/table/ParentTable";
 import MenuTable from "@/features/menu/MenuTable";
 import { FilterRestaurants } from "@/features/restaurants/components/filterRestaurants";
@@ -20,6 +18,8 @@ import { FilterByMenuCategory } from "@/features/restaurants/components/filterBy
 import { menuTableHeadsOptions } from "@/features/menu/constants";
 import { MenuCategoryModalForm } from "@/features/menu/components/MenuCategoryModalForm";
 import { useState } from "react";
+import { MenuModalForm } from "@/features/menu/components/MenuModalForm";
+import { useMenuModal } from "@/features/menu/hooks/useMenuModal";
 
 /**
  * AdminMenuPage Component:
@@ -64,9 +64,6 @@ const MenuTableContainer = () => {
   );
 };
 
-
-
-
 /**
  * MenuTableTopHeadings Component:
  * - Displays the title and action buttons (search, filter, add menu).
@@ -74,26 +71,38 @@ const MenuTableContainer = () => {
  * - Example: Admin clicks 'Add Menu' -> Opens modal/form for menu creation.
  */
 const MenuTableTopHeadings = () => {
-
-  const [isCategoryModalOpen,setIsCategoryModalOpen] = useState(false);
-
+  const { isModalOpen, setIsModalOpen } = useMenuModal();
+  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
 
   return (
     <div className="p-2 sm:p-4 pt-10 pb-8 md:pb-3 sm:pt-7 sm:flex flex-wrap justify-between items-center">
       <Title text="Menu" />
       <div className="flex flex-wrap items-center gap-4">
-        <TableSearch placeholder="Menu/restaurant/creator"/>
-        <FilterByMenuCategory/>
-        <FilterRestaurants/>
-        <Button onClick={() => setIsCategoryModalOpen(true)} className="gap-2 cursor-pointer bg-blue-600 w-full sm:w-auto hover:bg-blue-700">
+        <TableSearch placeholder="Menu/restaurant/creator" />
+        <FilterByMenuCategory />
+        <FilterRestaurants />
+        <Button
+          onClick={() => setIsCategoryModalOpen(true)}
+          className="gap-2 cursor-pointer bg-blue-600 w-full sm:w-auto hover:bg-blue-700"
+        >
+          Add Menu Category
+        </Button>
+        <Button
+          onClick={() => setIsModalOpen(true)}
+          className="gap-2 cursor-pointer bg-blue-600 w-full sm:w-auto hover:bg-blue-700"
+        >
           Add Menu
         </Button>
       </div>
 
       <MenuCategoryModalForm
-                isModalOpen={isCategoryModalOpen}
-                setIsModalOpen={setIsCategoryModalOpen}
-              />
+        isModalOpen={isCategoryModalOpen}
+        setIsModalOpen={setIsCategoryModalOpen}
+      />
+      <MenuModalForm
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+      />
     </div>
   );
 };

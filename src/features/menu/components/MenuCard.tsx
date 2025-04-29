@@ -57,9 +57,8 @@ export const MenuCard: React.FC<{ menu: TMenu }> = ({ menu }) => {
           className="object-cover w-full h-full"
         />
 
-        <span className="absolute bottom-4 left-4 bg-black/15  px-3 py-1 rounded-md text-sm">
-          Menu
-        </span>
+
+        <span className="font-semibold absolute top-4 right-2 bg-white/80    px-3 py-1 rounded-md text-sm">৳ {menu.price}</span>
 
         {/* Action buttons */}
         {showActions && (
@@ -93,14 +92,14 @@ export const MenuCard: React.FC<{ menu: TMenu }> = ({ menu }) => {
       </div>
       <CardContent className="">
         <div className="flex items-start justify-between gap-5">
-          <h3 className="font-semibold text-lg">{truncateText(menu.title, 15)}</h3>
-          <span className="font-semibold">৳ {menu.price}</span>
+          <h3 className="font-semibold text-sm">{truncateText(menu.title, 35)}</h3>
         </div>
         <p className="text-sm text-muted-foreground">{menu.food_category}</p>
       </CardContent>
       <CardFooter>
         <p className="text-sm text-muted-foreground line-clamp-2">
         {truncateText(menu.description, 35)}
+        <span className="font-semibold text-sm mt-1">{menu.description.length < 35 && "..."}See more</span>
         </p>
       </CardFooter>
 
