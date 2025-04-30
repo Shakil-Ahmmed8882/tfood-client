@@ -4,7 +4,6 @@ import { FormEvent, useRef } from "react";
 import { TextField } from "@/components/form/fields/TextField";
 import { PasswordField } from "@/components/form/fields/PasswordField";
 import { Link, useNavigate } from "react-router-dom";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { useLoginMutation } from "@/store/features/auth/authApi";
 import { verifyToken } from "@/utils/verifyToken";
@@ -13,6 +12,7 @@ import { toast } from "sonner";
 import { useDispatch } from "react-redux";
 import { EmailIcon, PasswordIcon } from "./Icons";
 export const LoginForm = () => {
+
   const [login] = useLoginMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,9 +29,8 @@ export const LoginForm = () => {
       dispatch(setUser({ user, token: res.data.accessToken }));
       toast.success("Login successful", { id: tostId, duration: 2000 });
       navigate("/");
-    } catch (error) {
-      console.log(error);
-      toast.error("something went wrong.", { id: tostId, duration: 2000 });
+    } catch (error:any) {
+      toast.error(error?.data?.message || "Something went wrong", { id: tostId, duration: 2000 });
     }
   };
 
@@ -62,13 +61,13 @@ export const LoginForm = () => {
 
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          <Checkbox id="remember" />
+          {/* <Checkbox id="remember" />
           <label
             htmlFor="remember"
             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
             Remember me
-          </label>
+          </label> */}
         </div>
         <Link
           to="/forgot-password"
