@@ -9,7 +9,7 @@ import { Action, State } from "./table.type";
  */
 export const tableInitialState = <T,>(): State<T> => ({
   data: [],
-  filter: { name: "id", value: "" },
+  filter: { name: "category", value: "" },
   searchQuery: "",
   pagination: {
     currentPage: 1,

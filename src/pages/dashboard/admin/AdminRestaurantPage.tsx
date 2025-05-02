@@ -20,6 +20,7 @@ import { useState } from "react";
 import { RestaurantFormModal } from "@/features/restaurants/components/RestaurantFormModal";
 import { ParentTable } from "@/components/table/ParentTable";
 import RestaurantTable from "@/features/restaurants/RestaurantTable";
+import { useGetAllMenuCategoriesQuery } from "@/store/features/menu-category/menuCategoryApi";
 
 /**
  * AdminRestaurantPage Component:
@@ -74,12 +75,21 @@ const RestaurantTableContainer = () => {
  */
 const TableTopHeadings = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { data, isLoading } = useGetAllMenuCategoriesQuery({});
+
+  const menuCategories = data?.data?.map((category) => ({
+    name: category.name,
+    value: category.name,
+  }));
+
+
+
   return (
     <div className="p-2 sm:p-4 pt-10 pb-8 md:pb-3 sm:pt-7 sm:flex flex-wrap justify-between items-center">
       <Title text="Restaurant" />
       <div className="flex flex-wrap items-center gap-4">
         <TableSearch />
-        <TableFilter filterArray={restaurantCategoryOptions} fieldName="category" />
+        <TableFilter isLoading={isLoading} filterArray={menuCategories || []} fieldName="category" />
         <Button
           onClick={() => setIsModalOpen(true)}
           className="gap-2 bg-blue-600 w-full mb-6 sm:mb-0 sm:w-auto hover:bg-blue-700"

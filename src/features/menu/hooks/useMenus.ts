@@ -38,6 +38,7 @@ const useMenus = ({limit="10",currentPage=1,searchQuery='',filters = {} }: useRe
       { name: "limit", value: limit.toString() },
       { name: "currentPage", value: currentPage.toString() },
       { name: "search", value: searchQuery },
+      { name: "status", value: "active" },
     ],
     filterBody,
   });
