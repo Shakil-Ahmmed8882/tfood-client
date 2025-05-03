@@ -1,4 +1,4 @@
-import { use, useCallback, useEffect, useMemo, useState } from "react";
+import {  useCallback, useEffect, useMemo, useState } from "react";
 import {
   LogOut,
   ChevronDown,
@@ -86,14 +86,13 @@ export function NavUser() {
 
   const user = userData?.data;
   
-  const handleLogout = async() => {
-    setIsConfirmModalOpen(true);
+  useEffect(() => {
+    refetch();
+  },[refetch]);
+  const handleLogout = useCallback(() => {
     dispatch(logout());
     navigate("/");
-  }
-useEffect(() => {
-  refetch();
-},[refetch]);
+  }, [dispatch, navigate]);
   const menuItems: MenuItem[] = useMemo(
     () => [
       { icon: LogOut, label: "Log out", onClick: () => setIsConfirmModalOpen(true) },
