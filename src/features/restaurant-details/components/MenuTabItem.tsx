@@ -20,7 +20,7 @@ export default function MenuTabs({restaurant}:{restaurant:TRestaurant | undefine
     <div className="container py-6 space-y-6 pt-8">
       <TabsProvider defaultTab="All">
         <MenuTabHeader {...{filters}} />
-        <TabsContentWrapper owner_email={`${restaurant?.ownerEmail}`}/>
+        <TabsContentWrapper restaurant={restaurant}/>
       </TabsProvider>
     </div>
   );
@@ -33,10 +33,10 @@ export default function MenuTabs({restaurant}:{restaurant:TRestaurant | undefine
  * - Uses `useTabs` to get the `activeTab`.
  * - Passes `activeTab` as both `notFoundMessage` and `searchQuery` to `MenuFeature`.
  */
-const TabsContentWrapper = ({owner_email}:{owner_email:string}) => {
+const TabsContentWrapper = ({restaurant}:{restaurant:TRestaurant | null | undefined}) => {
   const { activeTab } = useTabs();
   const filters = {
-    ...(owner_email && { creator: owner_email }),
+    ...(restaurant?.id && { restaurant: restaurant.id }),
     ...(activeTab !== "All" && { food_category: activeTab }),
   };  
   return <MenuFeature notFoundMessage={activeTab} {...(filters ? { filters } : {})} />;

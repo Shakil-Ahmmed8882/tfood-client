@@ -62,10 +62,10 @@ export const MenuCard: React.FC<{ menu: TMenu }> = ({ menu }) => {
         )}
       </div>
       <CardContent className="">
-      <h2 className="text-md mt-2 font-semibold text-[#555] rounded-sm inline-block">{menu?.restaurant_name}</h2>
+      <h2 className=" text-[18px] sm:text-[20px] md:text-xl mt-2 font-semibold text-[#555] rounded-sm inline-block">{truncateText(menu.title, 20) }</h2>
 
         <div className="flex items-start justify-between gap-5">
-          <h3 className="font-semibold text-sm">{truncateText(menu.title, 35)}</h3>
+          <h3 className="mt-2  text-gray-500 text-sm">{truncateText(menu?.restaurant_name, 35)}</h3>
           {/* <span className="font-semibold">৳ {menu.price}</span> */}
         </div>
         <p className="text-sm text-muted-foreground pt-2">{menu?.food_category}</p>
@@ -76,9 +76,6 @@ export const MenuCard: React.FC<{ menu: TMenu }> = ({ menu }) => {
         <span className="font-semibold text-sm mt-1">{menu.description.length < 35 && "..."}See more</span>
         </p>
       </CardFooter>
-
-
-
     </Card>
   );
 };
@@ -97,7 +94,6 @@ const ActionDropdown  =({menu}:{menu:TMenu})=>{
   };
   return(
   <>
-
     <div className="absolute top-4 right-4 cursor-pointer">
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

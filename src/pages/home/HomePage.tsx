@@ -25,7 +25,6 @@ export default function HomePage() {
   return (
     <HomeProvider>
       <Container className="pb-8">
-
         <main>
           <FoodHeaderWrapper />
           <RestaurantsWrapper />

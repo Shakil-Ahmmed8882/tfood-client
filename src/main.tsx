@@ -10,11 +10,11 @@ import { Toaster } from "sonner";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <RouterProvider router={routes} />
-      </PersistGate>
-      <Toaster />
-    </Provider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <RouterProvider router={routes} />
+        </PersistGate>
+        <Toaster />
+      </Provider>
   </StrictMode>
 );

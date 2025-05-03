@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { useSlugEditor } from "../hooks/useSlugEditor";
 import { UrlEditorProps } from "../type";
+import { truncateText } from "@/utils/turncateText";
 
 export const RestaurantUrlEditor = ({
   baseUrl = "/",
@@ -54,7 +55,7 @@ defaultSlug = "",
           <>
             <div className="text-sm text-gray-600 flex items-center">
               <span className="text-gray-400">{baseUrl}</span>
-              <span className="font-medium ">{inputValue}</span>
+              <span className="font-medium ">{truncateText(`${inputValue}`, 20)}</span>
             </div>
             <Button
               variant="ghost"

@@ -15,6 +15,7 @@ import MenuTabs from "./components/MenuTabItem.tsx";
 import { RestaurantUrlEditor } from "./components/RestaurantURLEditor.tsx";
 import {  HasRoles } from "@/lib/pm/AuthGuard";
 import { USER_ROLES } from "@/constants/index.ts";
+import { TimeFormatter } from "@/lib/TimeFormatter.ts";
 
 export const RestaurantDetails = () => {
   const cachedRestaurant = useAppSelector(selectCurrentRestaurant);
@@ -40,7 +41,7 @@ export const RestaurantDetails = () => {
     cachedRestaurant?.slug === slug ? cachedRestaurant : data?.data;
 
   return (
-    <Container className="py-6 ">
+    <Container className="pt-0 md:py-6 ">
       {/* Search bar and header for the restaurant page */}
       <FoodHeaderContainer searchQuery="" setSearchQuery={() => {}} />
       <CustomErrorBoundary error={isError}>
@@ -80,16 +81,16 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
   return (
     <Card className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden transition-shadow hover:shadow-lg">
       <CardContent className="p-6">
-        <div className="flex justify-between flex-wrap md:gap-6 ">
+        <div className="sm:flex justify-between flex-wrap md:gap-6 ">
           {/* Left Section: Logo and Basic Details */}
-          <div className="flex gap-4 md:gap-6 items-start">
+          <div className="sm:flex gap-4 md:gap-6 items-start">
             {/* Restaurant Logo */}
             <div className="shrink-0">
               <img
                 src={restaurant?.related_images ? restaurant.logo : fallbackImage}
                 alt={restaurant?.name}
                 onError={(e) => (e.currentTarget.src = fallbackImage)}
-                className="w-32 h-32 md:w-34 md:h-34 rounded-lg  object-cover object-top transition-transform duration-300 hover:scale-105"
+                className=" md:w-34 md:h-34 rounded-lg  object-cover object-top transition-transform duration-300 hover:scale-105"
               />
             </div>
 
@@ -130,21 +131,22 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
                     className="h-5 w-5 mr-2 text-gray-400"
                     aria-hidden="true"
                   />
-                  <span>{restaurant?.operating_hours?.open || "9:00 AM"} - {restaurant?.operating_hours?.close || "10:00 PM"}</span>
+                  <span>{TimeFormatter.toAmPm(`${restaurant?.operating_hours?.open}`) || "9:00 AM"} - {TimeFormatter.toAmPm(`${restaurant?.operating_hours?.close}`) || "10:00 PM"}</span>
                 </div>
                 <div className="flex items-center pt-1 text-sm text-gray-600">
                   <MapPin
                     className="h-5 w-5 mr-2 text-gray-400"
                     aria-hidden="true"
                   />
+
                   <a
-                    href="https://maps.google.com/?q=123+Main+Street"
+                    href={`${restaurant?.location}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-blue-600 transition-colors"
                     aria-label="View location on map"
                   >
-                    {restaurant?.location || "123 Main Street"} 
+                    Location
                   </a>
                 </div>
               </div>

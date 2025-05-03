@@ -22,12 +22,19 @@ export const useRestaurantForm = ({ restaurant, onOpenChange }: RestaurantFormPr
   const [updateRestaurant, { isLoading: isUpdating }] = useUpdateRestaurantMutation();
   const [logo, setLogo] = useState<File | null>(null);
   const formRef = useRef<GenericFormRef<TRestaurantFromValues>>(null);
+  
+
+
+
 
   const isLoading = isCreating || isUpdating;
 
   // Memoize handleSubmit to prevent unnecessary re-renders
   const handleSubmit = useCallback(
     async (values: FormEvent<HTMLFormElement> | TRestaurantFromValues) => {
+
+     
+
       const toastId = toast.loading(restaurant ? "Updating restaurants..." : "Creating restaurants...");
       const formData = new FormData();
       try {
@@ -48,7 +55,7 @@ export const useRestaurantForm = ({ restaurant, onOpenChange }: RestaurantFormPr
           // Create new restaurant
           const formDataWithId = { ...values, user: user!.userId };
           formData.append("data", JSON.stringify(formDataWithId));
-        console.log(Object.values(formDataWithId));
+          console.log(Object.values(formDataWithId));
           await createRestaurant(formData).unwrap();
         }
          if(user?.role === USER_ROLES.ADMIN && !restaurant?.id){
@@ -60,6 +67,7 @@ export const useRestaurantForm = ({ restaurant, onOpenChange }: RestaurantFormPr
         setLogo(null);
         onOpenChange(false);
         toast.success(restaurant ? "Restaurant updated!" : "New restaurant created!", { id: toastId });
+       
       } catch (error) {
         console.error("Error submitting form:", error);
         toast.error("Failed to save restaurant", { id: toastId });

@@ -71,9 +71,9 @@ export const restaurantApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: [API_tAGS.RESTAURANT],
     }),
     updateRestaurant: builder.mutation<ApiResponse<TRestaurant>, FormData>({
-
       query: (data) => {
         return {
           url: `/restaurants/${data.get("id")}`,
