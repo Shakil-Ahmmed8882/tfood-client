@@ -9,12 +9,14 @@ import { adminPaths } from "./adminRoutes";
 import { userPaths } from "./userRoutes";
 import { authPaths } from "./authRoutes";
 import { USER_ROLES } from "@/constants";
+import NotFound from "@/pages/NotFound";
 
 export const routes = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: routeGenerator(homeRoutes),
+    errorElement:<NotFound/>
   },
 
   {
@@ -25,6 +27,7 @@ export const routes = createBrowserRouter([
       </ProtectedRoute>
     ),
     children: routeGenerator(adminPaths),
+    errorElement:<NotFound/>
   },
   {
     path: USER_ROLES.SHOP_OWNER,
@@ -34,6 +37,7 @@ export const routes = createBrowserRouter([
       </ProtectedRoute>
     ),
     children: routeGenerator(shopOwnerPaths),
+    errorElement:<NotFound/>
   },
   {
     path: USER_ROLES.CUSTOMER,
@@ -43,6 +47,7 @@ export const routes = createBrowserRouter([
       </ProtectedRoute>
     ),
     children: routeGenerator(userPaths),
+    errorElement:<NotFound/>
   },
   ...routeGenerator(authPaths),
 ]);
