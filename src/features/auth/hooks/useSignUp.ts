@@ -9,7 +9,7 @@ export const useSignUp = () => {
    * Use case: When a user submits the sign-up form, this hook sends the data to the server.
    * Output: Triggers a mutation to create a new user in the backend.
    */
-  const [signUp, {data,isSuccess}] = useSignUpMutation();
+  const [signUp, {data,isSuccess, isLoading}] = useSignUpMutation();
  
 
   /**
@@ -32,6 +32,7 @@ export const useSignUp = () => {
   return {
     handleSignUp, 
     isSuccess,
+    isLoading,
     is_verified: data?.data?.is_verified
   }
 

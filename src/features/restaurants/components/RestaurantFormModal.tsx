@@ -30,9 +30,6 @@ export function RestaurantFormModal({
   restaurant,
 }: any & RestaurantFormProps) {
 
-
-
-
   const { isLoading, handleFileUpload, handleSubmit, formRef } =
     useRestaurantForm({ restaurant, onOpenChange });
   // Memoize form fields to prevent unnecessary re-renders

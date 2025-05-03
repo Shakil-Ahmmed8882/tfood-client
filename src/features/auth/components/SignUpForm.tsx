@@ -11,12 +11,13 @@ import { useSignUp } from "../hooks/useSignUp";
 import { SuccessModal } from "@/components/modal/SuccessModal";
 import mail_icon from "@/assets/icons/img/mail_icon.gif";
 import { useNavigate } from "react-router-dom";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 
 export const SignupForm = () => {
   const formRef = useRef<GenericFormRef<signUpFormValue>>(null);
   const goTo = useNavigate()
-  const { handleSignUp, isSuccess , is_verified} = useSignUp();
+  const { handleSignUp, isSuccess , is_verified, isLoading} = useSignUp();
 
 
   return (
@@ -74,9 +75,9 @@ export const SignupForm = () => {
 
       <Button
         type="submit"
-        className="w-full text-gary-900 bg-yellow-500 hover:bg-yellow-200  px-8 py-6 my-10 cursor-pointer"
+        className="w-full text-gary-900 bg-yellow-500 hover:bg-yellow-500/80  px-8 py-6 my-10 cursor-pointer"
       >
-        Create Account
+        {isLoading ? <LoadingSpinner className="size-[23px] "/> : "Sign Up"}
       </Button>
             <SuccessModal
           isOpen={isSuccess && !is_verified}

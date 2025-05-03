@@ -25,7 +25,7 @@ type FoodHeaderContainerProps = {
 export const FoodHeaderContainer: React.FC<FoodHeaderContainerProps> = ({searchQuery, setSearchQuery}) => {
   
   return (
-    <header className="w-full py-9 flex flex-col md:flex-row justify-between gap-4">
+    <header className="w-full pb-8 md:pb-9 md:py-9 flex flex-col md:flex-row justify-between gap-4">
       <Location />
       <div className="relative w-full md:w-1/3 flex">
         <SearchInput placeholder="Search Foods & Restaurants" onChange={setSearchQuery} value={searchQuery} />
@@ -47,7 +47,7 @@ export const FoodHeaderContainer: React.FC<FoodHeaderContainerProps> = ({searchQ
  */
 const Location = () => {
   return (
-    <div className="flex items-center gap-2 text-sm mt-8 mb-2 md:mt-0 md:mb-0">
+    <div className="flex items-center gap-2 text-sm mt-5 mb-2 md:mt-0 md:mb-0">
       <FilledLocationIcon size={28} />
       <span className="font-medium">
         {"Dhaka, Bangladesh"}

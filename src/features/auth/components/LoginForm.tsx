@@ -14,9 +14,10 @@ import { setUser } from "@/store/features/auth/authSlice";
 import { toast } from "sonner";
 import { useDispatch } from "react-redux";
 import { EmailIcon, PasswordIcon } from "./Icons";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 export const LoginForm = () => {
 
-  const [login] = useLoginMutation();
+  const [login,{isLoading}] = useLoginMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const formRef = useRef<GenericFormRef<loginFormValue>>(null);
@@ -81,9 +82,9 @@ export const LoginForm = () => {
       </div>
       <Button
         type="submit"
-        className="w-full text-gary-900 bg-yellow-500 hover:bg-yellow-200  px-8 py-6 my-10 cursor-pointer"
+        className="w-full text-gary-900 bg-yellow-500 hover:bg-yellow-500/80  px-8 py-6 my-10 cursor-pointer"
       >
-        Login
+       {isLoading ? <LoadingSpinner className="size-[23px] "/> : "Login"}
       </Button>
     </GenericForm>
   );

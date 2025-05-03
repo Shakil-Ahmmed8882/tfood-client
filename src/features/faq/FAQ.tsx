@@ -3,7 +3,7 @@ import { Card, CardContent} from "@/components/ui/card"
 
 export  function FAQ() {
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className="container mx-auto  py-12">
       <div className="mb-8 text-center">
         <h1 className="text-3xl font-bold tracking-tight text-gray-900 md:text-4xl">Frequently Asked Questions</h1>
         <p className="mt-4 text-lg text-gray-600">

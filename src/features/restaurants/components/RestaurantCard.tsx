@@ -44,7 +44,7 @@ export const RestaurantCard = ({ restaurant }: { restaurant: TRestaurant }) => {
           <div className="flex items-center gap-1.5">
             <ThinLocationIcon className="text-gray-500" size={18} aria-hidden="true" />
             <span className="text-sm sm:text-base text-gray-500">
-              {truncateText(restaurant.location, 15)}
+              Location
             </span>
           </div>
           <div className="flex items-center gap-1 text-yellow-400">

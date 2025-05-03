@@ -34,14 +34,13 @@ type menuFeatureProps = {
  */
 
 export const MenuFeature = ({
-  limit = "5",
+  limit = "8",
   searchQuery,
   shouldPaginate = false,
   filters = {}
 }: menuFeatureProps) => {
   const queryParams = [{ name: "status", value: 'active' }];
   const [currentPage, setCurrentPage] = useState<number>(1);
-
 
       /**
        * Fetch Current User:
@@ -69,10 +68,18 @@ export const MenuFeature = ({
       isLoading,
       isFetching,
       isError,
+      refetch
     } = useMenus(options)
 
 
-    // console.log("___________>>>>menus", menus, "_______<<<<", );
+
+
+
+
+
+
+   
+    
 
   return (
     <>
