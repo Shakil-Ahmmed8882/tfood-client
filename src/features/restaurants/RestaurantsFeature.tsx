@@ -38,7 +38,7 @@ export const RestaurantsFeature = ({
    * - Manages loading, fetching, and error states with `isLoading`, `isFetching`, and `isError` respectively.
    */
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const queryParams = [{ name: "status", value: '1' }];
+  const queryParams = [{ name: "status", value: 'active' }];
   const options = { limit, currentPage, searchQuery,queryParams };
   const {
     data: restaurants,

@@ -78,6 +78,7 @@ export  function EditProfile() {
                   <Camera className="h-4 w-4" />
                 </label>
                 <input
+                
                   id="profile-image"
                   type="file"
                   accept="image/*"

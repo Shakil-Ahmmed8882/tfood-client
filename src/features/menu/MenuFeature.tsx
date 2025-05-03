@@ -39,6 +39,7 @@ export const MenuFeature = ({
   shouldPaginate = false,
   filters = {}
 }: menuFeatureProps) => {
+  const queryParams = [{ name: "status", value: 'active' }];
   const [currentPage, setCurrentPage] = useState<number>(1);
 
 
@@ -50,7 +51,7 @@ export const MenuFeature = ({
        */
       
       
-      const options = {searchQuery, limit, currentPage ,...{ filters } };
+      const options = {searchQuery, limit, currentPage ,...{ filters }, queryParams};
     
       /**
        * 
@@ -71,7 +72,7 @@ export const MenuFeature = ({
     } = useMenus(options)
 
 
-    console.log("___________>>>>menus", menus, "_______<<<<", );
+    // console.log("___________>>>>menus", menus, "_______<<<<", );
 
   return (
     <>

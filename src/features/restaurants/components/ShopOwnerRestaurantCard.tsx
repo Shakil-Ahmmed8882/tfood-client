@@ -12,6 +12,7 @@ import { HasRole } from "@/lib/pm/AuthGuard";
 import { RestaurantUrlEditor } from "@/features/restaurant-details/components/RestaurantURLEditor";
 import { USER_ROLES } from "@/constants";
 
+
 export const ShopOwnerRestaurantCard = memo(
   ({
     restaurant,
@@ -31,6 +32,8 @@ export const ShopOwnerRestaurantCard = memo(
         console.log(error);
       }
     };
+
+
 
     // console.log(restaurant);
     return (
@@ -84,8 +87,7 @@ export const ShopOwnerRestaurantCard = memo(
                 <p className="font-medium">Subscription</p>
 
                 <div className="w-fit rounded bg-yellow-50 px-2 py-1 text-sm text-yellow-600">
-                  {formatDate(restaurant.subscription.startDate, "d MMM, yy")} -
-                  {formatDate(restaurant.subscription.endDate, "d MMM, yy")}
+                  {formattedSubscriptionDate(restaurant?.subscription)}
                   <SubscriptionCountdown
                     endDate={restaurant?.subscription.endDate}
                   />
@@ -131,3 +133,12 @@ export const ShopOwnerRestaurantCard = memo(
 
 // Add display name for better debugging
 ShopOwnerRestaurantCard.displayName = "ShopOwnerRestaurantCard";
+
+
+const formattedSubscriptionDate = (subscriptionDate:{startDate:string, endDate:string}) => {
+if(subscriptionDate.startDate && subscriptionDate.endDate) {
+  return `${formatDate(subscriptionDate.startDate, "d MMM, yy")} - ${formatDate(subscriptionDate.endDate, "d MMM, yy")}` 
+}else {
+  return "N/A"
+}
+};
