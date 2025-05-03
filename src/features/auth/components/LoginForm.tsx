@@ -29,7 +29,7 @@ export const LoginForm = () => {
       const res = await login(values).unwrap();
 
       const user = verifyToken(res.data.accessToken);
-      console.log(res);
+      // console.log(res);
       dispatch(setUser({ user, token: res.data.accessToken }));
       toast.success("Login successful", { id: tostId, duration: 2000 });
       navigate("/");

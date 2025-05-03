@@ -42,6 +42,7 @@ export const useRestaurantForm = ({ restaurant, onOpenChange }: RestaurantFormPr
           formData.append("logo", logo);
         }
 
+
         if (restaurant?.id) {
           // Update existing restaurant
           formData.append("data", JSON.stringify(values));
@@ -49,14 +50,13 @@ export const useRestaurantForm = ({ restaurant, onOpenChange }: RestaurantFormPr
            await updateRestaurant(formData).unwrap();
           // console.log('update res>>',res);
 
-
         } if(user?.role === USER_ROLES.SHOP_OWNER && !restaurant?.id){
           // If user is a shop owner and restaurant id is not present, create new restaurant{
           // Create new restaurant
           const formDataWithId = { ...values, user: user!.userId };
           formData.append("data", JSON.stringify(formDataWithId));
-          console.log(Object.values(formDataWithId));
-          await createRestaurant(formData).unwrap();
+          // console.log(Object.values(formDataWithId));
+           await createRestaurant(formData).unwrap();
         }
          if(user?.role === USER_ROLES.ADMIN && !restaurant?.id){
           const formDataWithId = { ...values};
@@ -70,7 +70,8 @@ export const useRestaurantForm = ({ restaurant, onOpenChange }: RestaurantFormPr
        
       } catch (error) {
         console.error("Error submitting form:", error);
-        toast.error("Failed to save restaurant", { id: toastId });
+        const errorMessage = error instanceof Error ? error.message : "Failed to save restaurant";
+        toast.error(errorMessage, { id: toastId });
       }
     },
     [logo, restaurant, user, createRestaurant, updateRestaurant, onOpenChange]

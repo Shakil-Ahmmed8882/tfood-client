@@ -5,8 +5,7 @@ import {
 } from "@/store/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { verifyToken } from "@/utils/verifyToken";
-import { ReactNode } from "react";
-
+import { ReactNode, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
 type TProtectedRoute = {
@@ -16,22 +15,29 @@ type TProtectedRoute = {
 
 const ProtectedRoute = ({ children, role }: TProtectedRoute) => {
   const token = useAppSelector(selectCurrentToken);
-
-  let user;
-
-  if (token) {
-    user = verifyToken(token);
-  }
-
   const dispatch = useAppDispatch();
 
-  if (role !== undefined && role !== (user as TUser)?.role)  {
-    dispatch(logout());
-    return <Navigate to="/login" replace={true} />;
-  }
-  if (!token) {
-    return <Navigate to="/login" replace={true} />;
-  }
+  const [isAllowed, setIsAllowed] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    if (!token) {
+      setIsAllowed(false);
+      return;
+    }
+
+    const user = verifyToken(token) as TUser;
+
+    if (role !== undefined && user?.role !== role) {
+      dispatch(logout());
+      setIsAllowed(false);
+      return;
+    }
+
+    setIsAllowed(true);
+  }, [token, role, dispatch]);
+
+  if (isAllowed === null) return null; // or a loader/spinner
+  if (!isAllowed) return <Navigate to="/login" replace />;
 
   return children;
 };

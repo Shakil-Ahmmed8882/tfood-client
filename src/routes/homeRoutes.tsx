@@ -4,6 +4,7 @@ import { EditProfile } from "@/features/profiles/components/EditProfile";
 import UserProfile from "@/features/profiles/UserProfile";
 import { RestaurantDetails } from "@/features/restaurant-details/RestaurantDetails";
 import { TermsAndConditions } from "@/features/termsAndConditions/TermsAndConditions";
+import ContactPage from "@/pages/home/ContactPage";
 import HomePage from "@/pages/home/HomePage";
 import {MenuDetailPage} from "@/pages/home/MenuDetailsPage";
 import MenuPage from "@/pages/home/MenuPage";
@@ -49,5 +50,9 @@ export const homeRoutes = [
   {
     path:"/faq",
     element:<FAQ/>
+  },
+  {
+    path:'/contact',
+    element:<ContactPage/>
   }
   ];

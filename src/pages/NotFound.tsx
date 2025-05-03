@@ -19,7 +19,7 @@ export default function NotFound() {
           Sorry, we couldn't find the page you're looking for. It might have been moved or doesn't exist.
         </p>
 
-        <div className="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
+        <div className="space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
           <Button asChild className="bg-[#f5b100] hover:bg-[#d99e00] focus:ring-[#f5b100]">
             <Link to="/">
               <Home className="mr-2 h-4 w-4" />
