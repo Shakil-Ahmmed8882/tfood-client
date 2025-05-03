@@ -62,11 +62,12 @@ export const MenuCard: React.FC<{ menu: TMenu }> = ({ menu }) => {
         )}
       </div>
       <CardContent className="">
+      <h2 className="text-md mt-2 font-semibold text-[#555] rounded-sm inline-block">{menu?.restaurant_name}</h2>
+
         <div className="flex items-start justify-between gap-5">
           <h3 className="font-semibold text-sm">{truncateText(menu.title, 35)}</h3>
           {/* <span className="font-semibold">৳ {menu.price}</span> */}
         </div>
-        <p className="text-sm p-2 mt-2 bg-green-50 text-green-500  rounded-sm inline-block">{menu?.restaurant_name}</p>
         <p className="text-sm text-muted-foreground pt-2">{menu?.food_category}</p>
       </CardContent>
       <CardFooter>
