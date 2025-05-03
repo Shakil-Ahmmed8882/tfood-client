@@ -21,7 +21,6 @@ import { TUser } from "@/types/user.type";
 import { LoadingSkeleton } from "./NavUserSkeleton";
 import { NavUserError } from "./NavUserError";
 import { ConfirmModal } from "../custom-ui/ConfirmModal";
-
 // MenuItem type definition
 type MenuItem = {
   icon: React.ElementType;
@@ -79,21 +78,20 @@ const NavUserContent = ({
 
 export function NavUser() {
   const [isConfirmMolalOpen, setIsConfirmModalOpen] = useState(false);
-  const {
-    data: userData,
-    isLoading,
-    error,
-    refetch,
-  } = useGetUserQuery(undefined);
+
+  const {data: userData,isLoading,error,refetch,} = useGetUserQuery(undefined);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const user = userData?.data;
-  const handleLogout = useCallback(async() => {
+  
+  const handleLogout = async() => {
     setIsConfirmModalOpen(true);
     dispatch(logout());
     navigate("/");
-  }, [dispatch, navigate]);
+    refetch();
+  }
 
   const menuItems: MenuItem[] = useMemo(
     () => [

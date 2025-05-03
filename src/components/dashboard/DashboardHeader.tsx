@@ -1,7 +1,7 @@
 
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { DynamicBreadcrumb } from "../custom-ui/DynamicBreadcrumb";
+// import { DynamicBreadcrumb } from "../custom-ui/DynamicBreadcrumb";
 import { NavUser } from "../nav-user/NavUser";
 
 export function DashboardHeader() {
@@ -11,7 +11,7 @@ export function DashboardHeader() {
       <div className="flex items-center gap-2 px-4">
         <SidebarTrigger className="-ml-1" />
         <Separator orientation="vertical" className="mr-2 h-4" />
-        <DynamicBreadcrumb />
+        {/* <DynamicBreadcrumb /> */}
       </div>
       <div className="flex items-center gap-2 px-4">
       <NavUser />
