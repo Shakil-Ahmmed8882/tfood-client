@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import Title from "@/components/ui/title";
 import {
   restaurantTableHeadsOptions,
-  restaurantCategoryOptions,
   useGetAllRestaurantsQuery,
 } from "@/features/restaurants";
 
