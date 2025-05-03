@@ -50,6 +50,7 @@ const userApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: [API_tAGS.USER],
     }),
 
     updateUser: builder.mutation<TUser, { id: string; formData: FormData }>({

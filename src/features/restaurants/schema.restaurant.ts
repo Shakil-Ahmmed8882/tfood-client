@@ -102,5 +102,5 @@ export const initialRestaurantValues: Partial<TRestaurantFromValues> = {
     open: '',
     close: '',
   },
-  status: "active",
+  status: "inactive",
 };

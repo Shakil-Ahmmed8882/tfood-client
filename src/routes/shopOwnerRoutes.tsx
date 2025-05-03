@@ -1,5 +1,5 @@
 // import ShopOwnerDashboard from "@/pages/dashboard/shop-owner/ShopOwnerDashboard";
-import ShopOwnerMenu from "@/pages/dashboard/shop-owner/ShopOwnerMenu";
+import ShopOwnerMenuPage from "@/pages/dashboard/shop-owner/ShopOwnerMenuPage";
 import ShopOwnerRestaurants from "@/pages/dashboard/shop-owner/ShopOwnerRestaurants";
 import { TRouteDefinition } from "@/types/global";
 import {  Store, UtensilsCrossed } from "lucide-react";
@@ -22,6 +22,6 @@ export const shopOwnerPaths:TRouteDefinition[] = [
     title: "Menu",
     icon: UtensilsCrossed,
     path: "menu",
-    element: <ShopOwnerMenu />,
+    element: <ShopOwnerMenuPage />,
   },
 ];

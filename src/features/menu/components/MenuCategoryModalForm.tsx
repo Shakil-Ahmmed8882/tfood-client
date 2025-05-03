@@ -7,12 +7,11 @@ import {
   TMenuCategoryFormValues,
 } from "../schema.menu";
 import { TMenuCategory } from "../menu.type";
-import { SelectField } from "@/components/form/fields/SelectField";
 import { TextField } from "@/components/form/fields/TextField";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useMenuCategoryForm } from "../hooks/useMenuCategoryForm";
-import { useRestaurantOptions } from "../hooks/useRestaurantOptions";
+import { RestaurantOptionsDropdown } from "./RestaurantOptionsDropwn";
 
 interface MenuCategoryModalFormProps {
   isModalOpen: boolean;
@@ -28,7 +27,6 @@ export const MenuCategoryModalForm: React.FC<MenuCategoryModalFormProps> = ({
   const formRef = useRef<GenericFormRef<TMenuCategoryFormValues>>(null);
   const { handleSubmit, isLoading, isEditing } =
     useMenuCategoryForm(menuCategory);
-  const { restaurantOptions, isRestaurantsLoading } = useRestaurantOptions();
   const handleFormSubmit = async (values: TMenuCategoryFormValues | any) => {
     const success = await handleSubmit(values);
     if (success) {
@@ -40,11 +38,11 @@ export const MenuCategoryModalForm: React.FC<MenuCategoryModalFormProps> = ({
     <ReusableModal
       open={isModalOpen}
       onOpenChange={setIsModalOpen}
-      title={isEditing ? "Edit Menu" : "Create Menu"}
+      title={isEditing ? "Edit Category" : "Create Category"}
       subtitle={
         isEditing
-          ? "Edit an existing menu category"
-          : "Create a new menu category"
+          ? "Edit an existing category"
+          : "Create a new category"
       }
     >
       <GenericForm
@@ -54,13 +52,7 @@ export const MenuCategoryModalForm: React.FC<MenuCategoryModalFormProps> = ({
         ref={formRef}
       >
         <div className="space-y-4">
-          <SelectField<TMenuCategoryFormValues>
-            name="restaurant"
-            label="Select Restaurant"
-            placeholder="Select a Restaurant"
-            options={restaurantOptions}
-            disabled={isRestaurantsLoading}
-          />
+            <RestaurantOptionsDropdown/>
 
           <TextField<TMenuCategoryFormValues>
             name="name"

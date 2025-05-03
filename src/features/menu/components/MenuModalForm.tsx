@@ -13,11 +13,10 @@ import { X } from "lucide-react";
 import { FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useMenuFormManager } from "../hooks/useMenuFormManager";
-import { SelectField } from "@/components/form/fields/SelectField";
-
 import { useEffect, useRef, useState } from "react";
-import { useRestaurantOptions } from "../hooks/useRestaurantOptions";
-import { useMenuCategoryOptions } from "../hooks/useMenuCategoryOptions";
+
+import { CategoryOptionsDropdown } from "./CategoryOptionsDropdown";
+import { RestaurantOptionsDropdown } from "./RestaurantOptionsDropwn";
 
 interface MenuModalFormProps {
   menuItem?: TMenu;
@@ -32,10 +31,7 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
 }) => {
   const formRef = useRef<GenericFormRef<TMenuFormValues>>(null);
   const [restaurantId, setRestaurantId] = useState<string>("");
-  const { restaurantOptions, isRestaurantsLoading } = useRestaurantOptions();
-  const { categoriesOptions, isMenuCategoriesLoading } = useMenuCategoryOptions(
-    { restaurantId }
-  );
+
   const {
     existingImages,
     newImages,
@@ -48,20 +44,20 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
   // console.log(resId,menu_categories);
   useEffect(() => {
     if (menuItem?.restaurant) {
-      setRestaurantId(menuItem.restaurant as string); // Set the restaurantId state to the restaurant ID from menuItem
+      setRestaurantId(menuItem.restaurant as string); 
     }
   }, [menuItem?.restaurant]);
 
   const handleSelectChange = (value: string) => {
-    setRestaurantId(value); // Update the restaurantId state with the selected value
+    setRestaurantId(value); 
   };
   // console.log({ restaurantId, menuItem });
   return (
     <ReusableModal
       open={isModalOpen}
       onOpenChange={setIsModalOpen}
-      title="Edit Menu"
-      subtitle="Edit menu details"
+      title={menuItem ? "Edit Menu" : "Add Menu"}
+      subtitle={menuItem ? "Edit menu details" : "Add menu details"}
     >
       <GenericForm
         schema={menuFormSchema}
@@ -70,7 +66,7 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
         ref={formRef}
       >
         <div className="space-y-4">
-          {restaurantOptions && (
+          {/* {restaurantOptions && (
             <SelectField<TMenuFormValues>
               name="restaurant"
               label="Select Restaurant"
@@ -79,7 +75,10 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
               loading={isRestaurantsLoading}
               options={restaurantOptions}
             />
-          )}
+          )} */}
+
+            <RestaurantOptionsDropdown handleSelectChange={handleSelectChange}/>
+
           <TextField<TMenuFormValues> name="title" label="Title" />
           <TextField<TMenuFormValues>
             name="price"
@@ -87,16 +86,10 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
             type="number"
           />
           <TextField<TMenuFormValues> name="description" label="Description" />
-          {categoriesOptions && (
-            <SelectField<TMenuFormValues>
-              name="food_category"
-              label="Food Category"
-              placeholder="Select a Category"
-              // defaultValue={menuItem?.food_category}
-              loading={isMenuCategoriesLoading}
-              options={categoriesOptions}
-            />
-          )}
+
+
+            <CategoryOptionsDropdown restaurantId={restaurantId} />
+
         </div>
         <div className="space-y-4 my-3">
           <FormLabel htmlFor="image-upload mb-2">Images</FormLabel>

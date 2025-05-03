@@ -10,7 +10,7 @@ import { useState } from "react";
 export const MenuDetails: React.FC<{ menu: TMenu }> = ({ menu }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const images = menu.related_images.length > 0 ? menu.related_images : [menufallbackUrl];
-
+// console.log(menu);
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % images.length);
   };

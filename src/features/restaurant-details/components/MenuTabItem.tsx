@@ -13,6 +13,7 @@ import { TRestaurant } from "@/features/restaurants";
  */
 export default function MenuTabs({restaurant}:{restaurant:TRestaurant | undefined |null}) {
     
+  // console.log("___________>>>>restaurant<<<<", restaurant);
     const filters = {restaurant: restaurant?.id}
 
   return (

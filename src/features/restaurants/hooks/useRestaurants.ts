@@ -10,9 +10,10 @@ type useRestaurantsProps = {
     currentPage?: number;
     searchQuery?: string;
     filters?: Record<string, string>;
+    queryParams?: { name: string; value: string }[];
   }
 
-const useRestaurants = ({limit="12",currentPage=1,searchQuery='',filters = {} }: useRestaurantsProps ) => {
+const useRestaurants = ({limit="12",currentPage=1,searchQuery='',filters = {},queryParams = [] }: useRestaurantsProps ) => {
   
   /** 
    * Constructs a filter body for API requests.
@@ -38,9 +39,11 @@ const useRestaurants = ({limit="12",currentPage=1,searchQuery='',filters = {} }:
     queryParams: [
       { name: "limit", value: limit.toString() },
       { name: "currentPage", value: currentPage.toString() },
-      { name: "search", value: searchQuery }
+      { name: "search", value: searchQuery },
+      ...queryParams
     ],
     filterBody,
+
   });
 
   /** 

@@ -31,7 +31,6 @@ import {
             const href: string = `abc/${pathSegments.slice(0, index + 1).join("/")}`;
             const isLast: boolean = index === pathSegments.length - 1;
             const displayName: string = routeNames[segment] || capitalize(segment);
-  // console.log(displayName);
             return (
               <div key={href} className="flex items-center">
                 <BreadcrumbItem className="hidden md:block">

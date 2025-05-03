@@ -46,9 +46,9 @@ export function useShopOwnerRestaurants({ limit: initialLimit = 5, initialPage =
    * - Example: Logged-in user sees only their restaurant listings.
    */
   const user = useAppSelector(selectCurrentUser);
+  const queryParams = [{ name: "status", value: '0' }];
   const filters = { owner_email: user?.email || "" };
-  const options = { limit: limit.toString(), currentPage, ...{ filters } };
-
+  const options = { limit: limit.toString(), currentPage, ...{ filters },queryParams };
   /**
    * Fetch Restaurant Data:
    * - Calls useRestaurants to retrieve restaurant listings.

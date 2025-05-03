@@ -1,37 +1,36 @@
 import React, { useState, useEffect } from "react";
+import { differenceInDays, parseISO, isValid } from "date-fns";
 
-// Define interface for props
 interface SubscriptionCountdownProps {
-  endDate: string;
-  // startDate: string;
+  endDate?: string | null;
 }
-
-// Define interface for subscription data (for context/example usage)
 
 export const SubscriptionCountdown: React.FC<SubscriptionCountdownProps> = ({
   endDate,
 }) => {
-  const [daysRemaining, setDaysRemaining] = useState<number>(0);
+  const [daysRemaining, setDaysRemaining] = useState<number | null>(null); // Initialize to null
 
   useEffect(() => {
     const calculateDaysRemaining = (): void => {
-      const end: Date = new Date(endDate);
-      const now: Date = new Date();
-
-      // Validate date
-      if (isNaN(end.getTime())) {
-        setDaysRemaining(0);
+      if (!endDate) {
+        setDaysRemaining(null); // Set to null when no end date
         return;
       }
 
-      const timeDiff: number = end.getTime() - now.getTime();
-      const days: number = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+      const end: Date = parseISO(endDate);
+      const now: Date = new Date();
+
+      if (!isValid(end)) {
+        setDaysRemaining(null); // Set to null for invalid date
+        return;
+      }
+
+      const days: number = differenceInDays(end, now);
       setDaysRemaining(days > 0 ? days : 0);
     };
 
     calculateDaysRemaining();
 
-    // Update every day
     const interval: NodeJS.Timeout = setInterval(
       calculateDaysRemaining,
       24 * 60 * 60 * 1000
@@ -42,7 +41,9 @@ export const SubscriptionCountdown: React.FC<SubscriptionCountdownProps> = ({
 
   return (
     <div className="mb-3 mt-2 text-pink-400">
-      {daysRemaining === 0 ? (
+      {daysRemaining === null ? (
+        <p className="text-gray-500">Subscription status unavailable</p>
+      ) : daysRemaining === 0 ? (
         <p>Subscription expired</p>
       ) : (
         <p className=" text-green-400">{daysRemaining} days left</p>

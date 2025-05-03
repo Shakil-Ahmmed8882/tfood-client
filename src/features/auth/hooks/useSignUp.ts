@@ -21,7 +21,8 @@ export const useSignUp = () => {
   const handleSignUp = async (values: signUpFormValue | FormEvent<HTMLFormElement>) => {
 
     try {
-       await signUp(values).unwrap();
+      const res = await signUp(values).unwrap();
+      console.log(res);
     } catch (error: unknown) {
       console.log(error);
 

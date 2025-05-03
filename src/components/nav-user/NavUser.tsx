@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import {  useCallback, useEffect, useMemo, useState } from "react";
 import {
   LogOut,
   ChevronDown,
@@ -21,7 +21,6 @@ import { TUser } from "@/types/user.type";
 import { LoadingSkeleton } from "./NavUserSkeleton";
 import { NavUserError } from "./NavUserError";
 import { ConfirmModal } from "../custom-ui/ConfirmModal";
-
 // MenuItem type definition
 type MenuItem = {
   icon: React.ElementType;
@@ -79,22 +78,21 @@ const NavUserContent = ({
 
 export function NavUser() {
   const [isConfirmMolalOpen, setIsConfirmModalOpen] = useState(false);
-  const {
-    data: userData,
-    isLoading,
-    error,
-    refetch,
-  } = useGetUserQuery(undefined);
+
+  const {data: userData,isLoading,error,refetch,} = useGetUserQuery(undefined);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const user = userData?.data;
-  const handleLogout = useCallback(async() => {
-    setIsConfirmModalOpen(true);
+  
+  useEffect(() => {
+    refetch();
+  },[refetch]);
+  const handleLogout = useCallback(() => {
     dispatch(logout());
     navigate("/");
   }, [dispatch, navigate]);
-
   const menuItems: MenuItem[] = useMemo(
     () => [
       { icon: LogOut, label: "Log out", onClick: () => setIsConfirmModalOpen(true) },
