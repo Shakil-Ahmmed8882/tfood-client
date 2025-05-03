@@ -71,6 +71,8 @@ export const MenuFeature = ({
     } = useMenus(options)
 
 
+    console.log("___________>>>>menus", menus, "_______<<<<", );
+
   return (
     <>
       <DataHandler<TMenu[]>

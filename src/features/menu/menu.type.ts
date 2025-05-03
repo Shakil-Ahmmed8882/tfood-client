@@ -9,6 +9,7 @@ export type TMenu = {
     restaurant_name: string;
     creator: string;
     food_category: string;
+    status: "active" | "inactive";
   }
   
 export type TMenuCategory = {

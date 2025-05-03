@@ -80,7 +80,7 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
   return (
     <Card className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden transition-shadow hover:shadow-lg">
       <CardContent className="p-6">
-        <div className="flex justify-between flex-wrap md:gap-6">
+        <div className="flex justify-between flex-wrap md:gap-6 ">
           {/* Left Section: Logo and Basic Details */}
           <div className="flex gap-4 md:gap-6 items-start">
             {/* Restaurant Logo */}
@@ -94,18 +94,18 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
             </div>
 
             {/* Main Restaurant Details */}
-            <div>
+            <div >
               <CardHeader className="p-0 mb-2">
                 {/* Restaurant Name & Category */}
-                <CardTitle className="md:text-2xl font-bold text-gray-900">
+                <CardTitle className="md:text-2xl pb-1 font-bold text-gray-900">
                   {restaurant?.name || "Restaurant Name"}
                 </CardTitle>
                 <p className="text-sm text-gray-500">{restaurant?.category}</p>
               </CardHeader>
 
               {/* Rating Section */}
-              <div className="flex items-center mb-2">
-                <div className="flex items-center">
+              <div className="flex items-center mb-2 space-y-3">
+                <div className="flex items-center pt-2">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <Star
                       key={star}
@@ -119,7 +119,7 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
                   ))}
                 </div>
                 <span className="ml-2 text-sm font-semibold text-gray-700">
-                  4.8
+                  {restaurant?.rating || 4.9}
                 </span>
               </div>
 
@@ -130,9 +130,9 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
                     className="h-5 w-5 mr-2 text-gray-400"
                     aria-hidden="true"
                   />
-                  <span>9AM - 10PM</span>
+                  <span>{restaurant?.operating_hours?.open || "9:00 AM"} - {restaurant?.operating_hours?.close || "10:00 PM"}</span>
                 </div>
-                <div className="flex items-center text-sm text-gray-600">
+                <div className="flex items-center pt-1 text-sm text-gray-600">
                   <MapPin
                     className="h-5 w-5 mr-2 text-gray-400"
                     aria-hidden="true"
@@ -144,7 +144,7 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
                     className="hover:text-blue-600 transition-colors"
                     aria-label="View location on map"
                   >
-                    123 Main Street
+                    {restaurant?.location || "123 Main Street"} 
                   </a>
                 </div>
               </div>

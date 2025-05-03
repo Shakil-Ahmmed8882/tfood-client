@@ -94,7 +94,8 @@ export const MenuCard: React.FC<{ menu: TMenu }> = ({ menu }) => {
         <div className="flex items-start justify-between gap-5">
           <h3 className="font-semibold text-sm">{truncateText(menu.title, 35)}</h3>
         </div>
-        <p className="text-sm text-muted-foreground">{menu.food_category}</p>
+        <p className="text-sm p-2 mt-2 bg-green-100 text-green-500  rounded-lg inline-block">{menu?.restaurant_name}</p>
+        <p className="text-sm text-muted-foreground pt-2">{menu?.food_category}</p>
       </CardContent>
       <CardFooter>
         <p className="text-sm text-muted-foreground line-clamp-2">
