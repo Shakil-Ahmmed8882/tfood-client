@@ -60,13 +60,11 @@ export const MenuCategoryModalForm: React.FC<MenuCategoryModalFormProps> = ({
             placeholder="Category Name"
           />
 
-          <TextField<TMenuCategoryFormValues>
+          {/* <TextField<TMenuCategoryFormValues>
             name="description"
             label="Description"
             placeholder="Description"
-          />
-        </div>
-
+          /> */}
         <div className="flex justify-end gap-4">
           <Button
             type="button"
@@ -87,6 +85,8 @@ export const MenuCategoryModalForm: React.FC<MenuCategoryModalFormProps> = ({
             {isLoading ? "Saving..." : isEditing ? "Update" : "Create"}
           </Button>
         </div>
+        </div>
+
       </GenericForm>
     </ReusableModal>
   );

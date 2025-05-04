@@ -66,16 +66,6 @@ export const MenuModalForm: React.FC<MenuModalFormProps> = ({
         ref={formRef}
       >
         <div className="space-y-4">
-          {/* {restaurantOptions && (
-            <SelectField<TMenuFormValues>
-              name="restaurant"
-              label="Select Restaurant"
-              placeholder="Select a Restaurant"
-              onChange={handleSelectChange}
-              loading={isRestaurantsLoading}
-              options={restaurantOptions}
-            />
-          )} */}
 
             <RestaurantOptionsDropdown handleSelectChange={handleSelectChange}/>
 

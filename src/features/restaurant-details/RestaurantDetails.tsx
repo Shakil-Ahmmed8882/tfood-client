@@ -16,9 +16,11 @@ import { RestaurantUrlEditor } from "./components/RestaurantURLEditor.tsx";
 import {  HasRoles } from "@/lib/pm/AuthGuard";
 import { USER_ROLES } from "@/constants/index.ts";
 import { TimeFormatter } from "@/lib/TimeFormatter.ts";
+import NotFound from "@/pages/NotFound.tsx";
 
 export const RestaurantDetails = () => {
   const cachedRestaurant = useAppSelector(selectCurrentRestaurant);
+  
   const { slug } = useParams();
 
   /**
@@ -40,6 +42,10 @@ export const RestaurantDetails = () => {
   const restaurant =
     cachedRestaurant?.slug === slug ? cachedRestaurant : data?.data;
 
+
+if (restaurant?.slug !== slug && !isLoading) {
+  return <NotFound/>;
+}
   return (
     <Container className="pt-0 md:py-6 ">
       {/* Search bar and header for the restaurant page */}
@@ -77,6 +83,7 @@ type TRestaurantDetailsCardProps = {
 const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
   // Fallback image for missing logo
   const fallbackImage = "https://via.placeholder.com/150?text=No+Image";
+
 
   return (
     <Card className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden transition-shadow hover:shadow-lg">

@@ -3,7 +3,7 @@ import { z } from "zod";
 // Add phone validation regex pattern
 // const phoneRegex = /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/;
 
-// Create phone schema
+// // Create phone schema
 // const phoneSchema = z.string().min(1).regex(phoneRegex, {
 //   message: "Please enter a valid phone number",
 // });
@@ -24,13 +24,13 @@ export const checkEmailUnique = async (email: string) => {
   return !takenEmails.includes(email.toLowerCase());
 };
 
-// const passwordRequirements = {
-//   minLength: 8,
-//   hasUpperCase: /[A-Z]/,
-//   hasLowerCase: /[a-z]/,
-//   hasNumber: /[0-9]/,
-//   hasSpecialChar: /[^A-Za-z0-9]/,
-// };
+const passwordRequirements = {
+  minLength: 6,
+  hasUpperCase: /[A-Z]/,
+  hasLowerCase: /[a-z]/,
+  hasNumber: /[0-9]/,
+  // hasSpecialChar: /[^A-Za-z0-9]/,
+};
 
 export const LoginSchema = z.object({
   email: z.string().email(),
@@ -65,7 +65,25 @@ export const initialLoginValues: loginFormValue = {
 
 export const SignUpSchema = LoginSchema.extend({
   name: z.string(),
-  confirmPassword: z.string(),
+  phone: z.string().min(10, "Phone number must be at least 10 characters").max(20, "Phone number must be at most 20 characters").regex(/^\d+$/, "Phone number must be a number").nonempty("Phone number is required"),
+  confirmPassword: z.string()
+    .min(
+    passwordRequirements.minLength,
+    `Password must be at least ${passwordRequirements.minLength} characters`
+  )
+  .regex(
+    passwordRequirements.hasUpperCase,
+    "Password must contain at least one uppercase letter"
+  )
+  .regex(
+    passwordRequirements.hasLowerCase,
+    "Password must contain at least one lowercase letter"
+  )
+  .regex(
+    passwordRequirements.hasNumber,
+    "Password must contain at least one number"
+  )
+  ,
   role: z.enum(["super_admin", "admin", "customer", "shop_owner"]).optional(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
@@ -77,6 +95,7 @@ export type signUpFormValue = z.infer<typeof SignUpSchema>;
 export const initialSignUpValues: signUpFormValue = {
   ...initialLoginValues,
   name: "",
+  phone: "",
   confirmPassword: "",
   role: "customer",
 };

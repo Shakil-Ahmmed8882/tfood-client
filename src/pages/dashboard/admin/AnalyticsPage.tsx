@@ -65,7 +65,7 @@ const MetaDataCard = ({ title, count }: { title: string; count: number }) => (
       </div>
       <div>
         <p className="text-md sm:text-[20px] font-semibold py-2 text-gray-900">{count}</p>
-        <CardTitle className="text-sm font-light sm:font-normal sm:text-[15px] text-gray-400">{title}</CardTitle>
+        <CardTitle className="text-sm font-light sm:font-normal sm:text-[15px] text-gray-400"><strong>Total:</strong> {title}</CardTitle>
       </div>
     </CardHeader>
   </Card>

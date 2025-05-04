@@ -1,5 +1,6 @@
 import EmailSuccess from "@/features/auth/components/EmailSuccess";
 import VerifyEmail from "@/features/auth/components/VerifyEmail";
+import PublicOnlyRoute from "@/layout/PublicOnlyRoute";
 import { ForgotPasswordPage } from "@/pages/auth/ForgotPasswordPage";
 import { LoginPage } from "@/pages/auth/LoginPage";
 import { ResetPasswordPage } from "@/pages/auth/ResetPasswordPage";
@@ -8,26 +9,49 @@ import { SignupPage } from "@/pages/auth/SignupPage";
 export const authPaths = [
   {
     path: "login",
-    element: <LoginPage></LoginPage>,
+    element: 
+    <PublicOnlyRoute>
+      
+      <LoginPage></LoginPage>,
+    </PublicOnlyRoute>,
   },
   {
     path: "signup",
-    element: <SignupPage/>,
+    element: (
+      <PublicOnlyRoute>
+        <SignupPage />
+      </PublicOnlyRoute>
+    ),
   },
   {
     path: "forgot-password",
-    element: <ForgotPasswordPage />,
+    element: (
+      <PublicOnlyRoute>
+        <ForgotPasswordPage />
+      </PublicOnlyRoute>
+    ),
   },
   {
     path: "email-success",
-    element: <EmailSuccess />,
+    element: 
+    <PublicOnlyRoute>
+      <EmailSuccess />,
+    </PublicOnlyRoute>,
   },
   {
     path: "reset-password",
-    element: <ResetPasswordPage />,
+    element: (
+      <PublicOnlyRoute>
+        <ResetPasswordPage />,
+      </PublicOnlyRoute>
+    ),
   },
   {
     path: "verify-email",
-    element: <VerifyEmail />,
-  }
+    element: (
+      <PublicOnlyRoute>
+        <VerifyEmail />,
+      </PublicOnlyRoute>
+    ),
+  },
 ];

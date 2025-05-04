@@ -5,7 +5,7 @@ import { TextField } from "@/components/form/fields/TextField";
 import { PasswordField } from "@/components/form/fields/PasswordField";
 import { Button } from "@/components/ui/button";
 import { EmailIcon, PasswordIcon } from "./Icons";
-import { IdCard } from "lucide-react";
+import { IdCard, PhoneCall } from "lucide-react";
 import { RadioGroupField } from "@/components/form/fields/RadioGroupField";
 import { useSignUp } from "../hooks/useSignUp";
 import { SuccessModal } from "@/components/modal/SuccessModal";
@@ -55,6 +55,14 @@ export const SignupForm = () => {
           label="Email"
           inputClass="border-gry-50 p-6"
           icon={<EmailIcon />}
+          // action={() => console.log("action")}
+        />
+        <TextField<signUpFormValue>
+          name="phone"
+          placeholder="Phone"
+          label="Phone"
+          inputClass="border-gry-50 p-6"
+          icon={<PhoneCall className="text-gray-600" />}
           // action={() => console.log("action")}
         />
         <PasswordField<signUpFormValue>
