@@ -22,7 +22,7 @@ const appConfig: TConfig = {
   roleBasedRouteOptions:["super_admin", "shop_owner", "admin"],
   // Frontend application URLs for different environments
   frontend: {
-    production: "https://t-food.com",
+    production: "https://tfoodbd.com",
     development: "http://localhost:5173",
   },
 
