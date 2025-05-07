@@ -13,17 +13,19 @@ export const RestaurantSchema = z.object({
       invalid_type_error: "User ID must be a string.",
     })
     .optional(),
-  name: z.string({
-    required_error: "Restaurant name is required.",
-    invalid_type_error: "Restaurant name must be a string.",
-  }),
+    name: z
+    .string({
+      required_error: "Restaurant name is required.",
+      invalid_type_error: "Restaurant name must be a string.",
+    })
+    .min(1, { message: "Restaurant name is required." }),
   website: z
     .string({
       required_error: "Restaurant website is required.",
       invalid_type_error: "Restaurant website must be a string.",
     })
     .optional(),
-  contact: z.string({
+    contact: z.string({
     required_error: "Restaurant contact is required.",
     invalid_type_error: "Restaurant contact must be a string.",
   }),

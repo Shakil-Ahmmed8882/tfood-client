@@ -68,13 +68,6 @@ export function RestaurantFormModal({
       </HasRole>
       <HasRole requiredRole={USER_ROLES.ADMIN}>
         <ShopOwnerDropdown />
-        {/* <TextField<TRestaurantFromValues>
-          name="user"
-          placeholder="Enter Shop Owner"
-          label="Shop Owner"
-          inputClass="border-gray-50"
-          disabled={isLoading}
-        /> */}
       </HasRole>
       <HasRole requiredRole={USER_ROLES.ADMIN}>
       <div className="grid grid-cols-2 gap-4">
@@ -91,15 +84,15 @@ export function RestaurantFormModal({
       <TextField<TRestaurantFromValues>
         name="name"
         placeholder="Enter Restaurant Name"
-        required
+        required={true}
         label="Name"
         inputClass="border-gray-50"
         disabled={isLoading}
       />
     <div className="flex gap-4 w-full">
 
-    <TimePickerField name="operating_hours.open" label="Opening Time"/>
-    <TimePickerField name="operating_hours.close" label="Closing Time"/>
+    {/* <TimePickerField name="operating_hours.open" label="Opening Time"/>
+    <TimePickerField name="operating_hours.close" label="Closing Time"/> */}
     </div>
 
       <TextField<TRestaurantFromValues>
@@ -113,7 +106,7 @@ export function RestaurantFormModal({
       <TextField<TRestaurantFromValues>
         name="contact"
         placeholder="Enter your Contact"
-        required
+        required={true}
         label="Contact"
         inputClass="border-gray-50"
         disabled={isLoading}

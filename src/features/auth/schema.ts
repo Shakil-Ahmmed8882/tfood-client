@@ -73,11 +73,11 @@ export const SignUpSchema = LoginSchema.extend({
   )
   .regex(
     passwordRequirements.hasUpperCase,
-    "Password must contain at least one uppercase letter"
+    "Password must contain at least one capital letter"
   )
   .regex(
     passwordRequirements.hasLowerCase,
-    "Password must contain at least one lowercase letter"
+    "Password must contain at least one small letter"
   )
   .regex(
     passwordRequirements.hasNumber,
@@ -108,8 +108,38 @@ export const initialForgotValues: forgotFormValue = {
 };
 
 export const ResetPasswordSchema = z.object({
-  newPassword: z.string(),
-  confirmPassword: z.string(),
+  newPassword: z.string()  .min(
+    passwordRequirements.minLength,
+    `Password must be at least ${passwordRequirements.minLength} characters`
+  )
+  .regex(
+    passwordRequirements.hasUpperCase,
+    "Password must contain at least one capital letter"
+  )
+  .regex(
+    passwordRequirements.hasLowerCase,
+    "Password must contain at least one small letter"
+  )
+  .regex(
+    passwordRequirements.hasNumber,
+    "Password must contain at least one number"
+  ),
+  confirmPassword: z.string()  .min(
+    passwordRequirements.minLength,
+    `Password must be at least ${passwordRequirements.minLength} characters`
+  )
+  .regex(
+    passwordRequirements.hasUpperCase,
+    "Password must contain at least one capital letter"
+  )
+  .regex(
+    passwordRequirements.hasLowerCase,
+    "Password must contain at least one small letter"
+  )
+  .regex(
+    passwordRequirements.hasNumber,
+    "Password must contain at least one number"
+  ),
   resetToken: z.string(),
 }).refine((data) => data.newPassword === data.confirmPassword, {
   message: "Passwords don't match",

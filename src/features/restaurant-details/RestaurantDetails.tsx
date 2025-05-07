@@ -91,29 +91,29 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
       <CardContent className="p-6">
         <div className="sm:flex justify-between flex-wrap md:gap-6 ">
           {/* Left Section: Logo and Basic Details */}
-          <div className="sm:flex gap-4 md:gap-6 items-start">
+          <div className="flex gap-4 md:gap-6 items-start">
             {/* Restaurant Logo */}
-            <div className="shrink-0">
+            <div className="">
               <img
                 src={restaurant?.related_images ? restaurant.logo : fallbackImage}
                 alt={restaurant?.name}
                 onError={(e) => (e.currentTarget.src = fallbackImage)}
-                className=" md:w-34 md:h-34 rounded-lg  object-cover object-top transition-transform duration-300 hover:scale-105"
+                className="size-30 md:w-34 md:h-34 rounded-lg  object-cover object-top transition-transform duration-300 hover:scale-105"
               />
             </div>
 
             {/* Main Restaurant Details */}
-            <div >
-              <CardHeader className="p-0 mb-2">
+            <div className="space-y-1.5">
+              <CardHeader className="p-0">
                 {/* Restaurant Name & Category */}
-                <CardTitle className="md:text-2xl pb-1 font-bold text-gray-900">
+                <CardTitle className="md:text-2xl font-bold text-gray-900">
                   {restaurant?.name || "Restaurant Name"}
                 </CardTitle>
                 <p className="text-sm text-gray-500">{restaurant?.category}</p>
               </CardHeader>
 
               {/* Rating Section */}
-              <div className="flex items-center mb-2 space-y-3">
+              <div className="flex items-center">
                 <div className="flex items-center pt-2">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <Star
@@ -133,7 +133,7 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
               </div>
 
               {/* Opening Hours and Location */}
-              <div className="space-y-2">
+
                 <div className="flex items-center text-sm text-gray-600">
                   <Clock
                     className="h-5 w-5 mr-2 text-gray-400"
@@ -141,6 +141,7 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
                   />
                   <span>{TimeFormatter.toAmPm(`${restaurant?.operating_hours?.open}`) || "9:00 AM"} - {TimeFormatter.toAmPm(`${restaurant?.operating_hours?.close}`) || "10:00 PM"}</span>
                 </div>
+                {/* location */}
                 <div className="flex items-center pt-1 text-sm text-gray-600">
                   <MapPin
                     className="h-5 w-5 mr-2 text-gray-400"
@@ -158,13 +159,12 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
                   </a>
                 </div>
               </div>
-            </div>
           </div>
 
           {/* Right Section: Description and Contact */}
           <div className="mt-4 md:mt-0">
             {/* Description Section */}
-            <div className="mb-4">
+            <div className="">
               <h3 className="font-semibold text-gray-900 mb-2">Description</h3>
               <p className="text-sm text-gray-600 line-clamp-3">
                 {restaurant?.description ||
@@ -175,7 +175,7 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
             {/* Contact Information */}
             <div>
               <h3 className="font-semibold text-gray-900 mb-3">Contact</h3>
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 <div className="flex items-center">
                   <Phone
                     className="h-5 w-5 mr-2 text-gray-400"
@@ -189,6 +189,8 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
                     {restaurant?.contact || "N/A"}
                   </a>
                 </div>
+                {
+restaurant?.website &&
                 <div className="flex items-center">
                   <Globe
                     className="h-5 w-5 mr-2 text-gray-400"
@@ -204,10 +206,11 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
                     {restaurant?.website || "N/A"}
                   </a>
                 </div>
+                }
               </div>
 
               {/* Restaurant URL Editor */}
-              <div className="mt-4">
+              <div className="mt-1">
                 <HasRoles requiredRoles={[USER_ROLES.ADMIN]}>
                   <RestaurantUrlEditor defaultSlug={restaurant?.slug} res_id={restaurant?.id} />
                 </HasRoles>

@@ -12,7 +12,7 @@ type useGetShopOwnersProps = {
     filters?: Record<string, string>;
   }
 
-const useGetShopOwners = ({limit="10",currentPage=1,searchQuery='',filters = {} }: useGetShopOwnersProps ) => {
+const useGetShopOwners = ({limit="3",currentPage=1,searchQuery='',filters = {} }: useGetShopOwnersProps ) => {
   
   /** 
    * Constructs a filter body for API requests.

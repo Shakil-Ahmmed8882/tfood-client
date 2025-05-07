@@ -11,8 +11,8 @@ export const ShopOwnerDropdown = () => {
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 500);
   
-  const {data, isLoading} = useGetShopOwners( {filters:{role:"shop_owner"}, searchQuery:debouncedQuery});
-
+  const {data, isLoading} = useGetShopOwners( {filters:{role:"shop_owner",is_verified:"true"}, searchQuery:debouncedQuery});
+console.log(data);
   const Options = useMemo(() => {
     if (data && Array.isArray(data)) {
       return data.map((owner: TUser) => ({
