@@ -74,12 +74,12 @@ const RestaurantTableContainer = () => {
  */
 const TableTopHeadings = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { data, isLoading } = useGetAllMenuCategoriesQuery({});
+  // const { data, isLoading } = useGetAllMenuCategoriesQuery({});
 
-  const menuCategories = data?.data?.map((category) => ({
-    name: category.name,
-    value: category.name,
-  }));
+  // const menuCategories = data?.data?.map((category) => ({
+  //   name: category.name,
+  //   value: category.name,
+  // }));
 
 
 
@@ -88,7 +88,7 @@ const TableTopHeadings = () => {
       <Title text="Restaurant" />
       <div className="flex flex-wrap items-center gap-4">
         <TableSearch />
-        <TableFilter isLoading={isLoading} filterArray={menuCategories || []} fieldName="category" />
+        {/* <TableFilter isLoading={isLoading} filterArray={menuCategories || []} fieldName="category" /> */}
         <Button
           onClick={() => setIsModalOpen(true)}
           className="gap-2 bg-blue-600 w-full mb-6 sm:mb-0 sm:w-auto hover:bg-blue-700"

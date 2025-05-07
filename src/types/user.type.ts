@@ -5,6 +5,8 @@ export type TUser = {
     password: string;
     role: string;
     profile_photo: string;
+    phone: string;
+    is_verified: boolean;
     status: string;
     createdAt: string;
     updatedAt: string;

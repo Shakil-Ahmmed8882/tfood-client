@@ -39,10 +39,7 @@ export const RestaurantSchema = z.object({
       invalid_type_error: "Restaurant rating must be a string.",
     })
     .optional(),
-  description: z.string({
-    required_error: "Restaurant description is required.",
-    invalid_type_error: "Restaurant description must be a string.",
-  }),
+  description: z.string().optional(),
   logo: z
     .string({
       required_error: "Restaurant logo URL is required.",

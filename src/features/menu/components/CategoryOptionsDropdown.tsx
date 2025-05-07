@@ -10,8 +10,7 @@ import { TMenuCategory } from "../menu.type";
 export const CategoryOptionsDropdown = ({restaurantId}:{restaurantId: string}) => {
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 500);
-  const {data, isLoading} = useMenuCategories({filters: {  restaurant: restaurantId,searchQuery:debouncedQuery}});
-  console.log(data);
+  const {data, isLoading} = useMenuCategories({filters: {  restaurant: restaurantId},searchQuery:debouncedQuery});
   // if(!restaurantId) return null
   const Options = useMemo(() => {
     if (data && Array.isArray(data) && restaurantId) {

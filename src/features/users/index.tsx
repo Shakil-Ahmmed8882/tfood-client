@@ -14,4 +14,4 @@ export const userOptions = [
     {name: "shop_owner", value: "shop_owner"}
   
 ]
-export const userTableHeadsOptions = ["Sl No.", "Name", "Email", "Role","Status"]
+export const userTableHeadsOptions = ["Sl No.", "Name", "Email","Phone", "Role","Verified","Status"]

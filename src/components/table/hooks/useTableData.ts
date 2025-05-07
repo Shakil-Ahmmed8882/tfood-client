@@ -57,6 +57,7 @@ const useTableData = (
   const records = useMemo(() => data?.data || [], [data]);
   const meta:TMeta = data?.meta;
 
+
   /**
    * Synchronizes fetched data with the table context.
    * Updates table records, loading states, and pagination metadata

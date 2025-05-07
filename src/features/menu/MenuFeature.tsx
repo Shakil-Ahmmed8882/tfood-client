@@ -34,7 +34,7 @@ type menuFeatureProps = {
  */
 
 export const MenuFeature = ({
-  limit = "8",
+  limit = "12",
   searchQuery,
   shouldPaginate = false,
   filters = {}
