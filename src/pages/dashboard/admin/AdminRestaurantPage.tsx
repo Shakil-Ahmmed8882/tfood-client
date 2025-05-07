@@ -10,7 +10,7 @@ import {
   TableHeaderRow,
   TablePagination,
   TableProvider,
-  TableFilter,
+  // TableFilter,
   useTableData,
   RenderTableBody,
 } from "./index";
@@ -19,7 +19,7 @@ import { useState } from "react";
 import { RestaurantFormModal } from "@/features/restaurants/components/RestaurantFormModal";
 import { ParentTable } from "@/components/table/ParentTable";
 import RestaurantTable from "@/features/restaurants/RestaurantTable";
-import { useGetAllMenuCategoriesQuery } from "@/store/features/menu-category/menuCategoryApi";
+// import { useGetAllMenuCategoriesQuery } from "@/store/features/menu-category/menuCategoryApi";
 
 /**
  * AdminRestaurantPage Component:

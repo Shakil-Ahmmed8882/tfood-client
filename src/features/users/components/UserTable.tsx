@@ -28,8 +28,8 @@ const UserTable = () => {
                 <TableCell>
                 <Badge
                   className={cn(
-                    "bg-emerald-100",
-                    is_verified ? "text-emerald-600" : "text-red-600"
+              
+                    is_verified ? "text-emerald-600 bg-emerald-100" : "text-red-600 bg-red-100"
                   )}
                 >
                   {is_verified ? "Verified" : "Not Verified"}
@@ -38,7 +38,9 @@ const UserTable = () => {
                   
                   </TableCell>
                 <TableCell>
-                  <Badge className="bg-emerald-100 text-emerald-600">
+                  <Badge     className={cn(
+                    status==="active" ? "text-emerald-600 bg-emerald-100" : "text-red-600 bg-red-100"
+                  )}>
                     {status}
                   </Badge>
                 </TableCell>

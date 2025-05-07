@@ -91,8 +91,8 @@ export function RestaurantFormModal({
       />
     <div className="flex gap-4 w-full">
 
-    {/* <TimePickerField name="operating_hours.open" label="Opening Time"/>
-    <TimePickerField name="operating_hours.close" label="Closing Time"/> */}
+    <TimePickerField name="operating_hours.open" label="Opening Time"/>
+    <TimePickerField name="operating_hours.close" label="Closing Time"/>
     </div>
 
       <TextField<TRestaurantFromValues>
