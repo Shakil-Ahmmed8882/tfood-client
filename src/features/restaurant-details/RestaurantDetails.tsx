@@ -17,6 +17,7 @@ import {  HasRoles } from "@/lib/pm/AuthGuard";
 import { USER_ROLES } from "@/constants/index.ts";
 import { TimeFormatter } from "@/lib/TimeFormatter.ts";
 import NotFound from "@/pages/NotFound.tsx";
+import { DataHandler } from "@/components/wrapper/DataHandler.tsx";
 
 export const RestaurantDetails = () => {
   const cachedRestaurant = useAppSelector(selectCurrentRestaurant);

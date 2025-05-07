@@ -39,5 +39,5 @@ const TabsContentWrapper = ({restaurant}:{restaurant:TRestaurant | null | undefi
     ...(restaurant?.id && { restaurant: restaurant.id }),
     ...(activeTab !== "All" && { food_category: activeTab }),
   };  
-  return <MenuFeature notFoundMessage={activeTab} {...(filters ? { filters } : {})} />;
+  return <MenuFeature notFoundMessage={activeTab} {...(filters ? { filters } : {})}  shouldPaginate={true} />;
 };

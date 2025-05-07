@@ -12,7 +12,7 @@ type useMenuCategoriesProps = {
     filters?: Record<string, string>;
   }
 
-const useMenuCategories = ({limit="10",currentPage=1,searchQuery='',filters = {} }: useMenuCategoriesProps ) => {
+const useMenuCategories = ({limit="100",currentPage=1,searchQuery='',filters = {} }: useMenuCategoriesProps ) => {
   
   /** 
    * Constructs a filter body for API requests.

@@ -161,3 +161,10 @@
 }
 
 
+.command-list::-webkit-scrollbar {
+  width: 8px;
+}
+.command-list::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}

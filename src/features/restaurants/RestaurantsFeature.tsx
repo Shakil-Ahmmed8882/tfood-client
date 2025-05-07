@@ -59,8 +59,8 @@ export const RestaurantsFeature = ({
         isLoading={isLoading || isFetching}
         isError={isError}
         loadingMessage="Fetching restaurants..."
-        hasData={(menus): menus is TRestaurant[] =>
-          Array.isArray(menus) && menus.length > 0
+        hasData={(restaurant): restaurant is TRestaurant[] =>
+          Array.isArray(restaurant) && restaurant.length > 0
         }
         errorMessage="Failed to load Restaurants"
         noDataMessage="No Restaurant found"
