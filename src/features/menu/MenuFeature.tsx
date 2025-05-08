@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   MenuCard,
   MenuSkeleton,
@@ -42,6 +42,10 @@ export const MenuFeature = ({
   const queryParams = [{ name: "status", value: 'active' }];
   const [currentPage, setCurrentPage] = useState<number>(1);
 
+    // ✅ Reset page when filters (e.g. tab) change
+    useEffect(() => {
+      setCurrentPage(1);
+    }, [JSON.stringify(filters)]);
       /**
        * Fetch Current User:
        * - Retrieves the logged-in shop owner's email.

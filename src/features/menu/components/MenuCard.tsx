@@ -41,7 +41,7 @@ export const MenuCard: React.FC<{ menu: TMenu }> = ({ menu }) => {
   const showActions = location.pathname.includes("shop_owner");
 
   return (
-    <Card  onClick={() => !showActions && navigate(`/menus/${menu.id}`)} className="overflow-hidden pt-0 group gap-4 w-full ">
+    <Card  onClick={() => !showActions && navigate(`/menus/${menu.id}`)} className="overflow-hidden pt-0 group gap-4 w-full transition-all duration-300  hover:shadow-md hover:scale-[1.02] cursor-pointer ">
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
           src={menu.related_images[0] || menufallbackUrl}

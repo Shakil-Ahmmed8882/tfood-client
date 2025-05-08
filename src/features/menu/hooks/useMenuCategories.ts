@@ -12,8 +12,8 @@ type useMenuCategoriesProps = {
     filters?: Record<string, string>;
   }
 
-const useMenuCategories = ({limit="5",currentPage=1,searchQuery='',filters = {} }: useMenuCategoriesProps ) => {
-  console.log(filters);
+const useMenuCategories = ({limit="",currentPage=1,searchQuery='',filters = {} }: useMenuCategoriesProps ) => {
+  // console.log(filters);
   /** 
    * Constructs a filter body for API requests.
    */

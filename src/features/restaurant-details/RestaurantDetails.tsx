@@ -139,7 +139,7 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
                     className="h-5 w-5 mr-2 text-gray-400"
                     aria-hidden="true"
                   />
-                  <span>{TimeFormatter.toAmPm(`${restaurant?.operating_hours?.open}`) || "9:00 AM"} - {TimeFormatter.toAmPm(`${restaurant?.operating_hours?.close}`) || "10:00 PM"}</span>
+                  <span className="text-xs md:text-base">{TimeFormatter.toAmPm(`${restaurant?.operating_hours?.open}`) || "9:00 AM"} - {TimeFormatter.toAmPm(`${restaurant?.operating_hours?.close}`) || "10:00 PM"}</span>
                 </div>
                 {/* location */}
                 <div className="flex items-center pt-1 text-sm text-gray-600">
@@ -182,7 +182,7 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
                     aria-hidden="true"
                   />
                   <a
-                    href="tel:+01234567890"
+                    href={`tel:${restaurant?.contact}`}
                     className="text-sm text-gray-700 hover:text-blue-600 transition-colors"
                     aria-label="Call restaurant"
                   >
@@ -190,7 +190,7 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
                   </a>
                 </div>
                 {
-restaurant?.website &&
+                restaurant?.website &&
                 <div className="flex items-center">
                   <Globe
                     className="h-5 w-5 mr-2 text-gray-400"
