@@ -13,7 +13,7 @@ type useRestaurantsProps = {
     queryParams?: { name: string; value: string }[];
   }
 
-const useMenus = ({limit="10",currentPage=1,searchQuery='',filters = {},queryParams = [] }: useRestaurantsProps ) => {
+const useMenus = ({limit="100",currentPage=1,searchQuery='',filters = {},queryParams = [] }: useRestaurantsProps ) => {
   /** 
    * Constructs a filter body for API requests.
    */
