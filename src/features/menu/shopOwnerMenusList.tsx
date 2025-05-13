@@ -1,4 +1,3 @@
-
 import { MenuCard, MenuSkeleton } from ".";
 
 import { TMenu } from "./menu.type";
@@ -26,7 +25,6 @@ export const ShopOwnerMenusList = ({
 }: {
   restaurantId: string;
 }) => {
-  
   /**
    * Fetch Current User:
    * - Retrieves the logged-in shop owner's email.
@@ -34,13 +32,20 @@ export const ShopOwnerMenusList = ({
    * - Example: Logged-in user sees only their restaurant listings.
    */
   const user = useAppSelector(selectCurrentUser);
-  let filters;
-  if (restaurantId) {
-    // console.log(restaurantId);
-    filters = { restaurant: restaurantId || "" };
-  } 
-  const options = { ...{ filters: filters as Record<string, string> } };
   
+  const filters: { creator: string | undefined; restaurant?: string } = {
+    creator: user?.role === "shop_owner" ? user?.email : undefined,
+  };
+
+  if (restaurantId) {
+    filters.restaurant = restaurantId;
+  } 
+
+  console.log("___________>>>>restaurantId<<<<", restaurantId);
+  console.log("___________>>>>filters<<<<", filters);
+
+  const options = { ...{ filters: filters as Record<string, string> } };
+
   /**
    *
    * Fetch Restaurant Data:
@@ -48,16 +53,10 @@ export const ShopOwnerMenusList = ({
    * - Provides loading, error handling, and pagination metadata.
    * - Example: Admin loads restaurant list -> API fetches and returns paginated results.
    */
-  const {
-    data: menus,
-    isLoading,
-    isFetching,
-    isError,
-  } = useMenus(options);
+  const { data: menus, isLoading, isFetching, isError } = useMenus(options);
 
   return (
     <>
-    
       <DataHandler<TMenu[]>
         data={menus || []}
         loadingFallback={<MenuSkeleton />}
@@ -79,8 +78,8 @@ export const ShopOwnerMenusList = ({
             ))}
           </div>
         )}
-      </DataHandler>        
-        <CustomPagination/>
+      </DataHandler>
+      <CustomPagination />
 
       {/* <CustomPagination
         itemsPerPage={meta?.limit || 0}

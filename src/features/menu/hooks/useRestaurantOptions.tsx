@@ -8,7 +8,7 @@ type TRestaurantOption = {
 };
 export const useRestaurantOptions = () => {
   const user = useAppSelector(selectCurrentUser);
-  const { data: restaurants, isLoading: isRestaurantsLoading } = useRestaurants({
+  const { data: restaurants, isLoading:  isRestaurantsLoading,isFetching: isRestaurantsFetching } = useRestaurants({
     filters: { owner_email: user?.email || "" },
   });
 
@@ -19,7 +19,7 @@ export const useRestaurantOptions = () => {
 
   return {
     restaurantOptions,
-    isRestaurantsLoading,
+    isRestaurantsLoading:  isRestaurantsLoading || isRestaurantsFetching,
     
   };
 };
