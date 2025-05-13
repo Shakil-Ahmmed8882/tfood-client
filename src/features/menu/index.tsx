@@ -5,7 +5,7 @@ export { CustomSuspense } from "@/components/wrapper/CustomSuspense";
 export { CustomErrorBoundary } from "@/components/wrapper/CustomErrorBoundary";
 export { NoItemFound } from "@/components/wrapper/noItemFoundContainer";
 export { default as ShouldPaginateWrapper } from "@/components/wrapper/shouldPaginateWrapper";
-export { CustomPagination } from "@/components/custom-ui/pagination";
+// export { CustomPagination } from "@/components/custom-ui/pagination";
 export type { TMenu } from "./menu.type";
 
 

@@ -22,8 +22,10 @@ import { CustomPagination } from "@/components/pagination/CustomPagination";
 
 export const ShopOwnerMenusList = ({
   restaurantId,
+  menuCategoryId
 }: {
   restaurantId: string;
+  menuCategoryId?: string;
 }) => {
   /**
    * Fetch Current User:
@@ -33,16 +35,15 @@ export const ShopOwnerMenusList = ({
    */
   const user = useAppSelector(selectCurrentUser);
   
-  const filters: { creator: string | undefined; restaurant?: string } = {
-    creator: user?.role === "shop_owner" ? user?.email : undefined,
+  const filters: { creator: string | undefined; restaurant?: string ,food_category?:string} = {
+    creator: user?.role === "shop_owner" ? user?.email : undefined,food_category:menuCategoryId
   };
 
   if (restaurantId) {
     filters.restaurant = restaurantId;
   } 
 
-  console.log("___________>>>>restaurantId<<<<", restaurantId);
-  console.log("___________>>>>filters<<<<", filters);
+
 
   const options = { ...{ filters: filters as Record<string, string> } };
 
@@ -78,15 +79,14 @@ export const ShopOwnerMenusList = ({
             ))}
           </div>
         )}
-      </DataHandler>
-      <CustomPagination />
-
-      {/* <CustomPagination
+      </DataHandler>        
+        <CustomPagination/>
+{/* <CustomPagination
         itemsPerPage={meta?.limit || 0}
         currentPage={currentPage}
         totalItems={meta?.total || 0}
         onPageChange={setCurrentPage}
-      /> */}
+    /> */}
     </>
   );
 };

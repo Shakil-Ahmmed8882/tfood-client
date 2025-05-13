@@ -73,6 +73,13 @@ export const MenuCard: React.FC<{ menu: TMenu }> = ({ menu }) => {
         <p className="text-sm text-muted-foreground pt-2">{menu?.food_category}</p>
       </CardContent>
       <CardFooter>
+        {/* {
+          menu.description &&
+          <p className="text-sm text-muted-foreground line-clamp-2">
+          {truncateText(menu.description, 35)}
+          <span className="font-semibold text-sm mt-1">{menu.description.length < 35 && "..."}See more</span>
+          </p>
+        } */}
         <p className="text-sm text-muted-foreground line-clamp-2">
         {truncateText(menu.description, 35)}
         <span className="font-semibold text-sm mt-1">{menu.description.length < 35 && "..."}See more</span>

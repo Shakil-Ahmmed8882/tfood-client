@@ -72,7 +72,7 @@ const RestaurantsWrapper = () => {
   const debouncedSearchValue = useDebounce(searchQuery, 300);
   return (
     <>
-      <div className="flex justify-between items-center mb-3 mt-1">
+      <div className="flex justify-between items-center mb-6 mt-1">
         <Title text="Restaurants" />
                 <Link to="/restaurants" className="text-[16px] flex items-center justify-center py-0 px-4 border-2 border-gray-800 rounded-2xl  hover:bg-gray-800 hover:text-white hover:scale-95 transition-all">
           <ArrowRight className="mr-2 h-4 w-4" />
@@ -98,7 +98,7 @@ const MenusWrapper = () => {
   const debouncedSearchValue = useDebounce(searchQuery, 300);
   return (
     <>
-      <div className="flex justify-between items-center mb-3">
+      <div className="flex justify-between items-center mb-3 mt-5">
         <Title text="All Menus" className="mt-3" />
         <Link to="/menus" className="text-[16px] flex items-center justify-center py-0 px-4 border-2 border-gray-800 rounded-2xl mt-4 hover:bg-gray-800 hover:text-white hover:scale-95 transition-all">
           <ArrowRight className="mr-2 h-4 w-4" />
@@ -108,10 +108,13 @@ const MenusWrapper = () => {
       <CustomPaginationProvider>
         <MenuFeature searchQuery={debouncedSearchValue} />
       </CustomPaginationProvider>
-      <Link to="/menus" className="text-[16px]  flex items-center justify-center py-2 border-2 border-gray-800 rounded-2xl mt-4 hover:bg-gray-800 hover:text-white hover:scale-95 transition-all">
+      <div className="md:hidden flex items-center justify-center ">
+
+      <Link to="/menus" className="text-[16px] flex items-center justify-center py-2 px-6 border-2 border-gray-800 rounded-2xl mt-4 hover:bg-gray-800 hover:text-white hover:scale-95 transition-all">
       <ArrowBigDownIcon className="mr-2 h-6 w-6" />
           See mores
       </Link>
+      </div>
     </>
   );
 };
