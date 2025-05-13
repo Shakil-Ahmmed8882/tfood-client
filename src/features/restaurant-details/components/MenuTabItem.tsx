@@ -3,7 +3,7 @@ import MenuTabHeader from "./MenuHeader";
 import { MenuFeature } from "@/features/menu/MenuFeature";
 import { TRestaurant } from "@/features/restaurants";
 
-
+type commonPorps= {searchQuery:string, restaurant:TRestaurant | null | undefined}
 
 /**
  * MenuTabs: Manages tab-based navigation for menu categories.
@@ -11,7 +11,7 @@ import { TRestaurant } from "@/features/restaurants";
  * - Includes `MenuTabHeader` for tab selection.
  * - Renders `TabsContentWrapper` to display content based on the selected tab.
  */
-export default function MenuTabs({restaurant}:{restaurant:TRestaurant | undefined |null}) {
+export default function MenuTabs({restaurant, searchQuery = ''}:commonPorps) {
     
   // console.log("___________>>>>restaurant<<<<", restaurant);
     const filters = {restaurant: restaurant?.id}
@@ -20,7 +20,7 @@ export default function MenuTabs({restaurant}:{restaurant:TRestaurant | undefine
     <div className="container py-6 space-y-6 pt-8">
       <TabsProvider defaultTab="All">
         <MenuTabHeader {...{filters}} />
-        <TabsContentWrapper restaurant={restaurant}/>
+        <TabsContentWrapper searchQuery={searchQuery} restaurant={restaurant}/>
       </TabsProvider>
     </div>
   );
@@ -33,11 +33,11 @@ export default function MenuTabs({restaurant}:{restaurant:TRestaurant | undefine
  * - Uses `useTabs` to get the `activeTab`.
  * - Passes `activeTab` as both `notFoundMessage` and `searchQuery` to `MenuFeature`.
  */
-const TabsContentWrapper = ({restaurant}:{restaurant:TRestaurant | null | undefined}) => {
+const TabsContentWrapper = ({restaurant,searchQuery}:commonPorps) => {
   const { activeTab } = useTabs();
   const filters = {
     ...(restaurant?.id && { restaurant: restaurant.id }),
     ...(activeTab !== "All" && { food_category: activeTab }),
   };  
-  return <MenuFeature notFoundMessage={activeTab} {...(filters ? { filters } : {})}  shouldPaginate={true} />;
+  return <MenuFeature searchQuery={searchQuery} notFoundMessage={activeTab} {...(filters ? { filters } : {})}  shouldPaginate={true} />;
 };

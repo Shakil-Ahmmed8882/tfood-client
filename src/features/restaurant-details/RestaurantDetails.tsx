@@ -17,12 +17,16 @@ import {  HasRoles } from "@/lib/pm/AuthGuard";
 import { USER_ROLES } from "@/constants/index.ts";
 import { TimeFormatter } from "@/lib/TimeFormatter.ts";
 import NotFound from "@/pages/NotFound.tsx";
+import { useState } from "react";
+import { useDebounce } from "@/hooks/useDebounce.ts";
 
 
 export const RestaurantDetails = () => {
   const cachedRestaurant = useAppSelector(selectCurrentRestaurant);
   
   const { slug } = useParams();
+  const [searchQuery, setSearchQuery] = useState("");
+  const debouncedSearchValue = useDebounce<string>(searchQuery, 300);
 
   /**
    * Conditionally skip the API call if the restaurant data is already cached.
@@ -44,13 +48,13 @@ export const RestaurantDetails = () => {
     cachedRestaurant?.slug === slug ? cachedRestaurant : data?.data;
 
 
-if (restaurant?.slug !== slug && !isLoading) {
-  return <NotFound/>;
-}
+if (restaurant?.slug !== slug && !isLoading) return <NotFound/>
+
+
   return (
     <Container className="pt-0 md:py-6 ">
       {/* Search bar and header for the restaurant page */}
-      <FoodHeaderContainer searchQuery="" setSearchQuery={() => {}} />
+      <FoodHeaderContainer searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       <CustomErrorBoundary error={isError}>
         <CustomSuspense
           isLoading={isLoading}
@@ -65,7 +69,7 @@ if (restaurant?.slug !== slug && !isLoading) {
           </NoItemFound>
         </CustomSuspense>
       </CustomErrorBoundary>
-      <MenuTabs restaurant={restaurant} />
+      <MenuTabs searchQuery={debouncedSearchValue} restaurant={restaurant} />
     </Container>
   );
 };
