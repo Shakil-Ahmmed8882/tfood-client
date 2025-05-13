@@ -49,18 +49,18 @@ const ShowitemsPerPage = () => {
 
   return (
     <div className="flex items-center gap-2">
-      <span className="text-sm text-gray-500">Show</span>
+
 
       {/* Select dropdown for choosing items per page */}
       <Select
         value={itemsPerPage.toString()}
         onValueChange={(value) => updateitemsPerPage(Number(value))}
       >
-        <SelectTrigger className="w-[70px]">
+        <SelectTrigger className="">
           <SelectValue placeholder={itemsPerPage.toString()} />
         </SelectTrigger>
         <SelectContent>
-          {[5, 10, 20, 50].map((size) => (
+          {[10, 20, 50].map((size) => (
             <SelectItem key={size} value={size.toString()}>
               {size}
             </SelectItem>

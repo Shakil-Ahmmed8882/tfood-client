@@ -11,8 +11,8 @@ import { TConfig } from "./type";
 
 const appConfig: TConfig = {
   // Define the current environment: "production" or "development"
-  // env: "production",
-  env: "development",
+  env: "production",
+  // env: "development",
 
   // Backend API endpoints for different environments
   backend: {
