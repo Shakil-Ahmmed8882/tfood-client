@@ -9,7 +9,7 @@ import {
 interface ModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  title: string;
+  title?: string;
   subtitle?: string;
   children: React.ReactNode;
 }
@@ -58,7 +58,7 @@ export function ReusableModal({
 }: ModalProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[625px] max-h-[85vh] overflow-y-auto">
+      <DialogContent className="sm:min-w-[625px] max-h-[85vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-xl font-semibold">{title}</DialogTitle>
           {subtitle && <DialogDescription>{subtitle}</DialogDescription>}

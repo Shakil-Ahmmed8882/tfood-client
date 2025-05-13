@@ -11,16 +11,8 @@ import { truncateText } from "@/utils/turncateText";
 export const RestaurantUrlEditor = ({
   baseUrl = "/",
   res_id,
-defaultSlug = "",
+  defaultSlug = "",
 }: UrlEditorProps) => {
-  /**
-   * =====================================
-   * SLUG EDITOR HOOK INTEGRATION
-   * =====================================
-   * Purpose: Manages the state and logic for the restaurant URL editing functionality.
-   * Use Case: Handles editing the URL slug, checking its availability, and saving the new slug.
-   * Output: Provides various state variables and handler functions to control the UI and behavior of the URL editor.
-   */
   const {
     isEditing,
     setIsEditing,
@@ -35,67 +27,52 @@ defaultSlug = "",
     isUpdatingSlug,
     isEmpty,
     debouncedSlug,
-  } = useSlugEditor(res_id,defaultSlug);
+  } = useSlugEditor(res_id, defaultSlug);
 
   return (
     <div
       ref={editAreaRef as React.RefObject<HTMLDivElement>}
-      className="flex flex-col space-y-2"
+      className="flex flex-col space-y-2 w-full"
     >
-      <div className="flex items-center">
-        {/**
-         * =====================================
-         * DISPLAY URL OR EDIT BUTTON
-         * =====================================
-         * Purpose: Renders either the current URL or the "Edit" button based on the `isEditing` state.
-         * Use Case: Shows the existing URL when not editing and provides an option to enter edit mode.
-         * Output: Displays the URL as text with an edit icon, or the edit icon itself.
-         */}
+      <div className="flex items-center w-full">
         {!isEditing ? (
-          <>
-            <div className="text-sm text-gray-600 flex items-center">
-              <span className="text-gray-400">{baseUrl}</span>
-              <span className="font-medium ">{truncateText(`${inputValue}`, 20)}</span>
+          <div className="flex items-center w-full">
+            <div className="text-sm text-gray-600 flex items-center min-w-0">
+              <span className="text-gray-400 whitespace-nowrap">{baseUrl}</span>
+              <span className="font-medium truncate">
+                {truncateText(`${inputValue}`, 20)}
+              </span>
             </div>
             <Button
               variant="ghost"
-              // size="sm"
               aria-label="Edit URL"
-              size='icon'
-              className=" ml-2  p-0"
+              size="icon"
+              className="ml-2 p-0 flex-shrink-0"
               onClick={() => setIsEditing(true)}
             >
-              <Edit2  className="h-4 w-4" />
+              <Edit2 className="h-4 w-4" />
               <span className="sr-only">Edit URL</span>
             </Button>
-          </>
+          </div>
         ) : (
-          /**
-           * =====================================
-           * URL INPUT AND ACTION BUTTONS
-           * =====================================
-           * Purpose: Displays the input field for editing the URL and the "Cancel" and "Save" buttons.
-           * Use Case: Allows users to modify the URL slug and either discard or confirm their changes.
-           * Output: An input field with the current slug and buttons to cancel or save the new slug.
-           */
-          <div className="flex items-center w-full animate-in fade-in-0 zoom-in-95 duration-200">
-            <div className="flex-1 flex items-center border rounded-l-md bg-muted/40">
-            
-              <span className="pl-3 text-sm text-gray-500">{baseUrl}</span>
+          <div className="flex flex-col sm:flex-row w-full gap-2 sm:gap-0 animate-in fade-in-0 zoom-in-95 duration-200">
+            <div className="flex-1 flex items-center border rounded-md sm:rounded-r-none bg-muted/40">
+              <span className="pl-3 text-sm text-gray-500 whitespace-nowrap">
+                {baseUrl}
+              </span>
               <Input
                 ref={inputRef}
                 value={inputValue}
                 onChange={handleChange}
-                className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+                className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 w-full min-w-[120px]"
                 placeholder="restaurant-url"
               />
             </div>
-            <div className="flex">
-              
+            <div className="flex justify-end sm:justify-normal">
               <Button
                 size="sm"
                 variant="ghost"
-                className="rounded-none border-y border-r h-10"
+                className="rounded-r-none border h-10 sm:rounded-none sm:border-y sm:border-r"
                 onClick={handleCancel}
               >
                 <X className="h-4 w-4" />
@@ -104,7 +81,7 @@ defaultSlug = "",
               <Button
                 size="sm"
                 className={cn(
-                  "rounded-l-none border-y border-r h-10",
+                  "rounded-l-none border h-10 sm:border-y sm:border-r",
                   isSlugAlreadyExist || isChecking || isEmpty
                     ? "opacity-50 cursor-not-allowed"
                     : "cursor-pointer"
@@ -117,27 +94,21 @@ defaultSlug = "",
                 {isUpdatingSlug ? (
                   <LoadingSpinner className="size-5" />
                 ) : (
-                  <Check className="h-4 w-4 mr-1" />
+                  <>
+                    <Check className="h-4 w-4 mr-1 hidden sm:block" />
+                    <span>Save</span>
+                  </>
                 )}
-                Save
               </Button>
             </div>
           </div>
         )}
       </div>
-      {/**
-       * =====================================
-       * FEEDBACK MESSAGES
-       * =====================================
-       * Purpose: Displays real-time feedback to the user regarding the slug's availability and loading state.
-       * Use Case: Informs the user if the entered slug is being checked, is already taken, or is available.
-       * Output: Conditional rendering of loading indicators and status messages (available or already exists).
-       */}
       {isEditing && (
         <div className="text-xs animate-in fade-in-0 slide-in-from-top-1 duration-200">
           {isChecking && (
-            <p className="text-gray-500 flex items-center gap-[4x]">
-              <LoadingSpinner className="size-5" /> Checking availability...
+            <p className="text-gray-500 flex items-center gap-1">
+              <LoadingSpinner className="size-3 sm:size-4" /> Checking availability...
             </p>
           )}
           {isSlugAlreadyExist && (

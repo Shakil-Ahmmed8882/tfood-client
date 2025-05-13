@@ -48,25 +48,37 @@ export const ImageUploadField = <T extends FieldValues>({
           <FormControl>
             <div className="flex flex-col gap-4">
               {value ? (
-                <div className="relative group h-48 w-48">
-                  <img
-                    src={value}
-                    alt="Preview"
-                    className="h-full w-full rounded-lg object-cover"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 h-0 bg-black/50 group-hover:h-full transition-all duration-300 rounded-lg flex items-center justify-center">
-                    <Button
-                      type="button"
-                      variant="destructive"
-                      size="icon"
-                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      onClick={() => onChange(null)} // Use null instead of undefined
-                      disabled={disabled}
-                    >
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
+<div className="relative group h-48 w-48">
+  <img
+    src={value}
+    alt="Preview"
+    className="h-full w-full rounded-lg object-cover"
+  />
+  <div className="
+    absolute inset-x-0 bottom-0
+    h-full bg-black/50
+    transition-all duration-300
+    rounded-lg flex items-center justify-center
+    sm:h-0 sm:group-hover:h-full
+  ">
+    <Button
+      type="button"
+      variant="destructive"
+      size="icon"
+      className="
+        opacity-100
+        sm:opacity-0
+        sm:group-hover:opacity-100
+        transition-opacity duration-300
+      "
+      onClick={() => onChange(null)}
+      disabled={disabled}
+    >
+      <X className="h-4 w-4" />
+    </Button>
+  </div>
+</div>
+
               ) : (
                 <div className="flex h-48 w-48 flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-200 bg-gray-50">
                   {loading ? (

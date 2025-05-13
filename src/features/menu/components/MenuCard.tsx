@@ -14,8 +14,10 @@ import { MenuModalForm } from "./MenuModalForm";
 import { useDeleteMenuMutation } from "@/store/features/menu/menuApi";
 import { ConfirmModal } from "@/components/custom-ui/ConfirmModal";
 import {  useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation} from "react-router-dom";
 import { truncateText } from "@/utils/turncateText";
+import { ReusableModal } from "@/components/custom-ui/ReusableModal";
+import { MenuDetailPage } from "@/pages/home/MenuDetailsPage";
 
 /**
  * MenuCard: A visually appealing card component to display menu items.
@@ -31,17 +33,17 @@ import { truncateText } from "@/utils/turncateText";
  */
 
 export const MenuCard: React.FC<{ menu: TMenu }> = ({ menu }) => {
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const location = useLocation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
 
 
   const showActions = location.pathname.includes("shop_owner");
 
   return (
-    <Card  onClick={() => !showActions && navigate(`/menus/${menu.id}`)} className="overflow-hidden pt-0 group gap-4 w-full transition-all duration-300  hover:shadow-md hover:scale-[1.02] cursor-pointer ">
+    <Card  onClick={() => !showActions &&setIsModalOpen(!isModalOpen)} className="overflow-hidden pt-0 group gap-4 w-full transition-all duration-300  hover:shadow-md hover:scale-[1.02] cursor-pointer ">
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
           src={menu.related_images[0] || menufallbackUrl}
@@ -62,7 +64,7 @@ export const MenuCard: React.FC<{ menu: TMenu }> = ({ menu }) => {
         )}
       </div>
       <CardContent className="">
-      <h2 className=" text-[18px] sm:text-[20px] md:text-xl mt-2 font-semibold text-[#555] rounded-sm inline-block">{truncateText(menu.title, 20) }</h2>
+      <h2 className=" text-[18px] sm:text-[20px] md:text-xl mt-2 font-semibold text-[#555] rounded-sm inline-block">{menu.title }</h2>
 
         <div className="flex items-start justify-between gap-5">
           <h3 className="mt-2  text-gray-500 text-sm">{truncateText(menu?.restaurant_name, 35)}</h3>
@@ -76,6 +78,9 @@ export const MenuCard: React.FC<{ menu: TMenu }> = ({ menu }) => {
         <span className="font-semibold text-sm mt-1">{menu.description.length < 35 && "..."}See more</span>
         </p>
       </CardFooter>
+      <ReusableModal open={isModalOpen} onOpenChange={setIsModalOpen} >
+        <MenuDetailPage id={menu.id} />
+      </ReusableModal>
     </Card>
   );
 };

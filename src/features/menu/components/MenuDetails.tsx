@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import {  CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { menufallbackUrl } from "@/constants";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { TMenu } from "../menu.type";
@@ -20,7 +20,7 @@ export const MenuDetails: React.FC<{ menu: TMenu }> = ({ menu }) => {
   };
 
   return (
-    <Card className="overflow-hidden w-full max-w-5xl mx-auto py-0 my-8 shadow-lg">
+    <div className="overflow-hidden w-full max-w-5xl mx-auto py-0 my-8">
       {/* Image Carousel */}
       <CardHeader className="p-0 relative">
         <div className="relative aspect-[4/3] overflow-hidden rounded-t-lg">
@@ -67,8 +67,8 @@ export const MenuDetails: React.FC<{ menu: TMenu }> = ({ menu }) => {
 
       {/* Menu Details */}
       <CardContent className="pt-6 px-6">
-        <h2 className="text-3xl font-bold text-gray-800">{menu.title}</h2>
-        <p className="text-2xl font-semibold text-primary mt-2">৳ {menu.price}</p>
+        <h2 className="md:text-3xl font-bold text-gray-800">{menu.title}</h2>
+        <p className="md:text-2xl font-semibold text-primary mt-2">৳ {menu.price}</p>
         <div className="mt-4 space-y-2">
           <p className="text-sm text-muted-foreground">
             <span className="font-medium">Category:</span> {menu.food_category}
@@ -84,11 +84,11 @@ export const MenuDetails: React.FC<{ menu: TMenu }> = ({ menu }) => {
 
       {/* Description */}
       <CardFooter className="px-6 pb-6 flex flex-col items-start">
-        <h3 className="text-lg font-semibold text-gray-800">Description</h3>
+        <h3 className="md:text-lg font-semibold text-gray-800">Description</h3>
         <p className="text-base text-muted-foreground mt-2 leading-relaxed">
           {menu.description}
         </p>
       </CardFooter>
-    </Card>
+    </div>
   );
 };

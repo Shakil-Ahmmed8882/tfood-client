@@ -5,7 +5,7 @@ import { MenuCategoryModalForm } from "@/features/menu/components/MenuCategoryMo
 import { MenuModalForm } from "@/features/menu/components/MenuModalForm";
 import { useMenuModal } from "@/features/menu/hooks/useMenuModal";
 import { ShopOwnerMenusList } from "@/features/menu/shopOwnerMenusList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRestaurantOptions } from "@/features/menu/hooks/useRestaurantOptions";
 import ReusableSelect from "@/components/custom-ui/ReusableSelect";
 import { CustomPaginationProvider } from "@/components/pagination/PaginationProvider";
@@ -27,10 +27,12 @@ const ShopOwnerMenuPage = () => {
    * Example use case: A shop owner clicks the "Add Menu" button, triggering the modal to open.
    * Expected output: `isModalOpen` becomes `true`, showing the form for adding a menu item.
    */
-  const [selectedRestaurantId, setSelectedRestaurantId] = useState("");
+  const { restaurantOptions } = useRestaurantOptions();
+  const [selectedRestaurantId, setSelectedRestaurantId] = useState(restaurantOptions[0]?.value);
   const { isModalOpen, setIsModalOpen } = useMenuModal();
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
-  const { restaurantOptions } = useRestaurantOptions();
+  console.log(restaurantOptions);
+
 
   return (
     <>
@@ -40,14 +42,14 @@ const ShopOwnerMenuPage = () => {
          * Example use case: Displays "Menus" and allows the owner to add a new menu item.
          * Expected output: Clicking "+ Add Menu" sets `isModalOpen` to `true`, opening the modal.
          */}
-        <div className="flex items-center justify-between flex-wrap">
+        <div className="flex items-center justify-between flex-wrap gap-4">
           <div className="flex justify-between items-center space-x-2 gap-2">
             <h1 className="text-2xl font-semibold">Menus</h1>
             <ReusableSelect
               options={restaurantOptions}
+              defaultValue="9fe16124-16b4-4575-88bb-db4021a0c71f"
               onValueChange={setSelectedRestaurantId}
-              placeholder="Select a Restaurant"
-              label="Select a Restaurant"
+              placeholder="Select another "
             />
           </div>
           <div className="space-x-2">

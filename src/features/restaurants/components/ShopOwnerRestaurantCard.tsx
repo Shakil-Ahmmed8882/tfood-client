@@ -92,9 +92,6 @@ export const ShopOwnerRestaurantCard = memo(
                     endDate={restaurant?.subscription.endDate}
                   />
                 </div>
-                <HasRole requiredRole={USER_ROLES.SHOP_OWNER}>
-                  <RestaurantUrlEditor defaultSlug={restaurant?.slug} res_id={restaurant?.id}  />
-                </HasRole>
               </div>
 
               <div className="flex gap-2 self-center mt-4">
@@ -115,6 +112,9 @@ export const ShopOwnerRestaurantCard = memo(
                 </Button>
               </div>
             </div>
+                <HasRole requiredRole={USER_ROLES.SHOP_OWNER}>
+                  <RestaurantUrlEditor defaultSlug={restaurant?.slug} res_id={restaurant?.id}  />
+                </HasRole>
           </div>
         </div>
         <ConfirmModal
