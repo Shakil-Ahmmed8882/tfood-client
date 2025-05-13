@@ -1,8 +1,9 @@
 
 
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useGetAllRestaurantsQuery } from "@/store/features/restaurants/restaurantApi";
-import { TFilterBody } from "@/types/global";
+import { TFilterBody, TMeta } from "@/types/global";
+import { useCustomPaginationContext } from "@/components/pagination/hooks/useCustomPaginationContext";
 
 
 type useRestaurantsProps = {
@@ -13,7 +14,19 @@ type useRestaurantsProps = {
     queryParams?: { name: string; value: string }[];
   }
 
-const useRestaurants = ({limit="12",currentPage=1,searchQuery='',filters = {},queryParams = [] }: useRestaurantsProps ) => {
+const useRestaurants = ({limit="12",searchQuery='',filters = {},queryParams = [] }: useRestaurantsProps ) => {
+
+
+
+  
+    /**
+       * Extracts necessary context values for table management.
+       * This includes pagination details, search query, and functions
+       * to update data, loading states, and pagination metadata.
+       */
+      const { updatePromiseState, pagination } =useCustomPaginationContext();
+      const { updatePagination, currentPage, itemsPerPage } = pagination;
+    
   
   /** 
    * Constructs a filter body for API requests.
@@ -37,7 +50,7 @@ const useRestaurants = ({limit="12",currentPage=1,searchQuery='',filters = {},qu
    */
   const { data, isLoading, isFetching, isError, error, refetch } = useGetAllRestaurantsQuery({
     queryParams: [
-      { name: "limit", value: limit.toString() },
+      { name: "limit", value: itemsPerPage.toString() },
       { name: "currentPage", value: currentPage.toString() },
       { name: "search", value: searchQuery },
       ...queryParams
@@ -50,6 +63,30 @@ const useRestaurants = ({limit="12",currentPage=1,searchQuery='',filters = {},qu
    * Memoizes the restaurant data to optimize re-renders.
    */
   const records = useMemo(() => data?.data || [], [data]);
+  const meta:TMeta | undefined = data?.meta;
+  
+   
+  
+  
+  
+    /**
+     * Synchronizes fetched data with the table context.
+     * Updates table records, loading states, and pagination metadata
+     * whenever the API response changes.
+     */
+ 
+  
+    useEffect(() => {
+      updatePromiseState({ isLoading, isFetching, isError });
+      updatePagination({
+        currentPage: currentPage || 1,
+        itemsPerPage: itemsPerPage || 0, 
+        totalPages: meta?.totalPages || 1,
+        totalData: meta?.total || 0,
+      });
+    },  [records, meta, itemsPerPage, isLoading, isFetching, isError, currentPage, updatePagination, updatePromiseState]);
+    
+
 
   /** 
    * Returns restaurant data, metadata, and loading states.

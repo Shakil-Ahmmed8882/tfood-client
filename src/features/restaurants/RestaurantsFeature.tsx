@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  CustomPagination,
   ShouldPaginateWrapper,
   RestaurantSkeleton,
   RestaurantCard,
@@ -8,6 +7,7 @@ import {
 } from ".";
 import useRestaurants from "./hooks/useRestaurants";
 import { DataHandler } from "@/components/wrapper/DataHandler";
+import { CustomPagination } from "@/components/pagination/CustomPagination";
 
 type TRestaurantFeature = {
   limit?: string;
@@ -38,8 +38,8 @@ export const RestaurantsFeature = ({
    * - Manages loading, fetching, and error states with `isLoading`, `isFetching`, and `isError` respectively.
    */
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const queryParams = [{ name: "status", value: 'active' }];
-  const options = { limit, currentPage, searchQuery,queryParams };
+  const queryParams = [{ name: "status", value: "active" }];
+  const options = { limit, currentPage, searchQuery, queryParams };
   const {
     data: restaurants,
     meta,
@@ -47,7 +47,6 @@ export const RestaurantsFeature = ({
     isFetching,
     isError,
   } = useRestaurants(options);
-
 
   // console.log("___________>>>>restaurants<<<<", restaurants);
 
@@ -77,12 +76,7 @@ export const RestaurantsFeature = ({
       </DataHandler>
 
       <ShouldPaginateWrapper shouldPaginate={shouldPaginate}>
-        <CustomPagination
-          currentPage={currentPage}
-          totalItems={meta?.total || 0}
-          itemsPerPage={meta?.limit || 0}
-          onPageChange={setCurrentPage}
-        />
+        <CustomPagination />
       </ShouldPaginateWrapper>
     </>
   );

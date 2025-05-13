@@ -1,4 +1,4 @@
-
+import { CustomPaginationProvider } from "@/components/pagination/PaginationProvider";
 import { FoodHeaderContainer } from "@/components/ui/foodHeader";
 import Title from "@/components/ui/title";
 import { Container } from "@/components/wrapper/Container";
@@ -24,23 +24,28 @@ import { Link } from "react-router-dom";
 export default function HomePage() {
   return (
     <HomeProvider>
-      <Container className="pb-8">
-        <main>
-          <FoodHeaderWrapper />
-          <RestaurantsWrapper />
-          <MenusWrapper />
-          <FAQ/>
-        </main>
-      </Container>
+      <CustomPaginationProvider>
+        <Container className="pb-8">
+          <main>
+            <FoodHeaderWrapper />
+            <RestaurantsWrapper />
+            <MenusWrapper />
+            <FAQ />
+          </main>
+        </Container>
+      </CustomPaginationProvider>
     </HomeProvider>
   );
 }
 
 /**
+ * 
  * FoodHeaderWrapper: Handles search query input.
  * - Retrieves search state from HomeContext.
  * - Passes search state to FoodHeaderContainer.
+ * 
  */
+
 const FoodHeaderWrapper = () => {
   const { searchQuery, setSearchQuery } = useHomeContext();
 
@@ -97,7 +102,9 @@ const MenusWrapper = () => {
           See more
         </Link>
       </div>
-      <MenuFeature searchQuery={debouncedSearchValue} />
+      <CustomPaginationProvider>
+        <MenuFeature searchQuery={debouncedSearchValue} />
+      </CustomPaginationProvider>
     </>
   );
 };
