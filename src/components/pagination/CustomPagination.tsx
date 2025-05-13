@@ -35,7 +35,7 @@ export const CustomPagination = () => {
           </SelectTrigger>
           <SelectContent>
             {[5, 10, 20, 50].map((size) => (
-              <SelectItem key={size} value={size.toString()}>
+              <SelectItem key={size + itemsPerPage} value={size.toString()}>
                 {size}
               </SelectItem>
             ))}

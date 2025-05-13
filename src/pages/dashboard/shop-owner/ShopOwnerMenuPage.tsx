@@ -9,7 +9,8 @@ import { useEffect, useState } from "react";
 import { useRestaurantOptions } from "@/features/menu/hooks/useRestaurantOptions";
 import ReusableSelect from "@/components/custom-ui/ReusableSelect";
 import { CustomPaginationProvider } from "@/components/pagination/PaginationProvider";
-
+import {  TabSkeleton } from "@/components/skeleton/tabSkeleton";
+import { useMenuCategoryOptions } from "@/features/menu/hooks/useMenuCategoryOptions";
 
 export const ShopOwnerMenuPageWrapper = () => {
   return (
@@ -19,21 +20,27 @@ export const ShopOwnerMenuPageWrapper = () => {
   );
 };
 
-
-
 const ShopOwnerMenuPage = () => {
   /**
    * Handles the state for opening and closing the menu modal.
    * Example use case: A shop owner clicks the "Add Menu" button, triggering the modal to open.
    * Expected output: `isModalOpen` becomes `true`, showing the form for adding a menu item.
    */
-  const { restaurantOptions } = useRestaurantOptions();
-  const [selectedRestaurantId, setSelectedRestaurantId] = useState(restaurantOptions[0]?.value);
+  const [selectedRestaurantId, setSelectedRestaurantId] = useState("");
+  const [selectedMenuCategoryId, setSelectedMenuCategoryId] = useState("");
+  const { restaurantOptions, isRestaurantsLoading } = useRestaurantOptions();
+  const {categoriesOptions,isMenuCategoriesLoading} = useMenuCategoryOptions({restaurantId: selectedRestaurantId});
   const { isModalOpen, setIsModalOpen } = useMenuModal();
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
-  console.log(restaurantOptions);
+// console.log(categoriesOptions,"categoriesOptions");
+  useEffect(() => {
+    if (!selectedRestaurantId && restaurantOptions.length > 0) {
+      setSelectedRestaurantId(restaurantOptions[0].value);
+    }
+  }, [restaurantOptions, selectedRestaurantId]);
 
-
+  if (isRestaurantsLoading || isMenuCategoriesLoading) return <TabSkeleton/>
+  
   return (
     <>
       <DashboardContainer>
@@ -42,15 +49,24 @@ const ShopOwnerMenuPage = () => {
          * Example use case: Displays "Menus" and allows the owner to add a new menu item.
          * Expected output: Clicking "+ Add Menu" sets `isModalOpen` to `true`, opening the modal.
          */}
-        <div className="flex items-center justify-between flex-wrap gap-4">
+        <div className="flex items-center justify-between flex-wrap gap-4 mb-2">
           <div className="flex justify-between items-center space-x-2 gap-2">
             <h1 className="text-2xl font-semibold">Menus</h1>
-            <ReusableSelect
-              options={restaurantOptions}
-              defaultValue="9fe16124-16b4-4575-88bb-db4021a0c71f"
-              onValueChange={setSelectedRestaurantId}
-              placeholder="Select another "
-            />
+            {selectedRestaurantId && (
+              <ReusableSelect
+                options={restaurantOptions}
+                defaultValue={selectedRestaurantId}
+                onValueChange={(value) => setSelectedRestaurantId(value)}
+                placeholder="Select another "
+              />
+            )}
+            {selectedRestaurantId && (
+              <ReusableSelect
+                options={categoriesOptions}
+                onValueChange={(value) => setSelectedMenuCategoryId(value)}
+                placeholder="Select Category "
+              />
+            )}
           </div>
           <div className="space-x-2">
             <Button onClick={() => setIsCategoryModalOpen(true)}>
@@ -66,7 +82,7 @@ const ShopOwnerMenuPage = () => {
          * Expected output: A grid/list of menus, each with options to edit or delete.
          */}
         <div className="mb-6">
-            <ShopOwnerMenusList restaurantId={selectedRestaurantId} />
+          <ShopOwnerMenusList restaurantId={selectedRestaurantId} menuCategoryId={selectedMenuCategoryId} />
         </div>
 
         {/**
@@ -86,5 +102,3 @@ const ShopOwnerMenuPage = () => {
     </>
   );
 };
-
-

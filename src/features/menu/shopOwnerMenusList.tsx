@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { MenuCard, MenuSkeleton, CustomPagination } from ".";
+import { MenuCard, MenuSkeleton } from ".";
 
 import { TMenu } from "./menu.type";
 import { DataHandler } from "@/components/wrapper/DataHandler";
 import { useAppSelector } from "@/store/hooks";
 import { selectCurrentUser } from "@/store/features/auth/authSlice";
 import useMenus from "./hooks/useMenus";
+import { CustomPagination } from "@/components/pagination/CustomPagination";
 
 /**
  * MenuFeature: Fetches and displays menu items while handling loading, errors, and empty states.
@@ -22,11 +22,11 @@ import useMenus from "./hooks/useMenus";
 
 export const ShopOwnerMenusList = ({
   restaurantId,
+  menuCategoryId
 }: {
   restaurantId: string;
+  menuCategoryId?: string;
 }) => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
-
   /**
    * Fetch Current User:
    * - Retrieves the logged-in shop owner's email.
@@ -34,15 +34,19 @@ export const ShopOwnerMenusList = ({
    * - Example: Logged-in user sees only their restaurant listings.
    */
   const user = useAppSelector(selectCurrentUser);
-  let filters;
-  if (restaurantId) {
-    // console.log(restaurantId);
-    filters = { restaurant: restaurantId || "" };
-  } else {
-    filters = { creator: user?.email || "" };
-  }
-  const options = { ...{ filters: filters as Record<string, string> } };
   
+  const filters: { creator: string | undefined; restaurant?: string ,food_category?:string} = {
+    creator: user?.role === "shop_owner" ? user?.email : undefined,food_category:menuCategoryId
+  };
+
+  if (restaurantId) {
+    filters.restaurant = restaurantId;
+  } 
+
+
+
+  const options = { ...{ filters: filters as Record<string, string> } };
+
   /**
    *
    * Fetch Restaurant Data:
@@ -50,13 +54,7 @@ export const ShopOwnerMenusList = ({
    * - Provides loading, error handling, and pagination metadata.
    * - Example: Admin loads restaurant list -> API fetches and returns paginated results.
    */
-  const {
-    data: menus,
-    meta,
-    isLoading,
-    isFetching,
-    isError,
-  } = useMenus(options);
+  const { data: menus, isLoading, isFetching, isError } = useMenus(options);
 
   return (
     <>
@@ -81,14 +79,14 @@ export const ShopOwnerMenusList = ({
             ))}
           </div>
         )}
-      </DataHandler>
-
-      <CustomPagination
+      </DataHandler>        
+        <CustomPagination/>
+{/* <CustomPagination
         itemsPerPage={meta?.limit || 0}
         currentPage={currentPage}
         totalItems={meta?.total || 0}
         onPageChange={setCurrentPage}
-      />
+    /> */}
     </>
   );
 };

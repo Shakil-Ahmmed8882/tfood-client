@@ -51,7 +51,7 @@ const ReusableSelect: React.FC<ReusableSelectProps> = ({
           {label && <SelectLabel className={labelClassName}>{label}</SelectLabel>}
           {options.map((option) => (
             <SelectItem
-              key={option.value}
+              key={option.value + option.text}
               value={option.value}
               className={itemClassName}
             >
