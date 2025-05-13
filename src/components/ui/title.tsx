@@ -1,7 +1,7 @@
 
 const Title = ({text, className}: {text: string,className?: string}, ) => {
   return (
-      <h2 className={`${className}  pb-3 text-xl font-semibold`}>{text}</h2>
+      <h2 className={`${className}   text-xl font-semibold`}>{text}</h2>
   );
 };
 

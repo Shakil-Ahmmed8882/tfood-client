@@ -21,7 +21,7 @@ const MenuTable = () => {
                 1}
             </TableCell>
 
-            <TableCell>{truncateText(menu.title, 10)}</TableCell>
+            <TableCell>{menu.title}</TableCell>
             <TableCell>
               <img
                 className="size-8 rounded-full"
@@ -31,7 +31,7 @@ const MenuTable = () => {
             </TableCell>
             <TableCell>{menu.price}</TableCell>
 
-            <TableCell>{truncateText(menu.restaurant_name, 15)}</TableCell>
+            <TableCell>{menu.restaurant_name}</TableCell>
             <TableCell>{truncateText(menu?.creator, 15)}</TableCell>
             <TableCell>{truncateText(menu.food_category, 15)}</TableCell>
             <TableCell>

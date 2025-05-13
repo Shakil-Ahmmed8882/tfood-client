@@ -7,6 +7,7 @@ import { FAQ } from "@/features/faq/FAQ";
 import { MenuFeature } from "@/features/menu/MenuFeature";
 import { RestaurantsFeature } from "@/features/restaurants/RestaurantsFeature";
 import { useDebounce } from "@/hooks/useDebounce";
+import { ArrowBigDownIcon, ArrowRight, Eye, } from "lucide-react";
 import { Link } from "react-router-dom";
 
 /**
@@ -68,7 +69,8 @@ const RestaurantsWrapper = () => {
     <>
       <div className="flex justify-between items-center mb-3 mt-1">
         <Title text="Restaurants" />
-        <Link to="/restaurants" className="text-md underline text-blue-500">
+                <Link to="/restaurants" className="text-[16px] flex items-center justify-center py-0 px-4 border-2 border-gray-800 rounded-2xl  hover:bg-gray-800 hover:text-white hover:scale-95 transition-all">
+          <ArrowRight className="mr-2 h-4 w-4" />
           See more
         </Link>
       </div>
@@ -93,11 +95,16 @@ const MenusWrapper = () => {
     <>
       <div className="flex justify-between items-center mb-3">
         <Title text="All Menus" className="mt-3" />
-        <Link to="/menus" className="text-[16px] underline text-blue-500">
+        <Link to="/menus" className="text-[16px] flex items-center justify-center py-0 px-4 border-2 border-gray-800 rounded-2xl mt-4 hover:bg-gray-800 hover:text-white hover:scale-95 transition-all">
+          <ArrowRight className="mr-2 h-4 w-4" />
           See more
         </Link>
       </div>
       <MenuFeature searchQuery={debouncedSearchValue} />
+      <Link to="/menus" className="text-[16px]  flex items-center justify-center py-2 border-2 border-gray-800 rounded-2xl mt-4 hover:bg-gray-800 hover:text-white hover:scale-95 transition-all">
+      <ArrowBigDownIcon className="mr-2 h-6 w-6" />
+          See mores
+      </Link>
     </>
   );
 };

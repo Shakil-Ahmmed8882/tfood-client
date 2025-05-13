@@ -26,4 +26,4 @@ export type USER_STATUS_TYPE = (typeof USER_STATUS)[keyof typeof USER_STATUS];
  * - Ensures a consistent visual experience in case of missing images.
  */
 
-export const menufallbackUrl: string = "https://thumbs.dreamstime.com/b/coming-soon-announcement-lint-roller-white-trace-yellow-colored-background-335953704.jpg";
+export const menufallbackUrl: string = "https://res.cloudinary.com/ddghbth9g/image/upload/v1747130677/WhatsApp_Image_2025-05-07_at_16.12.47_19d5282d_uts35q.jpg";

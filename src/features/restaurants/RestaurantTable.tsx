@@ -26,7 +26,7 @@ const { data, pagination } = useTableContext<TRestaurant>();
                 index +
                 1}
             </TableCell>
-            <TableCell>{truncateText(restaurant.name, 28)}</TableCell>
+            <TableCell>{restaurant.name}</TableCell>
             {/* <TableCell>{formatDateGeneric(restaurant.created_at, "d MMM, yy")} </TableCell> */}
             <TableCell>{formatDate(restaurant.created_at, "d MMM, yy")} </TableCell>
             <TableCell>{truncateText(restaurant.location, 20)}</TableCell>

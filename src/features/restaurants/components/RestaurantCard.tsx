@@ -28,7 +28,7 @@ export const RestaurantCard = ({ restaurant }: { restaurant: TRestaurant }) => {
       className="block rounded-xl overflow-hidden shadow-sm bg-white transition-all duration-300 hover:shadow-md hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-blue-500"
       aria-label={`View details for ${restaurant.name}`}
     >
-      <div className="relative h-32 sm:h-40 md:h-48">
+      <div className="relative ">
         <img
           src={restaurant?.logo || fallbackUrl}
           alt={restaurant.name}
