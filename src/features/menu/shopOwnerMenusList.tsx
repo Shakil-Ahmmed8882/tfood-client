@@ -1,12 +1,11 @@
-
-import { MenuCard, MenuSkeleton } from ".";
+import { useState } from "react";
+import { MenuCard, MenuSkeleton, CustomPagination } from ".";
 
 import { TMenu } from "./menu.type";
 import { DataHandler } from "@/components/wrapper/DataHandler";
 import { useAppSelector } from "@/store/hooks";
 import { selectCurrentUser } from "@/store/features/auth/authSlice";
 import useMenus from "./hooks/useMenus";
-import { CustomPagination } from "@/components/pagination/CustomPagination";
 
 /**
  * MenuFeature: Fetches and displays menu items while handling loading, errors, and empty states.
@@ -26,7 +25,8 @@ export const ShopOwnerMenusList = ({
 }: {
   restaurantId: string;
 }) => {
-  
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
   /**
    * Fetch Current User:
    * - Retrieves the logged-in shop owner's email.
@@ -38,7 +38,9 @@ export const ShopOwnerMenusList = ({
   if (restaurantId) {
     // console.log(restaurantId);
     filters = { restaurant: restaurantId || "" };
-  } 
+  } else {
+    filters = { creator: user?.email || "" };
+  }
   const options = { ...{ filters: filters as Record<string, string> } };
   
   /**
@@ -50,6 +52,7 @@ export const ShopOwnerMenusList = ({
    */
   const {
     data: menus,
+    meta,
     isLoading,
     isFetching,
     isError,
@@ -57,7 +60,6 @@ export const ShopOwnerMenusList = ({
 
   return (
     <>
-    
       <DataHandler<TMenu[]>
         data={menus || []}
         loadingFallback={<MenuSkeleton />}
@@ -79,15 +81,14 @@ export const ShopOwnerMenusList = ({
             ))}
           </div>
         )}
-      </DataHandler>        
-        <CustomPagination/>
+      </DataHandler>
 
-      {/* <CustomPagination
+      <CustomPagination
         itemsPerPage={meta?.limit || 0}
         currentPage={currentPage}
         totalItems={meta?.total || 0}
         onPageChange={setCurrentPage}
-      /> */}
+      />
     </>
   );
 };

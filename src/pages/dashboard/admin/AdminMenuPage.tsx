@@ -20,6 +20,7 @@ import { MenuCategoryModalForm } from "@/features/menu/components/MenuCategoryMo
 import { useState } from "react";
 import { MenuModalForm } from "@/features/menu/components/MenuModalForm";
 import { useMenuModal } from "@/features/menu/hooks/useMenuModal";
+import { CustomPaginationProvider } from "@/components/pagination/PaginationProvider";
 
 /**
  * AdminMenuPage Component:
@@ -31,9 +32,11 @@ import { useMenuModal } from "@/features/menu/hooks/useMenuModal";
 export const AdminMenuPage = () => {
   return (
     <section>
+    <CustomPaginationProvider>
       <TableProvider>
         <MenuTableContainer />
       </TableProvider>
+    </CustomPaginationProvider>
     </section>
   );
 };
