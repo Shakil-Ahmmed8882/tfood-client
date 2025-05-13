@@ -79,13 +79,13 @@ const MenuTableTopHeadings = () => {
       <Title text="Menu" />
       <div className="flex flex-wrap items-center gap-4">
         <TableSearch placeholder="Menu/restaurant/creator" />
-        <FilterByMenuCategory />
         <FilterRestaurants />
+        <FilterByMenuCategory />
         <Button
           onClick={() => setIsCategoryModalOpen(true)}
           className="gap-2 cursor-pointer bg-blue-600 w-full sm:w-auto hover:bg-blue-700"
         >
-          Add Menu Category
+          Add Menu Category 
         </Button>
         <Button
           onClick={() => setIsModalOpen(true)}

@@ -3,12 +3,12 @@ import {
   MenuCard,
   MenuSkeleton,
   ShouldPaginateWrapper,
-  CustomPagination,
 } from ".";
 
 import { TMenu } from "./menu.type";
 import { DataHandler } from "@/components/wrapper/DataHandler";
 import useMenus from "./hooks/useMenus";
+import { CustomPagination } from "@/components/pagination/CustomPagination";
 
 
 type menuFeatureProps = {
@@ -32,6 +32,8 @@ type menuFeatureProps = {
  * - Implements `CustomSuspense` to show a loading skeleton while fetching data.
  * - Utilizes `NoItemFound` to display a message when no menu items are available.
  */
+
+
 
 export const MenuFeature = ({
   limit = "12",
@@ -110,12 +112,7 @@ export const MenuFeature = ({
       </DataHandler>
 
       <ShouldPaginateWrapper shouldPaginate={shouldPaginate}>
-        <CustomPagination
-          itemsPerPage={meta?.limit || 0}
-          currentPage={currentPage}
-          totalItems={meta?.total || 0}
-          onPageChange={setCurrentPage}
-        />
+        <CustomPagination/>
       </ShouldPaginateWrapper>
     </>
   );

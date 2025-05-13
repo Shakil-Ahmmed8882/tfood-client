@@ -1,3 +1,4 @@
+import { CustomPaginationProvider } from "@/components/pagination/PaginationProvider";
 import { FoodHeaderContainer } from "@/components/ui/foodHeader";
 import Title from "@/components/ui/title";
 import { Container } from "@/components/wrapper/Container";
@@ -21,21 +22,26 @@ function MenuPage() {
 
   return (
     <Container className="min-h-screen">
-      <div className="">
-        <FoodHeaderContainer
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
-        <div className="mb-6">
-          <div className="flex justify-between items-center mb-3">
-            <Title className="pt-2" text="All Menus" />
-          </div>
-          <MenuFeature
-            searchQuery={debouncedSearchValue}
-            shouldPaginate={true}
+      <CustomPaginationProvider>
+        <div className="">
+          <FoodHeaderContainer
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
           />
+          <div className="mb-6">
+            <div className="flex justify-between items-center mb-3">
+              <Title className="pt-2" text="All Menus" />
+            </div>
+            <CustomPaginationProvider>
+              <MenuFeature
+                searchQuery={debouncedSearchValue}
+                shouldPaginate={true}
+              />
+              
+            </CustomPaginationProvider>
+          </div>
         </div>
-      </div>
+      </CustomPaginationProvider>
     </Container>
   );
 }

@@ -8,6 +8,18 @@ import { ShopOwnerMenusList } from "@/features/menu/shopOwnerMenusList";
 import { useEffect, useState } from "react";
 import { useRestaurantOptions } from "@/features/menu/hooks/useRestaurantOptions";
 import ReusableSelect from "@/components/custom-ui/ReusableSelect";
+import { CustomPaginationProvider } from "@/components/pagination/PaginationProvider";
+
+
+export const ShopOwnerMenuPageWrapper = () => {
+  return (
+    <CustomPaginationProvider>
+      <ShopOwnerMenuPage />
+    </CustomPaginationProvider>
+  );
+};
+
+
 
 const ShopOwnerMenuPage = () => {
   /**
@@ -54,7 +66,7 @@ const ShopOwnerMenuPage = () => {
          * Expected output: A grid/list of menus, each with options to edit or delete.
          */}
         <div className="mb-6">
-          <ShopOwnerMenusList restaurantId={selectedRestaurantId} />
+            <ShopOwnerMenusList restaurantId={selectedRestaurantId} />
         </div>
 
         {/**
@@ -75,4 +87,4 @@ const ShopOwnerMenuPage = () => {
   );
 };
 
-export default ShopOwnerMenuPage;
+

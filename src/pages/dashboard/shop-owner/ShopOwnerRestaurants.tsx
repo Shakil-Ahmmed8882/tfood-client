@@ -1,12 +1,29 @@
 import { Button } from "@/components/ui/button";
 import { DataHandler } from "@/components/wrapper/DataHandler";
-import { CustomPagination, TRestaurant } from "@/features/restaurants";
+import { TRestaurant } from "@/features/restaurants";
 import { RestaurantFormModal } from "@/features/restaurants/components/RestaurantFormModal";
 import { ShopOwnerRestaurantCardSkeleton } from "@/features/restaurants/components/ShopOwnerRestaurantCardSkeleton";
 import { ShopOwnerRestaurantCard } from "@/features/restaurants/components/ShopOwnerRestaurantCard";
 import { useShopOwnerRestaurants } from "@/features/restaurants/hooks/useShopOwnerRestaurants";
 
 import { useCallback, useState } from "react";
+import { CustomPagination } from "@/components/pagination/CustomPagination";
+import { CustomPaginationProvider } from "@/components/pagination/PaginationProvider";
+
+
+
+
+export const ShopOwnerRestaurantListWrapper =() => {
+  return (
+    <>
+      <CustomPaginationProvider>
+        <ShopOwnerRestaurants/>
+      </CustomPaginationProvider>
+    </>
+  );
+}
+
+
 
 /**
  * ShopOwnerRestaurants Component:
@@ -35,10 +52,6 @@ export default function ShopOwnerRestaurants() {
     isLoading,
     isFetching,
     isError,
-    currentPage,
-    totalItems,
-    itemsPerPage,
-    setCurrentPage,
   } = useShopOwnerRestaurants();
 
   /**
@@ -102,12 +115,7 @@ export default function ShopOwnerRestaurants() {
       </DataHandler>
 
       {/* Pagination Controls */}
-      <CustomPagination
-        itemsPerPage={itemsPerPage}
-        currentPage={currentPage}
-        totalItems={totalItems}
-        onPageChange={setCurrentPage}
-      />
+        <CustomPagination/>
 
       {/* Restaurant Form Modal */}
       <RestaurantFormModal

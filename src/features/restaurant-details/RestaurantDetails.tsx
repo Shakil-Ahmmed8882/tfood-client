@@ -13,16 +13,20 @@ import { useAppSelector } from "@/store/hooks.ts";
 import { selectCurrentRestaurant } from "@/store/features/restaurants/restaurantSlice.ts";
 import MenuTabs from "./components/MenuTabItem.tsx";
 import { RestaurantUrlEditor } from "./components/RestaurantURLEditor.tsx";
-import {  HasRoles } from "@/lib/pm/AuthGuard";
+import { HasRoles } from "@/lib/pm/AuthGuard";
 import { USER_ROLES } from "@/constants/index.ts";
 import { TimeFormatter } from "@/lib/TimeFormatter.ts";
 import NotFound from "@/pages/NotFound.tsx";
-
+import { useState } from "react";
+import { useDebounce } from "@/hooks/useDebounce.ts";
+import { CustomPaginationProvider } from "@/components/pagination/PaginationProvider.tsx";
 
 export const RestaurantDetails = () => {
   const cachedRestaurant = useAppSelector(selectCurrentRestaurant);
-  
+
   const { slug } = useParams();
+  const [searchQuery, setSearchQuery] = useState("");
+  const debouncedSearchValue = useDebounce<string>(searchQuery, 300);
 
   /**
    * Conditionally skip the API call if the restaurant data is already cached.
@@ -43,30 +47,31 @@ export const RestaurantDetails = () => {
   const restaurant =
     cachedRestaurant?.slug === slug ? cachedRestaurant : data?.data;
 
+  if (restaurant?.slug !== slug && !isLoading) return <NotFound />;
 
-if (restaurant?.slug !== slug && !isLoading) {
-  return <NotFound/>;
-}
   return (
-    <Container className="pt-0 md:py-6 ">
-      {/* Search bar and header for the restaurant page */}
-      <FoodHeaderContainer searchQuery="" setSearchQuery={() => {}} />
-      <CustomErrorBoundary error={isError}>
-        <CustomSuspense
-          isLoading={isLoading}
-          fallback={<RestaurantDetailsSkeleton />}
-        >
-          {/* If no restaurant is found, display a "No Item Found" message */}
-          <NoItemFound
-            data={[restaurant]}
-            message="This restaurant is not available"
+      <Container className="pt-0 md:py-6 ">
+        {/* Search bar and header for the restaurant page */}
+        <FoodHeaderContainer
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
+        <CustomErrorBoundary error={isError}>
+          <CustomSuspense
+            isLoading={isLoading}
+            fallback={<RestaurantDetailsSkeleton />}
           >
-            <RestaurantDetailsCard restaurant={restaurant} />
-          </NoItemFound>
-        </CustomSuspense>
-      </CustomErrorBoundary>
-      <MenuTabs restaurant={restaurant} />
-    </Container>
+            {/* If no restaurant is found, display a "No Item Found" message */}
+            <NoItemFound
+              data={[restaurant]}
+              message="This restaurant is not available"
+            >
+              <RestaurantDetailsCard restaurant={restaurant} />
+            </NoItemFound>
+          </CustomSuspense>
+        </CustomErrorBoundary>
+        <MenuTabs searchQuery={debouncedSearchValue} restaurant={restaurant} />
+      </Container>
   );
 };
 
@@ -85,7 +90,6 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
   // Fallback image for missing logo
   const fallbackImage = "https://via.placeholder.com/150?text=No+Image";
 
-
   return (
     <Card className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden transition-shadow hover:shadow-lg">
       <CardContent className="p-6">
@@ -95,7 +99,9 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
             {/* Restaurant Logo */}
             <div className="">
               <img
-                src={restaurant?.related_images ? restaurant.logo : fallbackImage}
+                src={
+                  restaurant?.related_images ? restaurant.logo : fallbackImage
+                }
                 alt={restaurant?.name}
                 onError={(e) => (e.currentTarget.src = fallbackImage)}
                 className="size-30 md:w-34 md:h-34 rounded-lg  object-cover object-top transition-transform duration-300 hover:scale-105"
@@ -134,31 +140,39 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
 
               {/* Opening Hours and Location */}
 
-                <div className="flex items-center text-sm text-gray-600">
-                  <Clock
-                    className="h-5 w-5 mr-2 text-gray-400"
-                    aria-hidden="true"
-                  />
-                  <span className="text-xs md:text-base">{TimeFormatter.toAmPm(`${restaurant?.operating_hours?.open}`) || "9:00 AM"} - {TimeFormatter.toAmPm(`${restaurant?.operating_hours?.close}`) || "10:00 PM"}</span>
-                </div>
-                {/* location */}
-                <div className="flex items-center pt-1 text-sm text-gray-600">
-                  <MapPin
-                    className="h-5 w-5 mr-2 text-gray-400"
-                    aria-hidden="true"
-                  />
-
-                  <a
-                    href={`${restaurant?.location}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-blue-600 transition-colors"
-                    aria-label="View location on map"
-                  >
-                    Location
-                  </a>
-                </div>
+              <div className="flex items-center text-sm text-gray-600">
+                <Clock
+                  className="h-5 w-5 mr-2 text-gray-400"
+                  aria-hidden="true"
+                />
+                <span className="text-xs md:text-base">
+                  {TimeFormatter.toAmPm(
+                    `${restaurant?.operating_hours?.open}`
+                  ) || "9:00 AM"}{" "}
+                  -{" "}
+                  {TimeFormatter.toAmPm(
+                    `${restaurant?.operating_hours?.close}`
+                  ) || "10:00 PM"}
+                </span>
               </div>
+              {/* location */}
+              <div className="flex items-center pt-1 text-sm text-gray-600">
+                <MapPin
+                  className="h-5 w-5 mr-2 text-gray-400"
+                  aria-hidden="true"
+                />
+
+                <a
+                  href={`${restaurant?.location}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-blue-600 transition-colors"
+                  aria-label="View location on map"
+                >
+                  Location
+                </a>
+              </div>
+            </div>
           </div>
 
           {/* Right Section: Description and Contact */}
@@ -189,30 +203,32 @@ const RestaurantDetailsCard = ({ restaurant }: TRestaurantDetailsCardProps) => {
                     {restaurant?.contact || "N/A"}
                   </a>
                 </div>
-                {
-                restaurant?.website &&
-                <div className="flex items-center">
-                  <Globe
-                    className="h-5 w-5 mr-2 text-gray-400"
-                    aria-hidden="true"
-                  />
-                  <a
-                    href={`https://${restaurant?.website}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-blue-600 hover:underline"
-                    aria-label="Visit restaurant website"
-                  >
-                    {restaurant?.website || "N/A"}
-                  </a>
-                </div>
-                }
+                {restaurant?.website && (
+                  <div className="flex items-center">
+                    <Globe
+                      className="h-5 w-5 mr-2 text-gray-400"
+                      aria-hidden="true"
+                    />
+                    <a
+                      href={`https://${restaurant?.website}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-blue-600 hover:underline"
+                      aria-label="Visit restaurant website"
+                    >
+                      {restaurant?.website || "N/A"}
+                    </a>
+                  </div>
+                )}
               </div>
 
               {/* Restaurant URL Editor */}
               <div className="mt-1">
                 <HasRoles requiredRoles={[USER_ROLES.ADMIN]}>
-                  <RestaurantUrlEditor defaultSlug={restaurant?.slug} res_id={restaurant?.id} />
+                  <RestaurantUrlEditor
+                    defaultSlug={restaurant?.slug}
+                    res_id={restaurant?.id}
+                  />
                 </HasRoles>
               </div>
             </div>
