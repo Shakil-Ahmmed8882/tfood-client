@@ -40,6 +40,7 @@ export const restaurantApi = baseApi.injectEndpoints({
             encodeURIComponent(JSON.stringify(filterBody))
           );
         }
+        
 
         return {
           url: `/restaurants?${params.toString()}`,

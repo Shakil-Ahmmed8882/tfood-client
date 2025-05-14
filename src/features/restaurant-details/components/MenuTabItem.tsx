@@ -50,6 +50,7 @@ const TabsContentWrapper = ({ restaurant, searchQuery }: commonPorps) => {
         notFoundMessage={activeTab}
         {...(filters ? { filters } : {})}
         shouldPaginate={true}
+        showLimit={false}
       />
     </CustomPaginationProvider>
   );

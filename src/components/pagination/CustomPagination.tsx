@@ -16,14 +16,14 @@ import { useVisiblePages } from "../table";
  * - Displays a dropdown to select the number of items per page.
  * - Updates the pagination state based on selection.
  */
-export const CustomPagination = () => {
+export const CustomPagination = ({showLimit = true}:{showLimit?: boolean}) => {
+
   const { pagination } = useCustomPaginationContext();
   const { updateitemsPerPage, itemsPerPage, totalPages } = pagination;
 
   return (
-    <div className="flex items-center gap-2 mt-8 justify-between">
-      <div className="flex items-center gap-2  justify-between">
-
+    <div className={`${showLimit?"justify-between":" justify-center md:justify-between "} flex flex-wrap items-center gap-2 mt-8 mx-2`}>
+      <div className={`${showLimit? "flex":  "hidden md:flex"} flex items-center gap-2  justify-between`}>
         {/* Select dropdown for choosing items per page */}
         <Select
           value={itemsPerPage.toString()}
@@ -33,7 +33,7 @@ export const CustomPagination = () => {
             <SelectValue placeholder={itemsPerPage.toString()} />
           </SelectTrigger>
           <SelectContent>
-            {[10, 20, 50].map((size) => (
+            {[12, 24, 48].map((size) => (
               <SelectItem key={size} value={size.toString()}>
                 {size}
               </SelectItem>
@@ -43,7 +43,7 @@ export const CustomPagination = () => {
         {/* Display the total number of pages */}
         <span className="text-sm text-gray-500">{totalPages}</span>
       </div>
-      <ShowVisiblePages />
+        <ShowVisiblePages />
     </div>
   );
 };

@@ -15,7 +15,7 @@ const createInitialPaginationState = <T,>(): State<T> => ({
   searchQuery: "",
   pagination: {
     currentPage: 1,
-    itemsPerPage: 5,
+    itemsPerPage: 12,
     totalPages: 0,
     totalData: 0,
   },

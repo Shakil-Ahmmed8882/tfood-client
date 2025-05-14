@@ -34,7 +34,7 @@ export const RestaurantCard = ({ restaurant }: { restaurant: TRestaurant }) => {
           alt={restaurant.name}
           onError={(e) => (e.currentTarget.src = fallbackUrl)}
           loading="lazy"
-          className="object-cover h-full w-full transition-transform duration-300 hover:scale-105"
+          className=" h-[400px] md:h-[200px] w-full object-cover transition-transform duration-300 hover:scale-105"
         />
         {/* Optional: Hover overlay for visual feedback */}
         <div className="absolute inset-0 bg-black/10 opacity-0 hover:opacity-100 transition-opacity duration-300" />

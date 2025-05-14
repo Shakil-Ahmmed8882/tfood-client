@@ -16,6 +16,7 @@ type menuFeatureProps = {
   searchQuery?: string;
   notFoundMessage?: string;
   shouldPaginate?: boolean;
+  showLimit?: boolean;
   filters?: Record<string,string>;
 };
 
@@ -39,6 +40,7 @@ export const MenuFeature = ({
   limit = "12",
   searchQuery,
   shouldPaginate = false,
+  showLimit = true,
   filters = {}
 }: menuFeatureProps) => {
   const queryParams = [{ name: "status", value: 'active' }];
@@ -70,7 +72,6 @@ export const MenuFeature = ({
   
     const {
       data: menus,
-      meta,
       isLoading,
       isFetching,
       isError,
@@ -112,7 +113,7 @@ export const MenuFeature = ({
       </DataHandler>
 
       <ShouldPaginateWrapper shouldPaginate={shouldPaginate}>
-        <CustomPagination/>
+        <CustomPagination showLimit={showLimit}/>
       </ShouldPaginateWrapper>
     </>
   );

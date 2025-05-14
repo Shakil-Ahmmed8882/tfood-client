@@ -36,6 +36,7 @@ function MenuPage() {
               <MenuFeature
                 searchQuery={debouncedSearchValue}
                 shouldPaginate={true}
+                showLimit={false}
               />
               
             </CustomPaginationProvider>

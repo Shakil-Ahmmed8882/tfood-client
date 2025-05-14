@@ -56,7 +56,6 @@ const useRestaurants = ({limit="12",searchQuery='',filters = {},queryParams = []
       ...queryParams
     ],
     filterBody,
-
   });
 
   /** 
@@ -64,9 +63,6 @@ const useRestaurants = ({limit="12",searchQuery='',filters = {},queryParams = []
    */
   const records = useMemo(() => data?.data || [], [data]);
   const meta:TMeta | undefined = data?.meta;
-  
-   
-  
   
   
     /**
